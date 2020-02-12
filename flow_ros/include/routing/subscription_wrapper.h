@@ -21,7 +21,7 @@ namespace routing
 {
 
 /**
- * @brief CRTP-base for message subscribing objects
+ * @brief Base for message subscribing implementation
  */
 class SubscriptionWrapper
 {
