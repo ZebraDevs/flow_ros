@@ -91,6 +91,14 @@ public:
     return subscription_->isValid();
   }
 
+  /**
+   * @brief Returns underlying subscription implementation wrapper resource
+   */
+  inline std::shared_ptr<routing::SubscriptionWrapper> impl() const
+  {
+    return subscription_;
+  }
+
 protected:
   /**
    * @brief Subscriber setup constructor
