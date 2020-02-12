@@ -107,23 +107,6 @@ public:
     callback_(message);
   }
 
-#ifdef FLOW_ROS_HAS_ROSBAG_SUPPORT
-
-  /**
-   * @brief Calls subscriber callback with a rosbag message instance
-   *
-   * @param mi  ROS bag message instance
-   *
-   * @throws <code>std::runtime_error</code> on failure to instance message
-   * @note participates in overload resolution if <code>MsgT</code> is a ROS message
-   */
-  void call(const ::rosbag::MessageInstance& mi) const final 
-  {
-    call_impl(mi);
-  }
-
-#endif  // FLOW_ROS_HAS_ROSBAG_SUPPORT
-
   /**
    * @brief Returns topic name associated with this object
    */
@@ -174,10 +157,10 @@ private:
   template<bool U = ros::message_traits::IsMessage<MsgT>::value>
   inline std::enable_if_t<U> call_impl(const ::rosbag::MessageInstance& mi) const 
   {
-    const auto msg = mi.template instantiate<MsgT>();
+    const auto msg = mi.template instantiate<std::remove_const_t<MsgT>>();
     if (msg)
     {
-      LocalSubscription::call(mi);
+      LocalSubscription::call(msg);
     }
     else
     {
