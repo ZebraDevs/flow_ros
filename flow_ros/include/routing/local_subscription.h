@@ -107,6 +107,23 @@ public:
     callback_(message);
   }
 
+#ifdef FLOW_ROS_HAS_ROSBAG_SUPPORT
+
+  /**
+   * @brief Calls subscriber callback with a rosbag message instance
+   *
+   * @param mi  ROS bag message instance
+   *
+   * @throws <code>std::runtime_error</code> on failure to instance message
+   * @note participates in overload resolution if <code>MsgT</code> is a ROS message
+   */
+  void call(const ::rosbag::MessageInstance& mi) const final 
+  {
+    call_impl(mi);
+  }
+
+#endif  // FLOW_ROS_HAS_ROSBAG_SUPPORT
+
   /**
    * @brief Returns topic name associated with this object
    */
