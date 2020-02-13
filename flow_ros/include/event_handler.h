@@ -278,7 +278,7 @@ public:
   std::vector<std::shared_ptr<const PublisherBase>> getPublishers() const final
   {
     std::vector<std::shared_ptr<const PublisherBase>> pubs;
-    pubs.resize(std::tuple_size<SubscriberTuple>());
+    pubs.resize(std::tuple_size<PublisherTuple>());
     auto outitr = pubs.begin();
     flow::apply_every(detail::CollectFromTuple<decltype(outitr)>{outitr}, publishers_);
     return pubs;
