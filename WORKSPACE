@@ -26,5 +26,5 @@ new_local_repository(
 git_repository(
   name="flow",
   remote="git@github.com:fetchrobotics/flow.git",
-  commit="d7dcec3b98d706d78ad44b3ef398f9768c76c6be",
+  commit="42eb7598c1ec31d76df7ca4ac757df67c0aeb43a",
 )
