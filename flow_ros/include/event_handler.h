@@ -257,7 +257,6 @@ public:
         publishers_,
         callbacks_.event_callback(sync_inputs) /*event outputs*/
       );
-      return event_summary;
     }
     return event_summary;
   }
