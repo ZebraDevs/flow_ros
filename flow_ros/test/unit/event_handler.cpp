@@ -133,7 +133,7 @@ TEST(EventHandlerSingleThreaded, SingleInputNoOutputs)
       std::make_tuple(std::make_shared<flow_ros::Subscriber<TestMessage1, flow::driver::Next, flow::NoLock>>(router, "input", 1))
     );
 
-  ASSERT_EQ(handler->update(), flow::State::RETRY);
+  ASSERT_EQ(handler->update().state, flow_ros::EventSummary::State::SYNC_NEEDS_RETRY);
 
   input_pub.publish(
     []()
@@ -144,7 +144,7 @@ TEST(EventHandlerSingleThreaded, SingleInputNoOutputs)
     }()
   );
 
-  ASSERT_EQ(handler->update(), flow::State::PRIMED);
+  ASSERT_EQ(handler->update().state, flow_ros::EventSummary::State::EXECUTED);
 }
 
 
@@ -186,7 +186,7 @@ TEST(EventHandlerSingleThreaded, SingleInputSingleOutput)
     );
 
   ASSERT_FALSE(output_msg);
-  ASSERT_EQ(handler->update(), flow::State::RETRY);
+  ASSERT_EQ(handler->update().state, flow_ros::EventSummary::State::SYNC_NEEDS_RETRY);
   ASSERT_FALSE(output_msg);
 
   input_pub.publish(
@@ -198,7 +198,7 @@ TEST(EventHandlerSingleThreaded, SingleInputSingleOutput)
     }()
   );
 
-  ASSERT_EQ(handler->update(), flow::State::PRIMED);
+  ASSERT_EQ(handler->update().state, flow_ros::EventSummary::State::EXECUTED);
   ASSERT_TRUE(output_msg);
   ASSERT_EQ(output_msg->header.stamp, ros::Time{1});
 }
@@ -253,7 +253,7 @@ TEST(EventHandlerSingleThreaded, SingleInputMultiOutput)
 
   ASSERT_FALSE(output_msg_1);
   ASSERT_FALSE(output_msg_2);
-  ASSERT_EQ(handler->update(), flow::State::RETRY);
+  ASSERT_EQ(handler->update().state, flow_ros::EventSummary::State::SYNC_NEEDS_RETRY);
 
   ASSERT_FALSE(output_msg_1);
   ASSERT_FALSE(output_msg_2);
@@ -267,7 +267,7 @@ TEST(EventHandlerSingleThreaded, SingleInputMultiOutput)
     }()
   );
 
-  ASSERT_EQ(handler->update(), flow::State::PRIMED);
+  ASSERT_EQ(handler->update().state, flow_ros::EventSummary::State::EXECUTED);
 
   ASSERT_TRUE(output_msg_1);
   ASSERT_TRUE(output_msg_2);
@@ -315,7 +315,7 @@ TEST(EventHandlerSingleThreaded, SingleInputOutputArray)
     );
 
   ASSERT_FALSE(output_msg_1);
-  ASSERT_EQ(handler->update(), flow::State::RETRY);
+  ASSERT_EQ(handler->update().state, flow_ros::EventSummary::State::SYNC_NEEDS_RETRY);
 
   ASSERT_FALSE(output_msg_1);
 
@@ -328,7 +328,7 @@ TEST(EventHandlerSingleThreaded, SingleInputOutputArray)
     }()
   );
 
-  ASSERT_EQ(handler->update(), flow::State::PRIMED);
+  ASSERT_EQ(handler->update().state, flow_ros::EventSummary::State::EXECUTED);
 
   ASSERT_TRUE(output_msg_1);
   ASSERT_EQ(output_msg_1->header.stamp, ros::Time{1});

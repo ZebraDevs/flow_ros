@@ -31,27 +31,52 @@ namespace flow_ros
  */
 struct EventSummary
 {
+  /**
+   * @brief Summary state codes
+   */
+  enum class State
+  {
+    UNKNOWN,             //< unkown/unspecified state
+    EXECUTED,            //< handler synchronized inputs and produced output(s)
+    EXECUTION_BYPASSED,  //< handler synchronized inputs but did not run event callback
+    SYNC_NEEDS_RETRY,    //< did not input sync before execution; needs retry
+    SYNC_ABORTED,        //< aborted input sync before execution
+    SYNC_TIMED_OUT,      //< timed out while waiting for data sync
+  };
+
+  /**
+   * @brief Constructor for initialization from sync results
+   *
+   * @param _result  synchronizer result information
+   * @param _execution_timeout  system-time point for execution timeout
+   */
   template<typename ResultT>
-  EventSummary(const ResultT& result) :
-    EventSummary{result.state, result.range}
+  EventSummary(const ResultT& _result, const std::chrono::system_clock::time_point _execution_timeout) :
+    state{
+      [&rs=_result.state]
+      {
+        switch (rs)
+        {
+          case flow::State::PRIMED:  return EventSummary::State::EXECUTED;
+          case flow::State::RETRY:   return EventSummary::State::SYNC_NEEDS_RETRY;
+          case flow::State::ABORT:   return EventSummary::State::SYNC_ABORTED;
+          case flow::State::TIMEOUT: return EventSummary::State::SYNC_TIMED_OUT;
+          default:                   return EventSummary::State::UNKNOWN;
+        }
+      }()
+    },
+    range{_result.range},
+    execution_timeout{_execution_timeout}
   {}
 
-  EventSummary(const flow::State _state, const flow::CaptureRange<ros::Time>& _range) :
-    state{_state},
-    range{_range}
-  {}
-
-  /// Capture state
-  flow::State state;
+  /// Event state
+  State state;
 
   /// Capture time range
   flow::CaptureRange<ros::Time> range;
 
-  /// Cast to state
-  inline operator flow::State() const
-  {
-    return state;
-  }
+  /// Execution timeout
+  std::chrono::system_clock::time_point execution_timeout;
 };
 
 
@@ -179,7 +204,7 @@ public:
      *
      *        May be used to bypass execution after synchronization, resulting in an ABORT state
      */
-    std::function<bool(EventHandlerBase&, const EventSummary&, std::chrono::system_clock::time_point)> pre_exectute_hook_callback;
+    std::function<bool(EventHandlerBase&, const EventSummary&)> pre_exectute_hook_callback;
 
     /**
      * @brief Event callback constructor
@@ -188,7 +213,7 @@ public:
     template<typename CallbackT>
     Callbacks(CallbackT&& _callback) :
       event_callback{std::forward<CallbackT>(_callback)},
-      pre_exectute_hook_callback{[](EventHandlerBase&, const EventSummary&, std::chrono::system_clock::time_point) -> bool { return true;}}
+      pre_exectute_hook_callback{[](EventHandlerBase&, const EventSummary&) -> bool { return true;}}
     {}
 
     /**
@@ -238,19 +263,27 @@ public:
    */
   EventSummary update(const std::chrono::system_clock::time_point timeout = std::chrono::system_clock::time_point::max()) final
   {
-    // Get syncrhonized messages
     Input sync_inputs;
-    const EventSummary event_summary =
+
+    // Get syncrhonized messages
+    const auto sync_result =
       synchronizer_.capture(detail::forward_as_deref_tuple(subscribers_),
                             detail::get_ouput_iterators<OutputContainerTypeInfoTmpl, SubscriberTuple>(sync_inputs),
                             timeout);
 
+    // Initialize event summary from synchronizer result
+    EventSummary event_summary{sync_result, timeout};
+
     // Invoke result callbacks
-    if (!callbacks_.pre_exectute_hook_callback(*this, event_summary, timeout))
+    if (event_summary.state == EventSummary::State::SYNC_NEEDS_RETRY)
     {
-      return EventSummary{flow::State::ABORT, event_summary.range};
+      return event_summary;
     }
-    else if (event_summary == flow::State::PRIMED)
+    else if (!callbacks_.pre_exectute_hook_callback(*this, event_summary))
+    {
+      event_summary.state = EventSummary::State::EXECUTION_BYPASSED;
+    }
+    else if (event_summary.state == EventSummary::State::EXECUTED)
     {
       flow::apply_every(
         detail::EventHandlerPublishHelper{event_summary.range.lower_stamp},
