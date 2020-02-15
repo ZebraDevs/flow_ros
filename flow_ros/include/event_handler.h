@@ -32,9 +32,13 @@ namespace flow_ros
 struct EventSummary
 {
   template<typename ResultT>
-  explicit EventSummary(const ResultT& result) :
-    state{result.state},
-    range{result.range}
+  EventSummary(const ResultT& result) :
+    EventSummary{result.state, result.range}
+  {}
+
+  EventSummary(const flow::State _state, const flow::CaptureRange<ros::Time>& _range) :
+    state{_state},
+    range{_range}
   {}
 
   /// Capture state
@@ -170,8 +174,12 @@ public:
     /// Callback to run on input synchronization event
     std::function<Output(const Input&)> event_callback;
 
-    /// Callback to run on any synchronization state for introspection
-    std::function<bool(EventHandlerBase&, const EventSummary&, std::chrono::system_clock::time_point)> hook_callback;
+    /**
+     * @brief Callback to run on any synchronization state for introspection
+     *
+     *        May be used to bypass execution after synchronization, resulting in an ABORT state
+     */
+    std::function<bool(EventHandlerBase&, const EventSummary&, std::chrono::system_clock::time_point)> pre_exectute_hook_callback;
 
     /**
      * @brief Event callback constructor
@@ -180,7 +188,7 @@ public:
     template<typename CallbackT>
     Callbacks(CallbackT&& _callback) :
       event_callback{std::forward<CallbackT>(_callback)},
-      hook_callback{[](EventHandlerBase&, const EventSummary&, std::chrono::system_clock::time_point) -> bool { return true;}}
+      pre_exectute_hook_callback{[](EventHandlerBase&, const EventSummary&, std::chrono::system_clock::time_point) -> bool { return true;}}
     {}
 
     /**
@@ -188,9 +196,9 @@ public:
      */
     template<typename EventCallbackT, typename HookCallbackT>
     Callbacks(EventCallbackT&& _event_callback,
-              HookCallbackT&& _primed_callack) :
+              HookCallbackT&& _hook_callack) :
       event_callback{std::forward<EventCallbackT>(_event_callback)},
-      hook_callback{std::forward<HookCallbackT>(_primed_callack)}
+      pre_exectute_hook_callback{std::forward<HookCallbackT>(_hook_callack)}
     {}
   };
 
@@ -226,29 +234,32 @@ public:
    *        If any subscribers are multi-threading enabled, this call may block under a condition variable
    *        until data is available for a synchronization attempt. Blocking data waits will end at <code>timeout</code>
    *
-   * @return ummary of event states
+   * @return summary of event states
    */
   EventSummary update(const std::chrono::system_clock::time_point timeout = std::chrono::system_clock::time_point::max()) final
   {
     // Get syncrhonized messages
     Input sync_inputs;
-    const auto result = synchronizer_.capture(detail::forward_as_deref_tuple(subscribers_),
-                                              detail::get_ouput_iterators<OutputContainerTypeInfoTmpl, SubscriberTuple>(sync_inputs),
-                                              timeout);
-
-    // Create event summary
-    const EventSummary summary{result};
+    const EventSummary event_summary =
+      synchronizer_.capture(detail::forward_as_deref_tuple(subscribers_),
+                            detail::get_ouput_iterators<OutputContainerTypeInfoTmpl, SubscriberTuple>(sync_inputs),
+                            timeout);
 
     // Invoke result callbacks
-    if (callbacks_.hook_callback(*this, summary, timeout) and (summary == flow::State::PRIMED))
+    if (!callbacks_.pre_exectute_hook_callback(*this, event_summary, timeout))
+    {
+      return EventSummary{flow::State::ABORT, event_summary.range};
+    }
+    else if (event_summary == flow::State::PRIMED)
     {
       flow::apply_every(
-        detail::EventHandlerPublishHelper{summary.range.lower_stamp},
+        detail::EventHandlerPublishHelper{event_summary.range.lower_stamp},
         publishers_,
         callbacks_.event_callback(sync_inputs) /*event outputs*/
       );
+      return event_summary;
     }
-    return summary;
+    return event_summary;
   }
 
   /**
