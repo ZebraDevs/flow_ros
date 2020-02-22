@@ -221,7 +221,10 @@ public:
    * @warning Will throw with <code>std::runtime_error</code> if underlying publisher
    *          could not be establish a connection with ROS-master
    */
-  MultiPublisher(ros::NodeHandle& nh, std::string topic, std::uint32_t queue_size = 0, bool latched = false) :
+  MultiPublisher(ros::NodeHandle& nh,
+                 std::string topic,
+                 const std::uint32_t queue_size = 0,
+                 const bool latched = false) :
     BaseType
     {
       std::make_shared<routing::ROSPublication<message_shared_ptr_t<MsgT>>>(
@@ -235,12 +238,13 @@ public:
    * @param[in,out] pb  Intra-node Router routing object
    * @param topic  topic associated with messages to be output
    * @param queue_size  underlying publication queue size
-   * @param latched  not used; dummy for API consistency
    *
    * @warning Will throw with <code>std::runtime_error</code> if underlying publisher
    *          could not be establish a connection with ROS-master
    */
-  MultiPublisher(Router& pb, std::string topic, std::uint32_t queue_size = 0, bool latched = false) :
+  MultiPublisher(Router& pb,
+                 std::string topic,
+                 const std::uint32_t queue_size = 0) :
     BaseType
     {
       pb.advertise<MsgT>(std::move(topic), queue_size)
@@ -288,6 +292,9 @@ template<typename MsgT>
 struct PublisherTraits<Publisher<MsgT>>
 {
   /// Output message type
+  using MsgType = MsgT;
+
+  /// Output message type
   using OutputType = message_shared_ptr_t<MsgT>;
 };
 
@@ -298,6 +305,9 @@ struct PublisherTraits<Publisher<MsgT>>
 template<typename MsgT>
 struct PublisherTraits<MultiPublisher<MsgT>>
 {
+  /// Output message type
+  using MsgType = MsgT;
+
   /// Output message type
   using OutputType = std::vector<message_shared_ptr_t<MsgT>>;
 };

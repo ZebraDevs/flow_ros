@@ -277,7 +277,7 @@ template<typename MsgT,
          typename LockPolicyT>
 struct SubscriberTraits<Subscriber<MsgT, PolicyTmpl, LockPolicyT>>
 {
-  /// Output message type
+  /// Input message type
   using MsgType = MsgT;
 
   /// Base capture policy type
