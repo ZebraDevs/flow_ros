@@ -179,7 +179,7 @@ class Subscriber : public SubscriberPolicyBase<PolicyTmpl<MessageDispatch<const 
   using PolicyType = SubscriberPolicyBase<PolicyTmpl<MessageDispatch<const MsgT>, LockPolicyT>>;
 public:
   /**
-   * @brief <code>ros::NodeHandle</code> setup constructor
+   * @brief <code>ros::NodeHandle</code> setup constructor (no transport hints)
    *
    * @tparam PolicyArgTs  type associated with arguments passed to underlying captor type
    *
@@ -193,11 +193,41 @@ public:
    *          could not be establish a connection with ROS-master
    */
   template<typename... PolicyArgTs>
-  Subscriber(ros::NodeHandle& nh, std::string topic, std::uint32_t queue_size, PolicyArgTs&&... args) :
+  Subscriber(ros::NodeHandle& nh, const std::string& topic, const std::uint32_t queue_size, PolicyArgTs&&... args) :
     PolicyType
     {
       std::make_shared<routing::ROSSubscription>(
-        nh.subscribe(std::move(topic), queue_size, &Subscriber::inject, this)),
+        nh.subscribe(topic, queue_size, &Subscriber::inject, this)),
+      std::forward<PolicyArgTs>(args)...
+    }
+  {
+  }
+
+  /**
+   * @brief <code>ros::NodeHandle</code> setup constructor (with transport hints)
+   *
+   * @tparam PolicyArgTs  type associated with arguments passed to underlying captor type
+   *
+   * @param[in,out] nh  ROS node handle to negotiate topic subscription/connection
+   * @param topic  topic associated with input messages
+   * @param transport_hints  a <code>ros::TransportHints</code> structure which defines various transport-related options
+   * @param queue_size  underlying ROS subscriber queue size
+   * @param args  arguments to pass to underlying captor types as
+   *              <code>PolicyTmpl(args,...)</code>
+   *
+   * @warning Will throw with <code>std::runtime_error</code> if underlying subscriber
+   *          could not be establish a connection with ROS-master
+   */
+  template<typename... PolicyArgTs>
+  Subscriber(ros::NodeHandle& nh,
+             const std::string& topic,
+             const ros::TransportHints& transport_hints,
+             const std::uint32_t queue_size,
+             PolicyArgTs&&... args) :
+    PolicyType
+    {
+      std::make_shared<routing::ROSSubscription>(
+        nh.subscribe(topic, queue_size, &Subscriber::inject, this, transport_hints)),
       std::forward<PolicyArgTs>(args)...
     }
   {
@@ -215,7 +245,7 @@ public:
    *              <code>PolicyTmpl(args,...)</code>
    */
   template<typename... PolicyArgTs>
-  Subscriber(Router& router, std::string topic, std::uint32_t queue_size, PolicyArgTs&&... args) :
+  Subscriber(Router& router, std::string topic, const std::uint32_t queue_size, PolicyArgTs&&... args) :
     PolicyType
     {
       router.subscribe<MsgT>(std::move(topic), queue_size, &Subscriber::inject, this),
