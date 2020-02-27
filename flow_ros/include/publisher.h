@@ -141,7 +141,7 @@ template<typename MsgT>
 class Publisher : public PublisherOutputBase<MsgT>
 {
   /// Subscriber base type alias
-  using BaseType = PublisherOutputBase<MsgT>;
+  using PublisherOutputBaseType = PublisherOutputBase<MsgT>;
 public:
   /**
    * @brief <code>ros::NodeHandle</code> setup constructor (extra-node messaging)
@@ -155,7 +155,7 @@ public:
    *          could not be establish a connection with ROS-master
    */
   Publisher(ros::NodeHandle& nh, std::string topic, std::uint32_t queue_size = 0, bool latched = false) :
-    BaseType
+    PublisherOutputBaseType
     {
       std::make_shared<routing::ROSPublication<MsgT>>(
         nh.advertise<MsgT>(std::move(topic), queue_size, latched))
@@ -174,7 +174,7 @@ public:
    *          could not be establish a connection with ROS-master
    */
   Publisher(Router& pb, std::string topic, std::uint32_t queue_size = 0, bool latched = false) :
-    BaseType
+    PublisherOutputBaseType
     {
       pb.advertise<MsgT>(std::move(topic), queue_size)
     }
@@ -192,7 +192,7 @@ public:
   {
     if (static_cast<bool>(msg))
     {
-      BaseType::publish(std::move(msg));
+      PublisherOutputBaseType::publish(std::move(msg));
     }
   }
 };
@@ -208,7 +208,7 @@ template<typename MsgT>
 class MultiPublisher : public PublisherOutputBase<MsgT>
 {
   /// Subscriber base type alias
-  using BaseType = PublisherOutputBase<MsgT>;
+  using PublisherOutputBaseType = PublisherOutputBase<MsgT>;
 public:
   /**
    * @brief <code>ros::NodeHandle</code> setup constructor (extra-node messaging)
@@ -225,9 +225,9 @@ public:
                  std::string topic,
                  const std::uint32_t queue_size = 0,
                  const bool latched = false) :
-    BaseType
+    PublisherOutputBaseType
     {
-      std::make_shared<routing::ROSPublication<message_shared_ptr_t<MsgT>>>(
+      std::make_shared<routing::ROSPublication<MsgT>>(
         nh.advertise<MsgT>(std::move(topic), queue_size, latched))
     }
   {}
@@ -245,7 +245,7 @@ public:
   MultiPublisher(Router& pb,
                  std::string topic,
                  const std::uint32_t queue_size = 0) :
-    BaseType
+    PublisherOutputBaseType
     {
       pb.advertise<MsgT>(std::move(topic), queue_size)
     }
@@ -261,7 +261,7 @@ public:
   {
     for (/*empty*/; first != last; ++first)
     {
-      BaseType::publish(*first);
+      PublisherOutputBaseType::publish(*first);
     }
   }
 
