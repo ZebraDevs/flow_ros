@@ -74,6 +74,14 @@ public:
   }
 
   /**
+   * @brief Checks if message contents are valid
+   */
+  inline bool valid() const
+  {
+    return static_cast<bool>(msg_);
+  }
+
+  /**
    * @brief LT relational overload
    */
   inline bool operator<(const MessageDispatch& other) const
