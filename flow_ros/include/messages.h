@@ -98,9 +98,11 @@ inline void set_stamp(MsgT&& msg, const ros::Time& stamp)
 
 
 /**
- * @brief Helper which extracts message data from dispatches
+ * @brief Helper which extracts message resource from dispatches
  * @tparam MsgT  (deduced) message type
  * @tparam AllocatorT  (deduced) allocator type
+ *
+ * @param dispatches  container of capture data dispatches
  */
 template<typename MsgT, typename  AllocatorT>
 inline std::vector<message_shared_const_ptr_t<MsgT>> extract_messages(const std::vector<MessageDispatch<MsgT>, AllocatorT>& dispatches)
@@ -120,8 +122,11 @@ inline std::vector<message_shared_const_ptr_t<MsgT>> extract_messages(const std:
 
 /**
  * @brief Helper which extracts time stamp data from dispatches
+ *
  * @tparam MsgT  (deduced) time stamp type
  * @tparam AllocatorT  (deduced) allocator type
+ *
+ * @param dispatches  container of capture data dispatches
  */
 template<typename MsgT, typename  AllocatorT>
 inline std::vector<ros::Time> extract_stamps(const std::vector<MessageDispatch<MsgT>, AllocatorT>& dispatches)
@@ -140,9 +145,12 @@ inline std::vector<ros::Time> extract_stamps(const std::vector<MessageDispatch<M
 
 
 /**
- * @brief Helper which extracts first message data from dispatches
+ * @brief Helper which extracts first message resource from dispatches
+ *
  * @tparam MsgT  (deduced) message type
  * @tparam AllocatorT  (deduced) allocator type
+ *
+ * @param dispatches  container of capture data dispatches
  */
 template<typename MsgT, typename  AllocatorT>
 inline message_shared_const_ptr_t<MsgT> extract_first_message(const std::vector<MessageDispatch<MsgT>, AllocatorT>& dispatches)
@@ -152,9 +160,12 @@ inline message_shared_const_ptr_t<MsgT> extract_first_message(const std::vector<
 
 
 /**
- * @brief Helper which extracts last message data from dispatches
+ * @brief Helper which extracts last message resource from dispatches
+ *
  * @tparam MsgT  (deduced) message type
  * @tparam AllocatorT  (deduced) allocator type
+ *
+ * @param dispatches  container of capture data dispatches
  */
 template<typename MsgT, typename  AllocatorT>
 inline message_shared_const_ptr_t<MsgT> extract_last_message(const std::vector<MessageDispatch<MsgT>, AllocatorT>& dispatches)
@@ -164,26 +175,62 @@ inline message_shared_const_ptr_t<MsgT> extract_last_message(const std::vector<M
 
 
 /**
- * @brief Helper which extracts first time stamp data from dispatches
+ * @brief Helper which returns first time stamp data from dispatches
+ *
  * @tparam MsgT  (deduced) time stamp type
  * @tparam AllocatorT  (deduced) allocator type
+ *
+ * @param dispatches  container of capture data dispatches
  */
 template<typename MsgT, typename  AllocatorT>
-inline typename ros::Time extract_first_stamp(const std::vector<MessageDispatch<MsgT>, AllocatorT>& dispatches)
+inline typename ros::Time first_stamp(const std::vector<MessageDispatch<MsgT>, AllocatorT>& dispatches)
 {
   return dispatches.front().stamp();
 }
 
 
 /**
- * @brief Helper which extracts last time stamp data from dispatches
+ * @brief Helper which returns last time stamp data from dispatches
+ *
  * @tparam MsgT  (deduced) time stamp type
  * @tparam AllocatorT  (deduced) allocator type
+ *
+ * @param dispatches  container of capture data dispatches
  */
 template<typename MsgT, typename  AllocatorT>
-inline typename ros::Time extract_last_stamp(const std::vector<MessageDispatch<MsgT>, AllocatorT>& dispatches)
+inline typename ros::Time last_stamp(const std::vector<MessageDispatch<MsgT>, AllocatorT>& dispatches)
 {
   return dispatches.back().stamp();
+}
+
+
+/**
+ * @brief Helper which returns a const reference to the first message data from dispatches
+ *
+ * @tparam MsgT  (deduced) message type
+ * @tparam AllocatorT  (deduced) allocator type
+ *
+ * @param dispatches  container of capture data dispatches
+ */
+template<typename MsgT, typename  AllocatorT>
+inline const MsgT& first_message(const std::vector<MessageDispatch<MsgT>, AllocatorT>& dispatches)
+{
+  return *dispatches.front().data();
+}
+
+
+/**
+ * @brief Helper which returns a const reference to the last message data from dispatches
+ *
+ * @tparam MsgT  (deduced) message type
+ * @tparam AllocatorT  (deduced) allocator type
+ *
+ * @param dispatches  container of capture data dispatches
+ */
+template<typename MsgT, typename  AllocatorT>
+inline const MsgT& last_message(const std::vector<MessageDispatch<MsgT>, AllocatorT>& dispatches)
+{
+  return *dispatches.back().data();
 }
 
 }  // namespace flow_ros
