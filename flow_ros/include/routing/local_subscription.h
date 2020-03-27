@@ -172,7 +172,7 @@ private:
    * @note participates in overload resolution if <code>MsgT</code> is a ROS message
    */
   template<bool U = ros::message_traits::IsMessage<MsgT>::value>
-  inline std::enable_if_t<U> call_impl(const ::rosbag::MessageInstance& mi) const 
+  inline std::enable_if_t<U> call_impl(const ::rosbag::MessageInstance& mi) const
   {
     const auto msg = mi.template instantiate<std::remove_const_t<MsgT>>();
     if (msg)
@@ -192,7 +192,7 @@ private:
    * @note participates in overload resolution if <code>MsgT</code> is NOT a ROS message
    */
   template<bool U = ros::message_traits::IsMessage<MsgT>::value>
-  inline std::enable_if_t<!U> call_impl(const ::rosbag::MessageInstance&) const 
+  inline std::enable_if_t<!U> call_impl(const ::rosbag::MessageInstance&) const
   {
     throw std::runtime_error{"Message type is not a ROS message"};
   }
@@ -201,9 +201,6 @@ private:
 
   /// Required callback type alias
   using CallbackType = std::function<void(const message_shared_const_ptr_t<MsgT>&)>;
-
-  /// Topic name
-  std::string topic_;
 
   /// Associated subscriber callback
   CallbackType callback_;
