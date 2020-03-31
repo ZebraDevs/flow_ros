@@ -259,7 +259,7 @@ public:
    */
   inline void inject(message_shared_const_ptr_t<MsgT> msg)
   {
-    PolicyType::inject(MessageDispatch<const MsgT>{std::move(msg)});
+    PolicyType::inject(std::move(msg));
   }
 };
 

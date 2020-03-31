@@ -6,7 +6,7 @@ flow_cc_library(
     srcs=glob(["src/**/*.cpp"]),
     strip_include_prefix="//flow_ros/include",
     include_prefix="flow_ros",
-    deps=["@flow//flow:flow", "@ros//:roscpp"],
+    deps=["@flow//flow:flow", "@ros//:roscpp", "@ros//:rosbag"],
     includes=["include"],
     visibility=["//visibility:public"],
 )

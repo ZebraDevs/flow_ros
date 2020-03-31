@@ -19,12 +19,8 @@
 #include <unordered_map>
 #include <utility>
 
-#ifdef FLOW_ROS_HAS_ROSBAG_SUPPORT
-
 // ROS Bag
 #include <rosbag/message_instance.h>
-
-#endif  // FLOW_ROS_HAS_ROSBAG_SUPPORT
 
 // Flow
 #include <flow_ros/messages.h>
@@ -95,7 +91,7 @@ public:
    */
   template<typename MsgT>
   inline std::shared_ptr<publication_t<MsgT>> advertise(const std::string& topic,
-                                                        std::uint32_t queue_size,
+                                                        const std::uint32_t queue_size,
                                                         bool latch = false)
   {
     // Lock when adding new connection
@@ -130,7 +126,7 @@ public:
    */
   template<typename MsgT, typename CallbackT>
   inline std::shared_ptr<subscription_t<MsgT>> subscribe(const std::string& topic,
-                                                         std::uint32_t queue_size,
+                                                         const std::uint32_t queue_size,
                                                          CallbackT&& callback)
   {
     // Lock when adding new connection
@@ -169,7 +165,7 @@ public:
    */
   template<typename MsgT, typename MethodT, typename ThisT>
   inline std::shared_ptr<subscription_t<MsgT>> subscribe(const std::string& topic,
-                                                         std::uint32_t queue_size,
+                                                         const std::uint32_t queue_size,
                                                          MethodT&& m_fn_ptr,
                                                          ThisT&& this_ptr)
   {
@@ -215,8 +211,6 @@ public:
     }
   }
 
-#ifdef FLOW_ROS_HAS_ROSBAG_SUPPORT
-
   /**
    * @brief Inject ROS bag message instance on a given topic
    *
@@ -242,11 +236,9 @@ public:
     else
     {
       // Inject message to all local subscription channels for this topic
-      itr->second->call(mi);
+      itr->second->inject(mi);
     }
   }
-
-#endif // FLOW_ROS_HAS_ROSBAG_SUPPORT
 
   /**
    * @brief Returns a vector of known published topics
