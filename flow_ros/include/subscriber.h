@@ -81,6 +81,11 @@ public:
   virtual std::size_t getNumBuffered() const = 0;
 
   /**
+   * @brief Returns stamp range of all buffered messages
+   */
+  virtual flow::CaptureRange<ros::Time> getAvailableBufferedRange() const = 0;
+
+  /**
    * @brief Checks if object is valid
    *
    * @retval true  if underlying subscription is valid
@@ -143,6 +148,14 @@ public:
   std::size_t getNumBuffered() const final
   {
     return PolicyT::size();
+  }
+
+  /**
+   * @brief Returns stamp range of all buffered messages
+   */
+  flow::CaptureRange<ros::Time> getAvailableBufferedRange() const final
+  {
+    return PolicyT::get_available_stamp_range();
   }
 
 protected:
