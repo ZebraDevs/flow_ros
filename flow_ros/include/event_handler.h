@@ -204,7 +204,7 @@ public:
      *
      *        May be used to bypass execution after synchronization, resulting in an ABORT state
      */
-    std::function<bool(EventHandlerBase&, const EventSummary&)> pre_exectute_hook_callback;
+    std::function<bool(const Input&, const EventSummary&)> pre_exectute_hook_callback;
 
     /**
      * @brief Event callback constructor
@@ -213,7 +213,7 @@ public:
     template<typename CallbackT>
     Callbacks(CallbackT&& _callback) :
       event_callback{std::forward<CallbackT>(_callback)},
-      pre_exectute_hook_callback{[](EventHandlerBase&, const EventSummary&) -> bool { return true;}}
+      pre_exectute_hook_callback{[](const Input&, const EventSummary&) -> bool { return true;}}
     {}
 
     /**
@@ -279,7 +279,7 @@ public:
     {
       return event_summary;
     }
-    else if (!callbacks_.pre_exectute_hook_callback(*this, event_summary))
+    else if (!callbacks_.pre_exectute_hook_callback(sync_inputs, event_summary))
     {
       event_summary.state = EventSummary::State::EXECUTION_BYPASSED;
     }
