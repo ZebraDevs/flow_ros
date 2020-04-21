@@ -124,7 +124,7 @@ private:
  * @tparam PolicyT  underlying Captor type with synchronization policy
  */
 template<typename PolicyT>
-class SubscriberPolicyBase : public SubscriberBase, public PolicyT
+class SubscriberPolicyBase : public PolicyT, public SubscriberBase
 {
 public:
   /// Check that PolicyT is a flow::Captor derivative
@@ -164,8 +164,8 @@ protected:
    */
   template<typename... PolicyArgTs>
   SubscriberPolicyBase(std::shared_ptr<routing::SubscriptionWrapper> subscription, PolicyArgTs&&... policy_args) :
-    SubscriberBase{std::move(subscription)},
-    PolicyT{std::forward<PolicyArgTs>(policy_args)...}
+    PolicyT{std::forward<PolicyArgTs>(policy_args)...},
+    SubscriberBase{std::move(subscription)}
   {}
 };
 
