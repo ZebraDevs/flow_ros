@@ -4,8 +4,8 @@
  *
  * @file event_handler.h
  */
-#ifndef FLOW_ROS_RUNNER_H
-#define FLOW_ROS_RUNNER_H
+#ifndef FLOW_ROS_EVENT_HANDLER_H
+#define FLOW_ROS_EVENT_HANDLER_H
 
 // C++ Standard Library
 #include <chrono>
@@ -343,4 +343,4 @@ private:
 
 }  // namespace flow_ros
 
-#endif  // FLOW_ROS_RUNNER_H
+#endif  // FLOW_ROS_EVENT_HANDLER_H

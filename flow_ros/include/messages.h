@@ -49,7 +49,6 @@ struct MessageSharedConstPtrType
 };
 
 
-
 /// Extracts appropriate shared_ptr wrapper type for <code>MsgT</code>
 template <typename MsgT>
 using message_shared_ptr_t = typename MessageSharedPtrType<MsgT>::type;

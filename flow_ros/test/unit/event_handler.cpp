@@ -18,6 +18,7 @@
 // Flow
 #include <flow/flow.h>
 #include <flow_ros/event_handler.h>
+#include <flow_ros/event_handler_ostream.h>
 #include <flow_ros/publisher.h>
 #include <flow_ros/subscriber.h>
 
@@ -328,7 +329,8 @@ TEST(EventHandlerSingleThreaded, SingleInputOutputArray)
     }()
   );
 
-  ASSERT_EQ(handler->update().state, flow_ros::EventSummary::State::EXECUTED);
+  const auto result = handler->update();
+  ASSERT_EQ(result.state, flow_ros::EventSummary::State::EXECUTED) << result;
 
   ASSERT_TRUE(output_msg_1);
   ASSERT_EQ(output_msg_1->header.stamp, ros::Time{1});
