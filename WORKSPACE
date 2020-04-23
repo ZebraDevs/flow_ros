@@ -18,7 +18,15 @@ http_archive(
 new_local_repository(
   name="ros",
   path="/opt/ros/melodic/",
-  build_file="ros.BUILD",
+  build_file="@//:third_party/ros.BUILD",
+)
+
+
+# Boost
+new_local_repository(
+  name="boost",
+  path="/usr/",
+  build_file="@//:third_party/boost.BUILD",
 )
 
 
