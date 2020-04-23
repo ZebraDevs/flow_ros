@@ -204,7 +204,7 @@ public:
      *
      *        May be used to bypass execution after synchronization, resulting in an ABORT state
      */
-    std::function<bool(const Input&, const EventSummary&)> pre_exectute_hook_callback;
+    std::function<bool(const Input&, const EventSummary&)> pre_execute_callback;
 
     /**
      * @brief Event callback constructor
@@ -213,17 +213,17 @@ public:
     template<typename CallbackT>
     Callbacks(CallbackT&& _callback) :
       event_callback{std::forward<CallbackT>(_callback)},
-      pre_exectute_hook_callback{[](const Input&, const EventSummary&) -> bool { return true;}}
+      pre_execute_callback{[](const Input&, const EventSummary&) -> bool { return true;}}
     {}
 
     /**
      * @brief Full-callback constructor
      */
-    template<typename EventCallbackT, typename HookCallbackT>
+    template<typename EventCallbackT, typename PreExecuteCallbackT>
     Callbacks(EventCallbackT&& _event_callback,
-              HookCallbackT&& _hook_callack) :
+              PreExecuteCallbackT&& _pre_execute_callback) :
       event_callback{std::forward<EventCallbackT>(_event_callback)},
-      pre_exectute_hook_callback{std::forward<HookCallbackT>(_hook_callack)}
+      pre_execute_callback{std::forward<PreExecuteCallbackT>(_pre_execute_callback)}
     {}
   };
 
@@ -279,7 +279,7 @@ public:
     {
       return event_summary;
     }
-    else if (!callbacks_.pre_exectute_hook_callback(sync_inputs, event_summary))
+    else if (!callbacks_.pre_execute_callback(sync_inputs, event_summary))
     {
       event_summary.state = EventSummary::State::EXECUTION_BYPASSED;
     }
