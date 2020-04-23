@@ -9,6 +9,7 @@
 
 // C++ Standard Library
 #include <type_traits>
+#include <utility>
 
 // Boost (ROS message Ptr/ConstPtr)
 #include <boost/shared_ptr.hpp>
@@ -74,11 +75,35 @@ public:
   }
 
   /**
+   * @brief Derefences message resource
+   */
+  inline const auto& operator*() const
+  {
+    return *msg_;
+  }
+
+  /**
+   * @brief Derefences message resource
+   */
+  inline const auto* operator->() const
+  {
+    return std::addressof(*msg_);
+  }
+
+  /**
    * @brief Checks if message contents are valid
    */
   inline bool valid() const
   {
     return static_cast<bool>(msg_);
+  }
+
+  /**
+   * @copydoc MessageDispatch::valid
+   */
+  inline operator bool() const
+  {
+    return this->valid();
   }
 
   /**
