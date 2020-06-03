@@ -172,6 +172,21 @@ private:
 
 
 /**
+ * @brief Helper object used to re-inject messages when sync must be retried
+ */
+struct RetryReinjectHelper
+{
+  template<typename SubscriberPtrT, typename InputContainerT>
+  inline void operator()(SubscriberPtrT& sub, InputContainerT& c) const
+  {
+    for (const auto& dispatch : c)
+    {
+      sub->inject(dispatch);
+    }
+  }
+};
+
+/**
  * @brief Generates event synchronization block type for a single input channel
  */
 template<typename ChannelType>

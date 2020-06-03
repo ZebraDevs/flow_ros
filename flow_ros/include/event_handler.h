@@ -277,6 +277,7 @@ public:
     // Invoke result callbacks
     if (event_summary.state == EventSummary::State::SYNC_NEEDS_RETRY)
     {
+      flow::apply_every(detail::RetryReinjectHelper{}, subscribers_, sync_inputs);
       return event_summary;
     }
     else if (!callbacks_.pre_execute_callback(*this, sync_inputs, event_summary))
