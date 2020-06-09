@@ -160,7 +160,7 @@ public:
   {}
 
   template<typename PubPtrT, typename OutputT>
-  inline void operator()(PubPtrT pub, OutputT output) const
+  inline void operator()(PubPtrT& pub, OutputT output) const
   {
     OutputPublishHelper<std::remove_reference_t<OutputT>>{}(*pub, std::move(output), stamp_);
   }
@@ -179,10 +179,7 @@ struct RetryReinjectHelper
   template<typename SubscriberPtrT, typename InputContainerT>
   inline void operator()(SubscriberPtrT& sub, InputContainerT& c) const
   {
-    for (const auto& dispatch : c)
-    {
-      sub->inject(dispatch);
-    }
+    sub->insert(c.begin(), c.end());
   }
 };
 
