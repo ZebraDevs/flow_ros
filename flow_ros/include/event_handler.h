@@ -51,7 +51,7 @@ struct EventSummary
    * @param _execution_timeout  system-time point for execution timeout
    */
   template<typename ResultT>
-  EventSummary(const ResultT& _result, const std::chrono::system_clock::time_point _execution_timeout) :
+  EventSummary(const ResultT& _result, const std::chrono::steady_clock::time_point _execution_timeout) :
     state{
       [&rs=_result.state]
       {
@@ -76,7 +76,7 @@ struct EventSummary
   flow::CaptureRange<ros::Time> range;
 
   /// Execution timeout
-  std::chrono::system_clock::time_point execution_timeout;
+  std::chrono::steady_clock::time_point execution_timeout;
 };
 
 
@@ -92,8 +92,8 @@ public:
    * @brief Updates event handler
    * @return summary of event states
    */
-  virtual EventSummary update(std::chrono::system_clock::time_point timeout =
-                                std::chrono::system_clock::time_point::max()) = 0;
+  virtual EventSummary update(std::chrono::steady_clock::time_point timeout =
+                                std::chrono::steady_clock::time_point::max()) = 0;
 
   /**
    * @brief Aborts all event at or before specified time
@@ -158,7 +158,7 @@ struct DefaultOutputContainerTypeInfo
 template<typename PublisherTuple,
          typename SubscriberTuple,
          template<typename> class OutputContainerTypeInfoTmpl = DefaultOutputContainerTypeInfo>
-class EventHandler : public EventHandlerBase
+class EventHandler final : public EventHandlerBase
 {
 public:
   /// Tuple of publisher resource pointers
@@ -254,14 +254,14 @@ public:
    *
    *        On each call, this method attempts input synchronization. The behavior that follows depends on
    *        callbacks, specified by CallbackType, set on construction. In synchronization succeeds, the main
-   *        event (execution) callback is invoked..
+   *        event (execution) callback is invoked.
    * \n
    *        If any subscribers are multi-threading enabled, this call may block under a condition variable
    *        until data is available for a synchronization attempt. Blocking data waits will end at <code>timeout</code>
    *
    * @return summary of event states
    */
-  EventSummary update(const std::chrono::system_clock::time_point timeout = std::chrono::system_clock::time_point::max()) final
+  EventSummary update(const std::chrono::steady_clock::time_point timeout = std::chrono::steady_clock::time_point::max()) override
   {
     Input sync_inputs;
 
@@ -299,7 +299,7 @@ public:
    * @brief Aborts all event at or before specified time
    * @param t_abort  abort time
    */
-  void abort(const ros::Time& t_abort) final
+  void abort(const ros::Time& t_abort) override
   {
     synchronizer_.abort(detail::forward_as_deref_tuple(subscribers_), t_abort);
   }
@@ -307,7 +307,7 @@ public:
   /**
    * @copydoc EventHandlerBase::getSubscribers
    */
-  std::vector<std::shared_ptr<const SubscriberBase>> getSubscribers() const final
+  std::vector<std::shared_ptr<const SubscriberBase>> getSubscribers() const override
   {
     std::vector<std::shared_ptr<const SubscriberBase>> subs;
     subs.resize(std::tuple_size<SubscriberTuple>());
@@ -319,7 +319,7 @@ public:
   /**
    * @copydoc EventHandlerBase::getPublishers
    */
-  std::vector<std::shared_ptr<const PublisherBase>> getPublishers() const final
+  std::vector<std::shared_ptr<const PublisherBase>> getPublishers() const override
   {
     std::vector<std::shared_ptr<const PublisherBase>> pubs;
     pubs.resize(std::tuple_size<PublisherTuple>());
