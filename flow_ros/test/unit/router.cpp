@@ -366,3 +366,12 @@ TEST(Router, ManyThreadedPubSubSameTopic)
     t.join();
   }
 }
+
+TEST(Router, UnkownSubscription)
+{
+  flow_ros::Router router{"test"};
+
+  TestMessage::Ptr msg{std::make_shared<TestMessage>()};
+
+  ASSERT_THROW(router.inject("unkown", msg), flow_ros::UnknownSubscriptionError);
+}
