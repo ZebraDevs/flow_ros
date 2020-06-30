@@ -11,13 +11,11 @@
 #include <functional>
 #include <memory>
 #include <mutex>
+#include <sstream>
 #include <string>
 #include <stdexcept>
 #include <thread>
 #include <type_traits>
-
-// C++ Standard Library
-#include <sstream>
 
 // ROS Bag
 #include <rosbag/message_instance.h>
@@ -29,6 +27,21 @@ namespace flow_ros
 {
 namespace routing
 {
+
+/**
+ * @brief Exception thrown when a message cannot be instanced
+ */
+class MessageInstanceError final : public std::exception
+{
+public:
+  template <typename StringT>
+  explicit MessageInstanceError(StringT&& what) : what_{std::forward<StringT>(what)} {}
+
+  const char* what() const noexcept { return what_.c_str(); }
+
+private:
+  std::string what_;
+};
 
 /**
  * @brief LocalSubscription base which provides basic info and erases MsgT-dependent methods
@@ -134,7 +147,7 @@ private:
    *
    * @param mi  ROS bag message instance
    *
-   * @throws <code>std::runtime_error</code> on failure to instance message
+   * @throws <code>MessageInstanceError</code> on failure to instance message
    *
    * @note participates in overload resolution if <code>MsgT</code> is a ROS message
    */
@@ -151,19 +164,19 @@ private:
     {
       std::ostringstream oss;
       oss << "Could not instance message on topic: " << mi.getTopic() << "(md5sum=" << mi.getMD5Sum() << ')';
-      throw std::runtime_error{oss.str()};
+      throw MessageInstanceError{oss.str()};
     }
   }
 
   /**
-   * @throws <code>std::runtime_error</code> always
+   * @throws <code>MessageInstanceError</code> always
    *
    * @note participates in overload resolution if <code>MsgT</code> is NOT a ROS message
    */
   template<bool U = ros::message_traits::IsMessage<MsgT>::value>
   inline std::enable_if_t<!U> call_impl(const ::rosbag::MessageInstance&) const
   {
-    throw std::runtime_error{"Message type is not a ROS message"};
+    throw MessageInstanceError{"Message type is not a ROS message"};
   }
 
   /// Required callback type alias

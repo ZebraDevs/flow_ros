@@ -33,6 +33,21 @@ namespace flow_ros
 {
 
 /**
+ * @brief Exception thrown when message for an unknown subscription is injected
+ */
+class UnknownSubscriptionError final : public std::exception
+{
+public:
+  template <typename StringT>
+  explicit UnknownSubscriptionError(StringT&& what) : what_{std::forward<StringT>(what)} {}
+
+  const char* what() const noexcept { return what_.c_str(); }
+
+private:
+  std::string what_;
+};
+
+/**
  * @brief An in-process message routing object
  *
  *        Can advertise and subscribe to message topics, and matches
@@ -184,7 +199,7 @@ public:
    * @param topic  name of local topic to publish on
    * @param msg  message to inject to input (subscription) channel for given topic
    *
-   * @throws <code>std::runtime_error</code> if there is no subscription for given topic
+   * @throws <code>UnknownSubscriptionError</code> if there is no subscription for given topic
    */
   template<typename MsgT, template<typename> class SharedPtrTmpl>
   inline void inject(const std::string& topic, const SharedPtrTmpl<MsgT>& msg)
@@ -202,7 +217,7 @@ public:
     {
       std::ostringstream oss;
       oss << "Unknown subscription for topic: " << topic << " (resolved to=" << resolved_topic << ")"; 
-      throw std::runtime_error{oss.str()};
+      throw UnknownSubscriptionError{oss.str()};
     }
     else
     {
@@ -216,7 +231,7 @@ public:
    *
    * @param mi  ROS bag message instance
    *
-   * @throws <code>std::runtime_error</code> if there is no subscription for given topic
+   * @throws <code>UnknownSubscriptionError</code> if there is no subscription for given topic
    * @throws <code>std::runtime_error</code> on failure to instance message
    */
   inline void inject(const ::rosbag::MessageInstance& mi)
@@ -231,7 +246,7 @@ public:
     {
       std::ostringstream oss;
       oss << "Unknown subscription for message instance with topic: " << mi.getTopic(); 
-      throw std::runtime_error{oss.str()};
+      throw UnknownSubscriptionError{oss.str()};
     }
     else
     {
