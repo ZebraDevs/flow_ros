@@ -93,7 +93,7 @@ public:
    */
   inline bool isValid() const
   {
-    return subscription_->isValid();
+    return subscription_ and subscription_->isValid();
   }
 
   /**
@@ -105,14 +105,6 @@ public:
   }
 
 protected:
-  /**
-   * @brief Subscriber setup constructor
-   */
-  explicit SubscriberBase(std::shared_ptr<routing::SubscriptionWrapper> subscription) :
-    subscription_{std::move(subscription)}
-  {}
-
-private:
   /// Underling subscription wapper
   std::shared_ptr<routing::SubscriptionWrapper> subscription_;
 };
@@ -159,14 +151,13 @@ public:
   }
 
 protected:
+  using SubscriberBase::subscription_;
+
   /**
    * @brief Policy setup constructor
    */
   template<typename... PolicyArgTs>
-  SubscriberPolicyBase(std::shared_ptr<routing::SubscriptionWrapper> subscription, PolicyArgTs&&... policy_args) :
-    PolicyT{std::forward<PolicyArgTs>(policy_args)...},
-    SubscriberBase{std::move(subscription)}
-  {}
+  SubscriberPolicyBase(PolicyArgTs&&... policy_args) : PolicyT{std::forward<PolicyArgTs>(policy_args)...} {}
 };
 
 
@@ -207,13 +198,11 @@ public:
    */
   template<typename... PolicyArgTs>
   Subscriber(ros::NodeHandle& nh, const std::string& topic, const std::uint32_t queue_size, PolicyArgTs&&... args) :
-    PolicyType
-    {
-      std::make_shared<routing::ROSSubscription>(
-        nh.subscribe(topic, queue_size, &Subscriber::inject, this)),
-      std::forward<PolicyArgTs>(args)...
-    }
+    PolicyType{std::forward<PolicyArgTs>(args)...}
   {
+    // Subscription must be setup after buffer so that object is initialized before callbacks run
+    SubscriberBase::subscription_ = std::make_shared<routing::ROSSubscription>(
+      nh.subscribe(topic, queue_size, &Subscriber::inject, this));
   }
 
   /**
@@ -237,13 +226,11 @@ public:
              const ros::TransportHints& transport_hints,
              const std::uint32_t queue_size,
              PolicyArgTs&&... args) :
-    PolicyType
-    {
-      std::make_shared<routing::ROSSubscription>(
-        nh.subscribe(topic, queue_size, &Subscriber::inject, this, transport_hints)),
-      std::forward<PolicyArgTs>(args)...
-    }
+    PolicyType{std::forward<PolicyArgTs>(args)...}
   {
+    // Subscription must be setup after buffer so that object is initialized before callbacks run
+    SubscriberBase::subscription_ = std::make_shared<routing::ROSSubscription>(
+      nh.subscribe(topic, queue_size, &Subscriber::inject, this));
   }
 
   /**
@@ -259,12 +246,10 @@ public:
    */
   template<typename... PolicyArgTs>
   Subscriber(Router& router, std::string topic, const std::uint32_t queue_size, PolicyArgTs&&... args) :
-    PolicyType
-    {
-      router.subscribe<MsgT>(std::move(topic), queue_size, &Subscriber::inject, this),
-      std::forward<PolicyArgTs>(args)...
-    }
+    PolicyType{std::forward<PolicyArgTs>(args)...}
   {
+    // Subscription must be setup after buffer so that object is initialized before callbacks run
+    SubscriberBase::subscription_ = router.subscribe<MsgT>(std::move(topic), queue_size, &Subscriber::inject, this);
   }
 
   /**
