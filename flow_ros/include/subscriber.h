@@ -230,7 +230,7 @@ public:
   {
     // Subscription must be setup after buffer so that object is initialized before callbacks run
     SubscriberBase::subscription_ = std::make_shared<routing::ROSSubscription>(
-      nh.subscribe(topic, queue_size, &Subscriber::inject, this));
+      nh.subscribe(topic, queue_size, &Subscriber::inject, this, transport_hints));
   }
 
   /**
