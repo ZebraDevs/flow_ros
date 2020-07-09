@@ -90,10 +90,20 @@ public:
 
   /**
    * @brief Updates event handler
+   *
    * @return summary of event states
    */
   virtual EventSummary update(std::chrono::steady_clock::time_point timeout =
                                 std::chrono::steady_clock::time_point::max()) = 0;
+
+  /**
+   * @brief Checks what synchronization result would be with current data
+   *
+   *        Performs no data waits, and skips actual capture
+   *
+   * @return summary of potential event states on next <code>update</code>
+   */
+  virtual EventSummary dry_update() = 0;
 
   /**
    * @brief Aborts all event at or before specified time
@@ -250,6 +260,19 @@ public:
   ~EventHandler() = default;
 
   /**
+   * @copydoc EventHandler::dry_update
+   */
+  EventSummary dry_update() override
+  {
+    // Get synchronized messages
+    const auto dry_update_result =
+      synchronizer_.dry_capture(detail::forward_as_deref_tuple(subscribers_));
+
+    // Initialize event summary from synchronizer result
+    return EventSummary{dry_update_result, std::chrono::steady_clock::time_point::max()};
+  }
+
+  /**
    * @brief Event updater method
    *
    *        On each call, this method attempts input synchronization. The behavior that follows depends on
@@ -265,7 +288,7 @@ public:
   {
     Input sync_inputs;
 
-    // Get syncrhonized messages
+    // Get synchronized messages
     const auto sync_result =
       synchronizer_.capture(detail::forward_as_deref_tuple(subscribers_),
                             detail::get_ouput_iterators<OutputContainerTypeInfoTmpl, SubscriberTuple>(sync_inputs),
