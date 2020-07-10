@@ -183,25 +183,6 @@ struct RetryReinjectHelper
   }
 };
 
-/**
- * @brief Generates event synchronization block type for a single input channel
- */
-template<typename ChannelType>
-struct EventHandlerSynchronizerType
-{
-  using type = flow::Synchronizer<ChannelType>;
-};
-
-
-/**
- * @brief Generates event synchronization block type for a multiple input channels
- */
-template<typename... ChannelTs>
-struct EventHandlerSynchronizerType<std::tuple<ChannelTs...>>
-{
-  using type = flow::Synchronizer<ChannelTs...>;
-};
-
 
 /**
  * @brief Generates event callback output type for an EventHandler with a single output

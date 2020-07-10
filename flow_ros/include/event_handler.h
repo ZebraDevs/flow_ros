@@ -50,8 +50,7 @@ struct EventSummary
    * @param _result  synchronizer result information
    * @param _execution_timeout  system-time point for execution timeout
    */
-  template<typename ResultT>
-  EventSummary(const ResultT& _result, const std::chrono::steady_clock::time_point _execution_timeout) :
+  EventSummary(const flow::Result<ros::Time>& _result, const std::chrono::steady_clock::time_point _execution_timeout) :
     state{
       [&rs=_result.state]
       {
@@ -110,6 +109,11 @@ public:
    * @param t_abort  abort time
    */
   virtual void abort(const ros::Time& t_abort) = 0;
+
+  /**
+   * @brief Resets event handler and all managed channels
+   */
+  virtual void reset() = 0;
 
   /**
    * @brief Returns vector of publisher resources associated with EventHandler
@@ -176,9 +180,6 @@ public:
 
   /// Tuple of subscriber resource pointers
   using SubscriberPtrTuple = typename detail::WrapTupleElements<std::shared_ptr, SubscriberTuple>::type;
-
-  /// Underlying input synchronizer type
-  using SynchronizerType = typename detail::EventHandlerSynchronizerType<SubscriberTuple>::type;
 
   /**
    * @brief Output data type
@@ -250,7 +251,7 @@ public:
     callbacks_{std::move(callbacks)},
     publishers_{std::move(publishers)},
     subscribers_{std::move(subscribers)},
-    synchronizer_{}
+    lower_bound_stamp_{ros::TIME_MIN}
   {
   }
 
@@ -266,7 +267,7 @@ public:
   {
     // Get synchronized messages
     const auto dry_update_result =
-      synchronizer_.dry_capture(detail::forward_as_deref_tuple(subscribers_));
+      flow::Synchronizer::dry_capture(detail::forward_as_deref_tuple(subscribers_));
 
     // Initialize event summary from synchronizer result
     return EventSummary{dry_update_result, std::chrono::steady_clock::time_point::max()};
@@ -290,9 +291,16 @@ public:
 
     // Get synchronized messages
     const auto sync_result =
-      synchronizer_.capture(detail::forward_as_deref_tuple(subscribers_),
-                            detail::get_ouput_iterators<OutputContainerTypeInfoTmpl, SubscriberTuple>(sync_inputs),
-                            timeout);
+      flow::Synchronizer::capture(detail::forward_as_deref_tuple(subscribers_),
+                                  detail::get_ouput_iterators<OutputContainerTypeInfoTmpl, SubscriberTuple>(sync_inputs),
+                                  lower_bound_stamp_,
+                                  timeout);
+
+    // Update lower-bound sync time
+    if (sync_result.range and sync_result.state != ::flow::State::RETRY)
+    {
+      lower_bound_stamp_ = std::max(lower_bound_stamp_, sync_result.range.lower_stamp);
+    }
 
     // Initialize event summary from synchronizer result
     EventSummary event_summary{sync_result, timeout};
@@ -319,12 +327,20 @@ public:
   }
 
   /**
-   * @brief Aborts all event at or before specified time
-   * @param t_abort  abort time
+   * @copydoc EventHandlerBase::abort
    */
   void abort(const ros::Time& t_abort) override
   {
-    synchronizer_.abort(detail::forward_as_deref_tuple(subscribers_), t_abort);
+    flow::Synchronizer::abort(detail::forward_as_deref_tuple(subscribers_), t_abort);
+  }
+
+  /**
+   * @copydoc EventHandlerBase::reset
+   */
+  void reset() override
+  {
+    lower_bound_stamp_ = ros::TIME_MIN;
+    flow::Synchronizer::reset(detail::forward_as_deref_tuple(subscribers_));
   }
 
   /**
@@ -361,8 +377,12 @@ private:
   /// Input channel resources
   SubscriberPtrTuple subscribers_;
 
-  /// Event execution object
-  SynchronizerType synchronizer_;
+  /// Lower-bounding synchronization stamp
+  ///
+  /// This is mainly just a safety net in the event that driving inputs come in out of order
+  /// after an newer message has been captured/processed
+  ///
+  ros::Time lower_bound_stamp_;
 };
 
 }  // namespace flow_ros
