@@ -105,14 +105,16 @@ public:
   virtual EventSummary dry_update() = 0;
 
   /**
-   * @brief Removes all data before specified time
-   * @param t_remove  remove time
+   * @brief Removes all events before specified time
+   *
+   * @param t_remove  time before which events should be removed
    */
   virtual void remove(const ros::Time& t_remove) = 0;
 
   /**
    * @brief Aborts all event at or before specified time
-   * @param t_abort  abort time
+   *
+   * @param t_abort  time before which events should be aborted
    */
   virtual void abort(const ros::Time& t_abort) = 0;
 
