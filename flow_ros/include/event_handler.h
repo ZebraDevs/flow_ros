@@ -105,6 +105,12 @@ public:
   virtual EventSummary dry_update() = 0;
 
   /**
+   * @brief Removes all data before specified time
+   * @param t_remove  remove time
+   */
+  virtual void remove(const ros::Time& t_remove) = 0;
+
+  /**
    * @brief Aborts all event at or before specified time
    * @param t_abort  abort time
    */
@@ -324,6 +330,14 @@ public:
       );
     }
     return event_summary;
+  }
+
+  /**
+   * @copydoc EventHandlerBase::remove
+   */
+  void remove(const ros::Time& t_remove) override
+  {
+    flow::Synchronizer::remove(detail::forward_as_deref_tuple(subscribers_), t_remove);
   }
 
   /**
