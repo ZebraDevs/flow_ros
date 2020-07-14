@@ -289,6 +289,28 @@ namespace flow
 {
 
 /**
+ * @brief Checks if subscriber capture policy is derived from a Driver base
+ */
+template<typename MsgT,
+         template<typename...> class PolicyTmpl,
+         typename LockPolicyT>
+struct is_driver<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT>> :
+  is_driver<PolicyTmpl<::flow_ros::MessageDispatch<const MsgT>, LockPolicyT>>
+{};
+
+
+/**
+ * @brief Checks if subscriber capture policy is derived from a Follower base
+ */
+template<typename MsgT,
+         template<typename...> class PolicyTmpl,
+         typename LockPolicyT>
+struct is_follower<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT>> :
+  is_follower<PolicyTmpl<::flow_ros::MessageDispatch<const MsgT>, LockPolicyT>>
+{};
+
+
+/**
  * @brief Captor traits associated with underlying Captor of SubscriberPolicyBase
  */
 template<typename PolicyT>
