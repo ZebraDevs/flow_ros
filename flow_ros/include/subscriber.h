@@ -23,7 +23,7 @@
 // Flow
 #include <flow/drivers.h>
 #include <flow/followers.h>
-#include <flow_ros/messages.h>
+#include <flow_ros/message.h>
 #include <flow_ros/routing/subscription_wrapper.h>
 #include <flow_ros/routing/local_subscription.h>
 #include <flow_ros/routing/ros_subscription.h>
@@ -177,10 +177,10 @@ protected:
 template<typename MsgT,
          template<typename...> class PolicyTmpl,
          typename LockPolicyT = std::unique_lock<std::mutex>>
-class Subscriber : public SubscriberPolicyBase<PolicyTmpl<MessageDispatch<const MsgT>, LockPolicyT>>
+class Subscriber : public SubscriberPolicyBase<PolicyTmpl<message_shared_const_ptr_t<const MsgT>, LockPolicyT>>
 {
   /// Subscriber base type alias
-  using PolicyType = SubscriberPolicyBase<PolicyTmpl<MessageDispatch<const MsgT>, LockPolicyT>>;
+  using PolicyType = SubscriberPolicyBase<PolicyTmpl<message_shared_const_ptr_t<const MsgT>, LockPolicyT>>;
 public:
   /**
    * @brief <code>ros::NodeHandle</code> setup constructor (no transport hints)
@@ -279,7 +279,7 @@ struct SubscriberTraits<Subscriber<MsgT, PolicyTmpl, LockPolicyT>>
   using MsgType = MsgT;
 
   /// Base capture policy type
-  using PolicyType = PolicyTmpl<MessageDispatch<const MsgT>, LockPolicyT>;
+  using PolicyType = PolicyTmpl<message_shared_const_ptr_t<MsgT>, LockPolicyT>;
 };
 
 }  // namespace flow_ros
@@ -295,7 +295,7 @@ template<typename MsgT,
          template<typename...> class PolicyTmpl,
          typename LockPolicyT>
 struct is_driver<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT>> :
-  is_driver<PolicyTmpl<::flow_ros::MessageDispatch<const MsgT>, LockPolicyT>>
+  is_driver<PolicyTmpl<::flow_ros::message_shared_const_ptr_t<MsgT>, LockPolicyT>>
 {};
 
 
@@ -306,7 +306,7 @@ template<typename MsgT,
          template<typename...> class PolicyTmpl,
          typename LockPolicyT>
 struct is_follower<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT>> :
-  is_follower<PolicyTmpl<::flow_ros::MessageDispatch<const MsgT>, LockPolicyT>>
+  is_follower<PolicyTmpl<::flow_ros::message_shared_const_ptr_t<MsgT>, LockPolicyT>>
 {};
 
 
@@ -326,36 +326,7 @@ template<typename MsgT,
          template<typename...> class PolicyTmpl,
          typename LockPolicyT>
 struct CaptorTraits<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT>> :
-  CaptorTraits<PolicyTmpl<::flow_ros::MessageDispatch<const MsgT>, LockPolicyT>>
-{};
-
-
-/**
- * @brief ROS timing type traits for associated message Dispatch
- */
-template<>
-struct StampTraits<ros::Time>
-{
-  /// Stamp type
-  using stamp_type = ros::Time;
-
-  /// Associated duration/offset type
-  using offset_type = ros::Duration;
-
-  /// Returns minimum stamp value
-  static ros::Time min() { return ros::Time{1}; };
-
-  /// Returns maximum stamp value
-  static ros::Time max() { return ros::TIME_MAX; };
-};
-
-
-/**
- * @brief ROS timing type traits for associated ROS message Dispatch
- */
-template<typename MsgT>
-struct DispatchTraits<::flow_ros::MessageDispatch<const MsgT>> :
-  DispatchTraits<flow::Dispatch<ros::Time, ::flow_ros::message_shared_ptr_t<MsgT>>>
+  CaptorTraits<PolicyTmpl<::flow_ros::message_shared_const_ptr_t<MsgT>, LockPolicyT>>
 {};
 
 }  // namespace flow

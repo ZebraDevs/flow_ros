@@ -15,7 +15,7 @@
 // Flow
 #include <flow_ros/publisher.h>
 #include <flow_ros/subscriber.h>
-#include <flow_ros/messages.h>
+#include <flow_ros/message.h>
 
 // Flow
 #include <flow/impl/integer_sequence.hpp>

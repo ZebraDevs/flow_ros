@@ -12,7 +12,7 @@
 #include <string>
 
 // Flow
-#include <flow_ros/messages.h>
+#include <flow_ros/message.h>
 #include <flow_ros/routing/transport_info.h>
 
 namespace flow_ros

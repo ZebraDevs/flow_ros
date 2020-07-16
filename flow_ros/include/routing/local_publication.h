@@ -13,7 +13,7 @@
 #include <utility>
 
 // Flow
-#include <flow_ros/messages.h>
+#include <flow_ros/message.h>
 #include <flow_ros/routing/publication_wrapper.h>
 #include <flow_ros/routing/local_subscription.h>
 #include <flow_ros/routing/transport_info.h>
