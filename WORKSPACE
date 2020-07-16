@@ -34,6 +34,6 @@ new_local_repository(
 git_repository(
   name="flow",
   remote="git@github.com:fetchrobotics/flow.git",
-  commit="597109ab9ca3a0a9a148ba2ff545d5382abe3e2e",
-  shallow_since="1594882555 -0400",
+  commit="c89fc758d3fd79ad00064270a29a4beff0bd72d5",
+  shallow_since="1594929108 +0000",
 )
