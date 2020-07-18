@@ -46,7 +46,7 @@ public:
   }
 
   /**
-   * @brief Returns number of local publicatiions connected to this subscriber
+   * @brief Returns number of local publications connected to this subscriber
    */
   inline std::uint32_t getNumPublishers() const
   {
