@@ -202,7 +202,7 @@ public:
  * @brief Output channel specialization which publishes multiple messages
  *
  * @tparam MsgT  message type
- * @tparam AllocatorT  MsgT allocatior type
+ * @tparam ContainerT  MsgT allocatior type
  */
 template<typename MsgT>
 class MultiPublisher : public PublisherOutputBase<MsgT>

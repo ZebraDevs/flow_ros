@@ -173,14 +173,16 @@ protected:
  * @tparam PolicyTmpl  name associated with policy to be used when capturing inputs
  * @tparam LockPolicyT  a BasicLockable (https://en.cppreference.com/w/cpp/named_req/BasicLockable) object;
  *                      using <code>flow::NoLock</code> will bypass internal thread locking/safety mechanisms
+ * @tparam MsgConstPtrContainerT  underlying container type used to store shared message resource pointers
  */
 template<typename MsgT,
          template<typename...> class PolicyTmpl,
-         typename LockPolicyT = std::unique_lock<std::mutex>>
-class Subscriber : public SubscriberPolicyBase<PolicyTmpl<message_shared_const_ptr_t<const MsgT>, LockPolicyT>>
+         typename LockPolicyT = std::unique_lock<std::mutex>,
+         typename MsgConstPtrContainerT = flow::DefaultContainer<message_shared_const_ptr_t<const MsgT>>>
+class Subscriber : public SubscriberPolicyBase<PolicyTmpl<message_shared_const_ptr_t<const MsgT>, LockPolicyT, MsgConstPtrContainerT>>
 {
   /// Subscriber base type alias
-  using PolicyType = SubscriberPolicyBase<PolicyTmpl<message_shared_const_ptr_t<const MsgT>, LockPolicyT>>;
+  using PolicyType = SubscriberPolicyBase<PolicyTmpl<message_shared_const_ptr_t<const MsgT>, LockPolicyT, MsgConstPtrContainerT>>;
 public:
   /**
    * @brief <code>ros::NodeHandle</code> setup constructor (no transport hints)
