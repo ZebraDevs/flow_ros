@@ -154,7 +154,7 @@ public:
    * @warning Will throw with <code>std::runtime_error</code> if underlying publisher
    *          could not be establish a connection with ROS-master
    */
-  Publisher(ros::NodeHandle& nh, std::string topic, std::uint32_t queue_size = 0, bool latched = false) :
+  Publisher(ros::NodeHandle& nh, std::string topic, std::uint32_t queue_size = 0, const bool latched = false) :
     PublisherOutputBaseType
     {
       std::make_shared<routing::ROSPublication<MsgT>>(
@@ -173,7 +173,7 @@ public:
    * @warning Will throw with <code>std::runtime_error</code> if underlying publisher
    *          could not be establish a connection with ROS-master
    */
-  Publisher(Router& pb, std::string topic, std::uint32_t queue_size = 0, bool latched = false) :
+  Publisher(Router& pb, std::string topic, std::uint32_t queue_size = 0, const bool latched = false) :
     PublisherOutputBaseType
     {
       pb.advertise<MsgT>(std::move(topic), queue_size)
