@@ -138,7 +138,7 @@ private:
  * @tparam MsgT  message type
  */
 template<typename MsgT>
-class Publisher : public PublisherOutputBase<MsgT>
+class Publisher final : public PublisherOutputBase<MsgT>
 {
   /// Subscriber base type alias
   using PublisherOutputBaseType = PublisherOutputBase<MsgT>;
@@ -204,7 +204,7 @@ public:
  * @tparam MsgT  message type
  */
 template<typename MsgT>
-class MultiPublisher : public PublisherOutputBase<MsgT>
+class MultiPublisher final : public PublisherOutputBase<MsgT>
 {
   /// Subscriber base type alias
   using PublisherOutputBaseType = PublisherOutputBase<MsgT>;

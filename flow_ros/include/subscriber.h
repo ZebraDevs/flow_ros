@@ -179,7 +179,7 @@ template<typename MsgT,
          template<typename...> class PolicyTmpl,
          typename LockPolicyT = std::unique_lock<std::mutex>,
          typename MsgConstPtrContainerT = flow::DefaultContainer<message_shared_const_ptr_t<const MsgT>>>
-class Subscriber : public SubscriberPolicyBase<PolicyTmpl<message_shared_const_ptr_t<const MsgT>, LockPolicyT, MsgConstPtrContainerT>>
+class Subscriber final : public SubscriberPolicyBase<PolicyTmpl<message_shared_const_ptr_t<const MsgT>, LockPolicyT, MsgConstPtrContainerT>>
 {
   /// Subscriber base type alias
   using PolicyType = SubscriberPolicyBase<PolicyTmpl<message_shared_const_ptr_t<const MsgT>, LockPolicyT, MsgConstPtrContainerT>>;
