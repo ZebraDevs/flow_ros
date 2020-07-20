@@ -2,20 +2,20 @@
  * @copyright 2020 Fetch Robotics Inc. All rights reserved
  * @author Brian Cairl
  *
- * @file  local_subscription.h
+ * @file local_subscription.h
  */
 #ifndef FLOW_ROS_ROUTING_LOCAL_SUBSCRIPTION_H
 #define FLOW_ROS_ROUTING_LOCAL_SUBSCRIPTION_H
 
 // C++ Standard Library
+#include <cstdint>
 #include <functional>
 #include <memory>
-#include <mutex>
 #include <sstream>
 #include <string>
 #include <stdexcept>
-#include <thread>
 #include <type_traits>
+#include <utility>
 
 // ROS Bag
 #include <rosbag/message_instance.h>
@@ -29,7 +29,7 @@ namespace routing
 {
 
 /**
- * @brief Exception thrown when a message cannot be instanced
+ * @brief Exception thrown when a message cannot be instanced from <code>rosbag::MessageInstance</code>
  */
 class MessageInstanceError final : public std::exception
 {
@@ -42,6 +42,23 @@ public:
 private:
   std::string what_;
 };
+
+
+/**
+ * @brief Exception thrown when a message type does not match for a given topic
+ */
+class MessageTypeError final : public std::exception
+{
+public:
+  template <typename StringT>
+  explicit MessageTypeError(StringT&& what) : what_{std::forward<StringT>(what)} {}
+
+  const char* what() const noexcept { return what_.c_str(); }
+
+private:
+  std::string what_;
+};
+
 
 /**
  * @brief LocalSubscription base which provides basic info and erases MsgT-dependent methods
@@ -189,7 +206,6 @@ private:
   CallbackType callback_;
 };
 
-
 /**
  * @brief Holds a group of LocalSubscription objects associated with a particular topic
  */
@@ -198,9 +214,10 @@ class LocalSubscriptionGroup
 public:
   /**
    * @brief Calls all subscriber callbacks on a new message
+   *
    * @param message  message data
-   * @throws <code>std::runtime_error</code> if <code>MsgT</code> is incompatible with subscription group
-   * @note Thread safe; injection will be blocked when adding new subscription
+   *
+   * @throws <code>MessageTypeError</code> if <code>MsgT</code> is incompatible with subscription group
    */
   template<typename MsgT>
   inline void call(const message_shared_const_ptr_t<MsgT>& message) const
@@ -224,7 +241,7 @@ public:
       }
       else
       {
-        throw std::runtime_error{"Invalid message type for subscription"};
+        throw MessageTypeError{"Invalid message type for subscription"};
       }
     }
   }
@@ -233,8 +250,6 @@ public:
    * @brief Calls subscriber callback with a rosbag message instance
    *
    * @param mi  ROS bag message instance
-   *
-   * @throws <code>std::runtime_error</code> on failure to instance message
    */
   inline void inject(const ::rosbag::MessageInstance& mi) const
   {
@@ -256,8 +271,8 @@ public:
 
   /**
    * @brief Adds new subscriptions to group
+   *
    * @param sub  LocalSubscription resource
-   * @note Thread safe; injection will be blocked when adding new subscription
    */
   template<typename MsgT>
   inline void addSubscription(std::shared_ptr<LocalSubscription<MsgT>> sub)
@@ -280,7 +295,7 @@ public:
   /**
    * @brief Returns the number of held subscriptions
    */
-  inline size_t size() const
+  inline std::size_t size() const
   {
     return members_.size();
   }
