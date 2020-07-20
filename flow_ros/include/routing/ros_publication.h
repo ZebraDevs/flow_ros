@@ -28,7 +28,7 @@ namespace routing
  * @tparam MsgT  message data resource type
  */
 template<typename MsgT>
-class ROSPublication : public PublicationWrapper<MsgT>
+class ROSPublication final : public PublicationWrapper<MsgT>
 {
 public:
   /**
@@ -45,7 +45,7 @@ public:
    *
    * @param message  message data to publish
    */
-  void publish(const message_shared_ptr_t<MsgT>& message) const final
+  void publish(const message_shared_ptr_t<MsgT>& message) const override
   {
     pub_.publish(message);
   }
@@ -53,7 +53,7 @@ public:
   /**
    * @brief Returns topic associated with publication
    */
-  std::string getTopic() const final
+  std::string getTopic() const override
   {
     return pub_.getTopic();
   }
@@ -61,7 +61,7 @@ public:
   /**
    * @brief Returns number of local subscriptions connected to this LocalPublication
    */
-  std::uint32_t getNumSubscribers() const final
+  std::uint32_t getNumSubscribers() const override
   {
     return pub_.getNumSubscribers();
   }
@@ -69,7 +69,7 @@ public:
   /**
    * @brief Returns transport method (code) associated with this publisher
    */
-  TransportMethod getTransportMethod() const final
+  TransportMethod getTransportMethod() const override
   {
     return TransportMethod::ROS;
   }
@@ -79,7 +79,7 @@ public:
    * @retval true  if underlying ROS publisher is valid
    * @retval false  otherwise
    */
-  bool isValid() const final
+  bool isValid() const override
   {
     return static_cast<bool>(pub_);
   }

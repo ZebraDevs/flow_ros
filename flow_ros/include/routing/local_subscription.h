@@ -78,7 +78,7 @@ public:
 
 
 template<typename MsgT>
-class LocalSubscription :
+class LocalSubscription final :
   public LocalSubscriptionBase,
   public SubscriptionWrapper
 {
@@ -118,7 +118,7 @@ public:
    * @throws <code>std::runtime_error</code> on failure to instance message
    * @note participates in overload resolution if <code>MsgT</code> is a ROS message
    */
-  void inject(const ::rosbag::MessageInstance& mi) const final
+  void inject(const ::rosbag::MessageInstance& mi) const override
   {
     call_impl(mi);
   }
@@ -126,7 +126,7 @@ public:
   /**
    * @brief Returns topic name associated with this object
    */
-  std::string getTopic() const final
+  std::string getTopic() const override
   {
     return topic_;
   }
@@ -134,7 +134,7 @@ public:
   /**
    * @brief Returns number of local publications connected to this subscriber
    */
-  std::uint32_t getNumPublishers() const final
+  std::uint32_t getNumPublishers() const override
   {
     return 0; /*unknown*/
   }
@@ -142,7 +142,7 @@ public:
   /**
    * @brief Returns transport method (code) associated with this publisher
    */
-  TransportMethod getTransportMethod() const final
+  TransportMethod getTransportMethod() const override
   {
     return TransportMethod::LOCAL;
   }
@@ -153,7 +153,7 @@ public:
    * @retval true  if a callback has been registered to this object
    * @retval false  otherwise
    */
-  bool isValid() const final
+  bool isValid() const override
   {
     return static_cast<bool>(callback_);
   }

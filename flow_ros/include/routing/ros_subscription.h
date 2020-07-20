@@ -25,7 +25,7 @@ namespace routing
 /**
  * @brief Wrapper object for a <code>ros::Subscriber</code>
  */
-class ROSSubscription :  public SubscriptionWrapper
+class ROSSubscription final : public SubscriptionWrapper
 {
 public:
   /**
@@ -56,7 +56,7 @@ public:
   /**
    * @brief Returns transport method (code) associated with this subscriber
    */
-  TransportMethod getTransportMethod() const final
+  TransportMethod getTransportMethod() const override
   {
     return TransportMethod::ROS;
   }
@@ -66,7 +66,7 @@ public:
    * @retval true  if underlying ROS subscriber is valid
    * @retval false  otherwise
    */
-  bool isValid() const final
+  bool isValid() const override
   {
     return static_cast<bool>(sub_);
   }

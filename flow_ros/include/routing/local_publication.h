@@ -61,7 +61,7 @@ private:
  * @tparam MsgT  transported data type
  */
 template<typename MsgT>
-class LocalPublication :
+class LocalPublication final :
   public LocalPublicationBase,
   public PublicationWrapper<MsgT>
 {
@@ -84,7 +84,7 @@ public:
    *
    * @param message  message data to publish
    */
-  void publish(const message_shared_ptr_t<MsgT>& message) const final
+  void publish(const message_shared_ptr_t<MsgT>& message) const
   {
     subscribers_->call<MsgT>(message);
   }
@@ -92,7 +92,7 @@ public:
   /**
    * @brief Returns topic associated with publication
    */
-  std::string getTopic() const final
+  std::string getTopic() const override
   {
     return LocalPublicationBase::getTopic();
   }
@@ -100,7 +100,7 @@ public:
   /**
    * @brief Returns number of local subscriptions connected to this LocalPublication
    */
-  std::uint32_t getNumSubscribers() const final
+  std::uint32_t getNumSubscribers() const override
   {
     return subscribers_ ? subscribers_->size() : 0;
   }
@@ -108,7 +108,7 @@ public:
   /**
    * @brief Returns transport method (code) associated with this publisher
    */
-  TransportMethod getTransportMethod() const final
+  TransportMethod getTransportMethod() const override
   {
     return TransportMethod::LOCAL;
   }
@@ -116,7 +116,7 @@ public:
   /**
    * @brief Validation cast operator
    */
-  bool isValid() const final
+  bool isValid() const override
   {
     return static_cast<bool>(subscribers_);
   }
