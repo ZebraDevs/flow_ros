@@ -2,15 +2,15 @@
  * @copyright 2020 Fetch Robotics Inc. All rights reserved
  * @author Brian Cairl
  *
- * @file  router.h
+ * @file router.h
  */
 #ifndef FLOW_ROS_ROUTER_H
 #define FLOW_ROS_ROUTER_H
 
 // C++ Standard Library
-#include <iostream>
 #include <memory>
 #include <mutex>
+#include <ostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -83,6 +83,7 @@ public:
    */
   inline void clear()
   {
+    std::lock_guard<std::mutex> lock{connect_mutex_};
     local_subscription_mapping_.clear();
     publishers_.clear();
   }
@@ -255,8 +256,11 @@ public:
 
   /**
    * @brief Returns topic name resolved under Router namespace
+   *
    * @param topic  topic name to resolve
+   *
    * @return resolved version of \p topic
+   *
    * @throws <code>std::invalid_argument</code> if \p topic is invalid
    */
   std::string resolveName(const std::string& topic) const;
@@ -283,8 +287,10 @@ private:
 
   /**
    * @brief Router output stream operator overload
+   *
    * @param[in,out] os  output stream
    * @param router  router object
+   *
    * @return os
    */
   friend std::ostream& operator<<(std::ostream& os, const Router& router);

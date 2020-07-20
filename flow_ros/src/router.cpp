@@ -2,8 +2,7 @@
  * @copyright 2020 Fetch Robotics Inc. All rights reserved
  * @author Brian Cairl
  *
- * @file phonebook.cpp
- * @brief Implmentation for singleton default-Router object
+ * @file router.cpp
  */
 
 // C++ Standard Library
