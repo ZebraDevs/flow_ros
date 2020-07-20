@@ -1,7 +1,7 @@
 /**
  * @copyright 2020 Fetch Robotics Inc. All rights reserved
  * @author Brian Cairl
- * 
+ *
  * @file  publication.h
  */
 #ifndef FLOW_ROS_ROUTING_LOCAL_PUBLICATION_H
@@ -14,8 +14,8 @@
 
 // Flow
 #include <flow_ros/message.h>
-#include <flow_ros/routing/publication_wrapper.h>
 #include <flow_ros/routing/local_subscription.h>
+#include <flow_ros/routing/publication_wrapper.h>
 #include <flow_ros/routing/transport_info.h>
 
 
@@ -37,17 +37,12 @@ public:
    *
    * @param topic  topic name to associate with this object
    */
-  explicit LocalPublicationBase(std::string topic) :
-    topic_{std::move(topic)}
-  {}
+  explicit LocalPublicationBase(std::string topic) : topic_{std::move(topic)} {}
 
   /**
    * @brief Returns topic name associated with this object
    */
-  inline const std::string& getTopic() const
-  {
-    return topic_;
-  }
+  inline const std::string& getTopic() const { return topic_; }
 
 private:
   /// Topic name
@@ -60,10 +55,7 @@ private:
  *
  * @tparam MsgT  transported data type
  */
-template<typename MsgT>
-class LocalPublication :
-  public LocalPublicationBase,
-  public PublicationWrapper<MsgT>
+template <typename MsgT> class LocalPublication final : public LocalPublicationBase, public PublicationWrapper<MsgT>
 {
 public:
   /**
@@ -73,8 +65,8 @@ public:
    * @param subscribers  group of LocalSubscription object which will be passed published messages
    */
   LocalPublication(std::string topic, std::shared_ptr<LocalSubscriptionGroup> subscribers) :
-    LocalPublicationBase{std::move(topic)},
-    subscribers_{std::move(subscribers)}
+      LocalPublicationBase{std::move(topic)},
+      subscribers_{std::move(subscribers)}
   {}
 
   virtual ~LocalPublication() = default;
@@ -84,42 +76,27 @@ public:
    *
    * @param message  message data to publish
    */
-  void publish(const message_shared_ptr_t<MsgT>& message) const final
-  {
-    subscribers_->call<MsgT>(message);
-  }
+  void publish(const message_shared_ptr_t<MsgT>& message) const { subscribers_->call<MsgT>(message); }
 
   /**
    * @brief Returns topic associated with publication
    */
-  std::string getTopic() const final
-  {
-    return LocalPublicationBase::getTopic();
-  }
+  std::string getTopic() const override { return LocalPublicationBase::getTopic(); }
 
   /**
    * @brief Returns number of local subscriptions connected to this LocalPublication
    */
-  std::uint32_t getNumSubscribers() const final
-  {
-    return subscribers_ ? subscribers_->size() : 0;
-  }
+  std::uint32_t getNumSubscribers() const override { return subscribers_ ? subscribers_->size() : 0; }
 
   /**
    * @brief Returns transport method (code) associated with this publisher
    */
-  TransportMethod getTransportMethod() const final
-  {
-    return TransportMethod::LOCAL;
-  }
+  TransportMethod getTransportMethod() const override { return TransportMethod::LOCAL; }
 
   /**
    * @brief Validation cast operator
    */
-  bool isValid() const final
-  {
-    return static_cast<bool>(subscribers_);
-  }
+  bool isValid() const override { return static_cast<bool>(subscribers_); }
 
 private:
   /// Local subscription objects to pass published data to

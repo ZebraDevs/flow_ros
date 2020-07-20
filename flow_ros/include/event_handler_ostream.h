@@ -21,15 +21,22 @@ namespace flow_ros
  */
 inline std::ostream& operator<<(std::ostream& os, const EventSummary::State state)
 {
-  switch(state)
+  switch (state)
   {
-    case EventSummary::State::UNKNOWN            : return os << "UNKNOWN";
-    case EventSummary::State::EXECUTED           : return os << "EXECUTED";
-    case EventSummary::State::EXECUTION_BYPASSED : return os << "EXECUTION_BYPASSED";
-    case EventSummary::State::SYNC_NEEDS_RETRY   : return os << "SYNC_NEEDS_RETRY";
-    case EventSummary::State::SYNC_ABORTED       : return os << "SYNC_ABORTED";
-    case EventSummary::State::SYNC_TIMED_OUT     : return os << "SYNC_TIMED_OUT";
-    default: break;
+  case EventSummary::State::UNKNOWN:
+    return os << "UNKNOWN";
+  case EventSummary::State::EXECUTED:
+    return os << "EXECUTED";
+  case EventSummary::State::EXECUTION_BYPASSED:
+    return os << "EXECUTION_BYPASSED";
+  case EventSummary::State::SYNC_NEEDS_RETRY:
+    return os << "SYNC_NEEDS_RETRY";
+  case EventSummary::State::SYNC_ABORTED:
+    return os << "SYNC_ABORTED";
+  case EventSummary::State::SYNC_TIMED_OUT:
+    return os << "SYNC_TIMED_OUT";
+  default:
+    break;
   };
   return os << "<Invalid EventSummary::State>";
 }

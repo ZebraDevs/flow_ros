@@ -1,7 +1,7 @@
 /**
  * @copyright 2020 Fetch Robotics Inc. All rights reserved
  * @author Brian Cairl
- * 
+ *
  * @file flow_ros.h
  */
 #ifndef FLOW_ROS_FLOW_H

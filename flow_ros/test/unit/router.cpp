@@ -36,9 +36,7 @@ static void test_callback(const TestMessage::ConstPtr& msg)
 /// An object with a callback function
 struct CallbackObject
 {
-  CallbackObject(flow_ros::Router& pb, const std::string topic) :
-    callback_count_{0},
-    object_is_valid_{true}
+  CallbackObject(flow_ros::Router& pb, const std::string topic) : callback_count_{0}, object_is_valid_{true}
   {
     subscription_ = pb.subscribe<TestMessage>(topic, 1, &CallbackObject::callback, this);
   }
@@ -208,18 +206,12 @@ TEST(Router, CallPublishWithMultipleSubscribersBeforeSetup)
   TestMessage::Ptr msg{std::make_shared<TestMessage>()};
   new_p->publish(msg);
 
-  auto new_s1 = router.subscribe<TestMessage>("https://goo.gl/DkzYWB", 1,
-    [&](const TestMessage::ConstPtr& a)
-    {
-      result1 = true;
-    });
+  auto new_s1 =
+    router.subscribe<TestMessage>("https://goo.gl/DkzYWB", 1, [&](const TestMessage::ConstPtr& a) { result1 = true; });
   ASSERT_TRUE(static_cast<bool>(new_s1));
 
-  auto new_s2 = router.subscribe<TestMessage>("https://goo.gl/DkzYWB", 1,
-    [&](const TestMessage::ConstPtr& b)
-    {
-      result2 = true;
-    });
+  auto new_s2 =
+    router.subscribe<TestMessage>("https://goo.gl/DkzYWB", 1, [&](const TestMessage::ConstPtr& b) { result2 = true; });
   ASSERT_TRUE(static_cast<bool>(new_s2));
 
   EXPECT_FALSE(result1 or result2) << router;
@@ -233,18 +225,12 @@ TEST(Router, CallPublishWithMultipleSubscribersAfterSetup)
   bool result1{false};
   bool result2{false};
 
-  auto new_s1 = router.subscribe<TestMessage>("https://goo.gl/DkzYWB", 1,
-    [&](const TestMessage::ConstPtr& a)
-    {
-      result1 = true;
-    });
+  auto new_s1 =
+    router.subscribe<TestMessage>("https://goo.gl/DkzYWB", 1, [&](const TestMessage::ConstPtr& a) { result1 = true; });
   ASSERT_TRUE(static_cast<bool>(new_s1));
 
-  auto new_s2 = router.subscribe<TestMessage>("https://goo.gl/DkzYWB", 1,
-    [&](const TestMessage::ConstPtr& a)
-    {
-      result2 = true;
-    });
+  auto new_s2 =
+    router.subscribe<TestMessage>("https://goo.gl/DkzYWB", 1, [&](const TestMessage::ConstPtr& a) { result2 = true; });
   ASSERT_TRUE(static_cast<bool>(new_s2));
 
   auto new_p = router.advertise<TestMessage>("https://goo.gl/DkzYWB", 1);
@@ -265,18 +251,12 @@ TEST(Router, CallPublishWithVariedSubscribersAfterSetup)
   bool result1{false};
   bool result2{false};
 
-  auto new_s1 = router.subscribe<TestMessage>("https://goo.gl/DkzYWB", 1,
-    [&](const TestMessage::ConstPtr& a)
-    {
-      result1 = true;
-    });
+  auto new_s1 =
+    router.subscribe<TestMessage>("https://goo.gl/DkzYWB", 1, [&](const TestMessage::ConstPtr& a) { result1 = true; });
   ASSERT_TRUE(static_cast<bool>(new_s1));
 
-  auto new_s2 = router.subscribe<TestMessage>("https://goo.gl/EgiRCz", 1,
-    [&](const TestMessage::ConstPtr& a)
-    {
-      result2 = true;
-    });
+  auto new_s2 =
+    router.subscribe<TestMessage>("https://goo.gl/EgiRCz", 1, [&](const TestMessage::ConstPtr& a) { result2 = true; });
   ASSERT_TRUE(static_cast<bool>(new_s2));
 
   auto new_p = router.advertise<TestMessage>("https://goo.gl/DkzYWB", 1);
@@ -298,11 +278,7 @@ TEST(Router, InjectMessageConstPtrOnTopic)
 
   bool result1{false};
 
-  auto new_s1 = router.subscribe<TestMessage>(topic, 1,
-    [&](const TestMessage::ConstPtr&)
-    {
-      result1 = true;
-    });
+  auto new_s1 = router.subscribe<TestMessage>(topic, 1, [&](const TestMessage::ConstPtr&) { result1 = true; });
   ASSERT_TRUE(static_cast<bool>(new_s1));
 
   auto new_p = router.advertise<TestMessage>(topic, 1);
@@ -323,41 +299,30 @@ TEST(Router, ManyThreadedPubSubSameTopic)
 
   const std::string topic{"https://goo.gl/DkzYWB"};
 
-  auto new_s1 = router.subscribe<TestMessage>(topic, 1,
-    [&](const TestMessage::ConstPtr& msg)
-    {
-      ASSERT_EQ(msg.use_count(), 2);
-    });
+  auto new_s1 =
+    router.subscribe<TestMessage>(topic, 1, [&](const TestMessage::ConstPtr& msg) { ASSERT_EQ(msg.use_count(), 2); });
 
-  auto new_s2 = router.subscribe<TestMessage>(topic, 1,
-    [&](const TestMessage::ConstPtr& msg)
-    {
-      ASSERT_EQ(msg.use_count(), 2);
-    });
+  auto new_s2 =
+    router.subscribe<TestMessage>(topic, 1, [&](const TestMessage::ConstPtr& msg) { ASSERT_EQ(msg.use_count(), 2); });
 
-  auto new_s3 = router.subscribe<TestMessage>(topic, 1,
-    [&](const TestMessage::ConstPtr& msg)
-    {
-      ASSERT_EQ(msg.use_count(), 2);
-    });
+  auto new_s3 =
+    router.subscribe<TestMessage>(topic, 1, [&](const TestMessage::ConstPtr& msg) { ASSERT_EQ(msg.use_count(), 2); });
 
   // Create a bunch of publisher threads
   std::vector<std::thread> pub_threads;
   for (std::size_t idx = 0; idx < 4; idx++)
   {
-    pub_threads.emplace_back(
-      [&]()
-      {
-        auto pub = router.advertise<TestMessage>(topic, 1);
+    pub_threads.emplace_back([&]() {
+      auto pub = router.advertise<TestMessage>(topic, 1);
 
-        std::size_t jdx{0};
-        while(++jdx <= 1000)
-        {
-          TestMessage::Ptr msg{std::make_shared<TestMessage>()};
-          pub->publish(msg);
-          ASSERT_EQ(msg.use_count(), 1);
-        }
-      });
+      std::size_t jdx{0};
+      while (++jdx <= 1000)
+      {
+        TestMessage::Ptr msg{std::make_shared<TestMessage>()};
+        pub->publish(msg);
+        ASSERT_EQ(msg.use_count(), 1);
+      }
+    });
   }
 
   // Join all publisher threads

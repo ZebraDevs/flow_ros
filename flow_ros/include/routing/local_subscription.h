@@ -2,20 +2,20 @@
  * @copyright 2020 Fetch Robotics Inc. All rights reserved
  * @author Brian Cairl
  *
- * @file  local_subscription.h
+ * @file local_subscription.h
  */
 #ifndef FLOW_ROS_ROUTING_LOCAL_SUBSCRIPTION_H
 #define FLOW_ROS_ROUTING_LOCAL_SUBSCRIPTION_H
 
 // C++ Standard Library
+#include <cstdint>
 #include <functional>
 #include <memory>
-#include <mutex>
 #include <sstream>
-#include <string>
 #include <stdexcept>
-#include <thread>
+#include <string>
 #include <type_traits>
+#include <utility>
 
 // ROS Bag
 #include <rosbag/message_instance.h>
@@ -29,19 +29,34 @@ namespace routing
 {
 
 /**
- * @brief Exception thrown when a message cannot be instanced
+ * @brief Exception thrown when a message cannot be instanced from <code>rosbag::MessageInstance</code>
  */
 class MessageInstanceError final : public std::exception
 {
 public:
-  template <typename StringT>
-  explicit MessageInstanceError(StringT&& what) : what_{std::forward<StringT>(what)} {}
+  template <typename StringT> explicit MessageInstanceError(StringT&& what) : what_{std::forward<StringT>(what)} {}
 
   const char* what() const noexcept { return what_.c_str(); }
 
 private:
   std::string what_;
 };
+
+
+/**
+ * @brief Exception thrown when a message type does not match for a given topic
+ */
+class MessageTypeError final : public std::exception
+{
+public:
+  template <typename StringT> explicit MessageTypeError(StringT&& what) : what_{std::forward<StringT>(what)} {}
+
+  const char* what() const noexcept { return what_.c_str(); }
+
+private:
+  std::string what_;
+};
+
 
 /**
  * @brief LocalSubscription base which provides basic info and erases MsgT-dependent methods
@@ -60,10 +75,7 @@ public:
 };
 
 
-template<typename MsgT>
-class LocalSubscription :
-  public LocalSubscriptionBase,
-  public SubscriptionWrapper
+template <typename MsgT> class LocalSubscription final : public LocalSubscriptionBase, public SubscriptionWrapper
 {
 public:
   /**
@@ -72,10 +84,10 @@ public:
    * @param topic  topic name to associate with this object
    * @param cb  subscriber callback to associate with this object
    */
-  template<typename CallbackT>
+  template <typename CallbackT>
   LocalSubscription(std::string topic, CallbackT&& cb) :
-    topic_{std::move(topic)},
-    callback_{std::forward<CallbackT>(cb)}
+      topic_{std::move(topic)},
+      callback_{std::forward<CallbackT>(cb)}
   {}
 
   /**
@@ -88,10 +100,7 @@ public:
    *
    * @param message  message data
    */
-  inline void call(const message_shared_const_ptr_t<MsgT>& message) const
-  {
-    callback_(message);
-  }
+  inline void call(const message_shared_const_ptr_t<MsgT>& message) const { callback_(message); }
 
   /**
    * @brief Calls subscriber callback with a rosbag message instance
@@ -101,34 +110,22 @@ public:
    * @throws <code>std::runtime_error</code> on failure to instance message
    * @note participates in overload resolution if <code>MsgT</code> is a ROS message
    */
-  void inject(const ::rosbag::MessageInstance& mi) const final
-  {
-    call_impl(mi);
-  }
+  void inject(const ::rosbag::MessageInstance& mi) const override { call_impl(mi); }
 
   /**
    * @brief Returns topic name associated with this object
    */
-  std::string getTopic() const final
-  {
-    return topic_;
-  }
+  std::string getTopic() const override { return topic_; }
 
   /**
    * @brief Returns number of local publications connected to this subscriber
    */
-  std::uint32_t getNumPublishers() const final
-  {
-    return 0; /*unknown*/
-  }
+  std::uint32_t getNumPublishers() const override { return 0; /*unknown*/ }
 
   /**
    * @brief Returns transport method (code) associated with this publisher
    */
-  TransportMethod getTransportMethod() const final
-  {
-    return TransportMethod::LOCAL;
-  }
+  TransportMethod getTransportMethod() const override { return TransportMethod::LOCAL; }
 
   /**
    * @brief Checks if object is valid
@@ -136,10 +133,7 @@ public:
    * @retval true  if a callback has been registered to this object
    * @retval false  otherwise
    */
-  bool isValid() const final
-  {
-    return static_cast<bool>(callback_);
-  }
+  bool isValid() const override { return static_cast<bool>(callback_); }
 
 private:
   /**
@@ -151,7 +145,7 @@ private:
    *
    * @note participates in overload resolution if <code>MsgT</code> is a ROS message
    */
-  template<bool U = ros::message_traits::IsMessage<MsgT>::value>
+  template <bool U = ros::message_traits::IsMessage<MsgT>::value>
   inline std::enable_if_t<U> call_impl(const ::rosbag::MessageInstance& mi) const
   {
     const auto msg = mi.template instantiate<std::remove_const_t<MsgT>>();
@@ -173,7 +167,7 @@ private:
    *
    * @note participates in overload resolution if <code>MsgT</code> is NOT a ROS message
    */
-  template<bool U = ros::message_traits::IsMessage<MsgT>::value>
+  template <bool U = ros::message_traits::IsMessage<MsgT>::value>
   inline std::enable_if_t<!U> call_impl(const ::rosbag::MessageInstance&) const
   {
     throw MessageInstanceError{"Message type is not a ROS message"};
@@ -189,7 +183,6 @@ private:
   CallbackType callback_;
 };
 
-
 /**
  * @brief Holds a group of LocalSubscription objects associated with a particular topic
  */
@@ -198,12 +191,12 @@ class LocalSubscriptionGroup
 public:
   /**
    * @brief Calls all subscriber callbacks on a new message
+   *
    * @param message  message data
-   * @throws <code>std::runtime_error</code> if <code>MsgT</code> is incompatible with subscription group
-   * @note Thread safe; injection will be blocked when adding new subscription
+   *
+   * @throws <code>MessageTypeError</code> if <code>MsgT</code> is incompatible with subscription group
    */
-  template<typename MsgT>
-  inline void call(const message_shared_const_ptr_t<MsgT>& message) const
+  template <typename MsgT> inline void call(const message_shared_const_ptr_t<MsgT>& message) const
   {
     // All subscriptions are local subscriptions for the same message type
     for (auto it = members_.begin(); it != members_.end(); /*empty*/)
@@ -215,7 +208,7 @@ public:
         it = members_.erase(it);
         continue;
       }
-      
+
       const auto local_sub = std::dynamic_pointer_cast<LocalSubscription<std::add_const_t<MsgT>>>(sub);
       if (static_cast<bool>(local_sub))
       {
@@ -224,7 +217,7 @@ public:
       }
       else
       {
-        throw std::runtime_error{"Invalid message type for subscription"};
+        throw MessageTypeError{"Invalid message type for subscription"};
       }
     }
   }
@@ -233,8 +226,6 @@ public:
    * @brief Calls subscriber callback with a rosbag message instance
    *
    * @param mi  ROS bag message instance
-   *
-   * @throws <code>std::runtime_error</code> on failure to instance message
    */
   inline void inject(const ::rosbag::MessageInstance& mi) const
   {
@@ -256,11 +247,10 @@ public:
 
   /**
    * @brief Adds new subscriptions to group
+   *
    * @param sub  LocalSubscription resource
-   * @note Thread safe; injection will be blocked when adding new subscription
    */
-  template<typename MsgT>
-  inline void addSubscription(std::shared_ptr<LocalSubscription<MsgT>> sub)
+  template <typename MsgT> inline void addSubscription(std::shared_ptr<LocalSubscription<MsgT>> sub)
   {
     // Lock before adding subscription to block injection
     members_.emplace_back(std::move(sub));
@@ -272,18 +262,12 @@ public:
    * @retval true  if there are any held subscriptions
    * @retval false  otherwise
    */
-  inline operator bool() const
-  {
-    return !static_cast<bool>(members_.empty());
-  }
+  inline operator bool() const { return !static_cast<bool>(members_.empty()); }
 
   /**
    * @brief Returns the number of held subscriptions
    */
-  inline size_t size() const
-  {
-    return members_.size();
-  }
+  inline std::size_t size() const { return members_.size(); }
 
 private:
   /// Held subscriptions associated with group
