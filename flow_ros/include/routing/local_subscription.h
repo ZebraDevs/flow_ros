@@ -12,8 +12,8 @@
 #include <functional>
 #include <memory>
 #include <sstream>
-#include <string>
 #include <stdexcept>
+#include <string>
 #include <type_traits>
 #include <utility>
 
@@ -34,8 +34,7 @@ namespace routing
 class MessageInstanceError final : public std::exception
 {
 public:
-  template <typename StringT>
-  explicit MessageInstanceError(StringT&& what) : what_{std::forward<StringT>(what)} {}
+  template <typename StringT> explicit MessageInstanceError(StringT&& what) : what_{std::forward<StringT>(what)} {}
 
   const char* what() const noexcept { return what_.c_str(); }
 
@@ -50,8 +49,7 @@ private:
 class MessageTypeError final : public std::exception
 {
 public:
-  template <typename StringT>
-  explicit MessageTypeError(StringT&& what) : what_{std::forward<StringT>(what)} {}
+  template <typename StringT> explicit MessageTypeError(StringT&& what) : what_{std::forward<StringT>(what)} {}
 
   const char* what() const noexcept { return what_.c_str(); }
 
@@ -77,10 +75,7 @@ public:
 };
 
 
-template<typename MsgT>
-class LocalSubscription final :
-  public LocalSubscriptionBase,
-  public SubscriptionWrapper
+template <typename MsgT> class LocalSubscription final : public LocalSubscriptionBase, public SubscriptionWrapper
 {
 public:
   /**
@@ -89,10 +84,10 @@ public:
    * @param topic  topic name to associate with this object
    * @param cb  subscriber callback to associate with this object
    */
-  template<typename CallbackT>
+  template <typename CallbackT>
   LocalSubscription(std::string topic, CallbackT&& cb) :
-    topic_{std::move(topic)},
-    callback_{std::forward<CallbackT>(cb)}
+      topic_{std::move(topic)},
+      callback_{std::forward<CallbackT>(cb)}
   {}
 
   /**
@@ -105,10 +100,7 @@ public:
    *
    * @param message  message data
    */
-  inline void call(const message_shared_const_ptr_t<MsgT>& message) const
-  {
-    callback_(message);
-  }
+  inline void call(const message_shared_const_ptr_t<MsgT>& message) const { callback_(message); }
 
   /**
    * @brief Calls subscriber callback with a rosbag message instance
@@ -118,34 +110,22 @@ public:
    * @throws <code>std::runtime_error</code> on failure to instance message
    * @note participates in overload resolution if <code>MsgT</code> is a ROS message
    */
-  void inject(const ::rosbag::MessageInstance& mi) const override
-  {
-    call_impl(mi);
-  }
+  void inject(const ::rosbag::MessageInstance& mi) const override { call_impl(mi); }
 
   /**
    * @brief Returns topic name associated with this object
    */
-  std::string getTopic() const override
-  {
-    return topic_;
-  }
+  std::string getTopic() const override { return topic_; }
 
   /**
    * @brief Returns number of local publications connected to this subscriber
    */
-  std::uint32_t getNumPublishers() const override
-  {
-    return 0; /*unknown*/
-  }
+  std::uint32_t getNumPublishers() const override { return 0; /*unknown*/ }
 
   /**
    * @brief Returns transport method (code) associated with this publisher
    */
-  TransportMethod getTransportMethod() const override
-  {
-    return TransportMethod::LOCAL;
-  }
+  TransportMethod getTransportMethod() const override { return TransportMethod::LOCAL; }
 
   /**
    * @brief Checks if object is valid
@@ -153,10 +133,7 @@ public:
    * @retval true  if a callback has been registered to this object
    * @retval false  otherwise
    */
-  bool isValid() const override
-  {
-    return static_cast<bool>(callback_);
-  }
+  bool isValid() const override { return static_cast<bool>(callback_); }
 
 private:
   /**
@@ -168,7 +145,7 @@ private:
    *
    * @note participates in overload resolution if <code>MsgT</code> is a ROS message
    */
-  template<bool U = ros::message_traits::IsMessage<MsgT>::value>
+  template <bool U = ros::message_traits::IsMessage<MsgT>::value>
   inline std::enable_if_t<U> call_impl(const ::rosbag::MessageInstance& mi) const
   {
     const auto msg = mi.template instantiate<std::remove_const_t<MsgT>>();
@@ -190,7 +167,7 @@ private:
    *
    * @note participates in overload resolution if <code>MsgT</code> is NOT a ROS message
    */
-  template<bool U = ros::message_traits::IsMessage<MsgT>::value>
+  template <bool U = ros::message_traits::IsMessage<MsgT>::value>
   inline std::enable_if_t<!U> call_impl(const ::rosbag::MessageInstance&) const
   {
     throw MessageInstanceError{"Message type is not a ROS message"};
@@ -219,8 +196,7 @@ public:
    *
    * @throws <code>MessageTypeError</code> if <code>MsgT</code> is incompatible with subscription group
    */
-  template<typename MsgT>
-  inline void call(const message_shared_const_ptr_t<MsgT>& message) const
+  template <typename MsgT> inline void call(const message_shared_const_ptr_t<MsgT>& message) const
   {
     // All subscriptions are local subscriptions for the same message type
     for (auto it = members_.begin(); it != members_.end(); /*empty*/)
@@ -232,7 +208,7 @@ public:
         it = members_.erase(it);
         continue;
       }
-      
+
       const auto local_sub = std::dynamic_pointer_cast<LocalSubscription<std::add_const_t<MsgT>>>(sub);
       if (static_cast<bool>(local_sub))
       {
@@ -274,8 +250,7 @@ public:
    *
    * @param sub  LocalSubscription resource
    */
-  template<typename MsgT>
-  inline void addSubscription(std::shared_ptr<LocalSubscription<MsgT>> sub)
+  template <typename MsgT> inline void addSubscription(std::shared_ptr<LocalSubscription<MsgT>> sub)
   {
     // Lock before adding subscription to block injection
     members_.emplace_back(std::move(sub));
@@ -287,18 +262,12 @@ public:
    * @retval true  if there are any held subscriptions
    * @retval false  otherwise
    */
-  inline operator bool() const
-  {
-    return !static_cast<bool>(members_.empty());
-  }
+  inline operator bool() const { return !static_cast<bool>(members_.empty()); }
 
   /**
    * @brief Returns the number of held subscriptions
    */
-  inline std::size_t size() const
-  {
-    return members_.size();
-  }
+  inline std::size_t size() const { return members_.size(); }
 
 private:
   /// Held subscriptions associated with group

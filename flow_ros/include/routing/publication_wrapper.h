@@ -23,8 +23,7 @@ namespace routing
 /**
  * @brief CRTP-base for message publishing objects
  */
-template<typename MsgT>
-class PublicationWrapper
+template <typename MsgT> class PublicationWrapper
 {
 public:
   virtual ~PublicationWrapper() = default;
@@ -54,10 +53,7 @@ public:
   /**
    * @brief Returns transport direction (code) associated with this publication
    */
-  static constexpr Direction getTransportDirection()
-  {
-    return Direction::OUTBOUND;
-  }
+  static constexpr Direction getTransportDirection() { return Direction::OUTBOUND; }
 
   /**
    * @brief Validity check
@@ -67,10 +63,7 @@ public:
   /**
    * @brief Validity check cast
    */
-  virtual operator bool() const
-  {
-    return isValid();
-  };
+  virtual operator bool() const { return isValid(); };
 };
 
 }  // namespace routing

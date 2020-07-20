@@ -46,10 +46,7 @@ public:
   /**
    * @brief Returns transport direction (code) associated with this subscription
    */
-  static constexpr Direction getTransportDirection()
-  {
-    return Direction::INBOUND;
-  }
+  static constexpr Direction getTransportDirection() { return Direction::INBOUND; }
 
   /**
    * @brief Validity check
@@ -59,10 +56,7 @@ public:
   /**
    * @brief Validity check cast
    */
-  virtual operator bool() const
-  {
-    return isValid();
-  };
+  virtual operator bool() const { return isValid(); };
 };
 
 }  // namespace routing

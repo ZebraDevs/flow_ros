@@ -1,7 +1,7 @@
 /**
  * @copyright 2020 Fetch Robotics Inc. All rights reserved
  * @author Brian Cairl
- * 
+ *
  * @file phonebook.cpp
  * @brief Implmentation for singleton default-Router object
  */
@@ -9,8 +9,8 @@
 // C++ Standard Library
 #include <iostream>
 #include <memory>
-#include <string>
 #include <stdexcept>
+#include <string>
 #include <thread>
 
 // Flow
@@ -19,8 +19,7 @@
 namespace flow_ros
 {
 
-Router::Router(std::string ns) :
-  namespace_{std::move(ns)}
+Router::Router(std::string ns) : namespace_{std::move(ns)}
 {
   while (!namespace_.empty() and namespace_.back() == '/')
   {
@@ -106,17 +105,20 @@ std::ostream& operator<<(std::ostream& os, const Router& router)
 {
   os << router.getNamespace() << "\n";
 
-  os << std::setw(20) << "  Known Publications:" << "\n";
+  os << std::setw(20) << "  Known Publications:"
+     << "\n";
   for (const auto pub : router.publishers_)
   {
     os << std::setw(10) << ":> " << pub->getTopic() << "\n";
   }
 
-  os << std::setw(20) << "  Known Subscriptions:" << "\n";
+  os << std::setw(20) << "  Known Subscriptions:"
+     << "\n";
   for (const auto sub : router.local_subscription_mapping_)
   {
     os << std::setw(10) << ":> " << sub.first << " (";
-    os << sub.second->size() << " subscribed)" << "\n";
+    os << sub.second->size() << " subscribed)"
+       << "\n";
   }
 
   return os;

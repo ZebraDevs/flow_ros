@@ -51,12 +51,7 @@ TEST(PublisherLocal, PublishSingleInvalid)
   flow_ros::Publisher<TestMessage> pub{router, "topic", 1};
 
   std::size_t counter = 0;
-  auto sub = router.subscribe<TestMessage>(
-    "topic", 1,
-    [&counter](const TestMessage::ConstPtr& msg)
-    {
-      ++counter;
-    });
+  auto sub = router.subscribe<TestMessage>("topic", 1, [&counter](const TestMessage::ConstPtr& msg) { ++counter; });
 
   pub.publish(nullptr);
 
@@ -71,12 +66,7 @@ TEST(PublisherLocal, PublishSingleValid)
   flow_ros::Publisher<TestMessage> pub{router, "topic", 1};
 
   std::size_t counter = 0;
-  auto sub = router.subscribe<TestMessage>(
-    "topic", 1,
-    [&counter](const TestMessage::ConstPtr& msg)
-    {
-      ++counter;
-    });
+  auto sub = router.subscribe<TestMessage>("topic", 1, [&counter](const TestMessage::ConstPtr& msg) { ++counter; });
 
   pub.publish(std::make_shared<TestMessage>());
 
@@ -92,11 +82,7 @@ TEST(PublisherLocal, PublishMultiValid)
 
   std::vector<TestMessage::ConstPtr> sub_msgs;
   auto sub = router.subscribe<TestMessage>(
-    "topic", 1,
-    [&sub_msgs](const TestMessage::ConstPtr& msg)
-    {
-      sub_msgs.emplace_back(msg);
-    });
+    "topic", 1, [&sub_msgs](const TestMessage::ConstPtr& msg) { sub_msgs.emplace_back(msg); });
 
   const std::vector<TestMessage::Ptr> pub_msgs{
     std::make_shared<TestMessage>(),

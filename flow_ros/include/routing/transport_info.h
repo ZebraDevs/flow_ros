@@ -22,10 +22,10 @@ namespace routing
  */
 enum class TransportMethod : int
 {
-  UNKNOWN, ///< Unknown transport method (default)
-  MULTI,   ///< Messages are published over multiple connections
-  LOCAL,   ///< Message is published over a local connection (Router)
-  ROS,     ///< ROS messaging publication
+  UNKNOWN,  ///< Unknown transport method (default)
+  MULTI,  ///< Messages are published over multiple connections
+  LOCAL,  ///< Message is published over a local connection (Router)
+  ROS,  ///< ROS messaging publication
 };
 
 
@@ -36,7 +36,7 @@ enum class Direction : int
 {
   UNKNOWN,  ///< Unknown transport direction
   INBOUND,  ///< Inbound transport direction
-  OUTBOUND, ///< Outbound transport direction
+  OUTBOUND,  ///< Outbound transport direction
 };
 
 
@@ -50,16 +50,16 @@ inline std::ostream& operator<<(std::ostream& os, const TransportMethod& transpo
 {
   switch (transport)
   {
-    case TransportMethod::UNKNOWN:
-      return os << "UNKNOWN";
-    case TransportMethod::MULTI:
-      return os << "MULTI";
-    case TransportMethod::LOCAL:
-      return os << "LOCAL";
-    case TransportMethod::ROS:
-      return os << "ROS";
-    default:
-      return os;
+  case TransportMethod::UNKNOWN:
+    return os << "UNKNOWN";
+  case TransportMethod::MULTI:
+    return os << "MULTI";
+  case TransportMethod::LOCAL:
+    return os << "LOCAL";
+  case TransportMethod::ROS:
+    return os << "ROS";
+  default:
+    return os;
   }
 }
 
@@ -74,14 +74,14 @@ inline std::ostream& operator<<(std::ostream& os, const Direction& direction)
 {
   switch (direction)
   {
-    case Direction::UNKNOWN:
-      return os << "UNKNOWN";
-    case Direction::INBOUND:
-      return os << "INBOUND";
-    case Direction::OUTBOUND:
-      return os << "OUTBOUND";
-    default:
-      return os;
+  case Direction::UNKNOWN:
+    return os << "UNKNOWN";
+  case Direction::INBOUND:
+    return os << "INBOUND";
+  case Direction::OUTBOUND:
+    return os << "OUTBOUND";
+  default:
+    return os;
   }
 }
 

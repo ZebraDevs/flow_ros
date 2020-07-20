@@ -1,7 +1,7 @@
 /**
  * @copyright 2020 Fetch Robotics Inc. All rights reserved
  * @author Brian Cairl
- * 
+ *
  * @file  message.h
  */
 #ifndef FLOW_ROS_MESSAGE_H
@@ -9,15 +9,15 @@
 
 // C++ Standard Library
 #include <memory>
-#include <vector>
 #include <type_traits>
+#include <vector>
 
 // Boost (ROS message Ptr/ConstPtr)
 #include <boost/shared_ptr.hpp>
 
 // ROS
-#include <ros/time.h>
 #include <ros/message_traits.h>
+#include <ros/time.h>
 
 // Flow
 #include <flow/dispatch.h>
@@ -26,8 +26,7 @@ namespace flow_ros
 {
 
 /// Checks if object is a ROS message
-template <typename MsgT>
-constexpr bool is_message_v = ros::message_traits::IsMessage<std::remove_const_t<MsgT>>::value;
+template <typename MsgT> constexpr bool is_message_v = ros::message_traits::IsMessage<std::remove_const_t<MsgT>>::value;
 
 /**
  * @brief Traits object used to select correct shared_ptr wrapper type
@@ -35,8 +34,7 @@ constexpr bool is_message_v = ros::message_traits::IsMessage<std::remove_const_t
  * @tparam MsgT  message type
  * @tparam IS_ROS_MESSAGE  [DO NOT SUPPLY THIS ARGUMENT] (defaulted) to see if MsgT is a ROS message
  */
-template<typename MsgT, bool IS_ROS_MESSAGE = is_message_v<MsgT>>
-struct MessageSharedPtrType
+template <typename MsgT, bool IS_ROS_MESSAGE = is_message_v<MsgT>> struct MessageSharedPtrType
 {
   using type = std::shared_ptr<MsgT>;
 };
@@ -48,8 +46,7 @@ struct MessageSharedPtrType
  * @tparam MsgT  message type
  * @tparam IS_ROS_MESSAGE  [DO NOT SUPPLY THIS ARGUMENT] (defaulted) to see if MsgT is a ROS message
  */
-template<typename MsgT, bool IS_ROS_MESSAGE = is_message_v<MsgT>>
-struct MessageSharedConstPtrType
+template <typename MsgT, bool IS_ROS_MESSAGE = is_message_v<MsgT>> struct MessageSharedConstPtrType
 {
   using type = std::shared_ptr<const std::remove_const_t<MsgT>>;
 };
@@ -59,8 +56,7 @@ struct MessageSharedConstPtrType
  * @copydoc MessageSharedPtrType
  * @note Specialization for ROS messages
  */
-template<typename MsgT>
-struct MessageSharedPtrType<MsgT, true>
+template <typename MsgT> struct MessageSharedPtrType<MsgT, true>
 {
   using type = boost::shared_ptr<MsgT>;
 };
@@ -70,21 +66,18 @@ struct MessageSharedPtrType<MsgT, true>
  * @copydoc MessageSharedConstPtrType
  * @note Specialization for ROS messages
  */
-template<typename MsgT>
-struct MessageSharedConstPtrType<MsgT, true>
+template <typename MsgT> struct MessageSharedConstPtrType<MsgT, true>
 {
   using type = boost::shared_ptr<const std::remove_const_t<MsgT>>;
 };
 
 
 /// Extracts appropriate shared_ptr wrapper type for <code>MsgT</code>
-template <typename MsgT>
-using message_shared_ptr_t = typename MessageSharedPtrType<MsgT>::type;
+template <typename MsgT> using message_shared_ptr_t = typename MessageSharedPtrType<MsgT>::type;
 
 
 /// Extracts appropriate shared_ptr wrapper type for <code>MsgT</code>
-template <typename MsgT>
-using message_shared_const_ptr_t = typename MessageSharedConstPtrType<MsgT>::type;
+template <typename MsgT> using message_shared_const_ptr_t = typename MessageSharedConstPtrType<MsgT>::type;
 
 
 /**
@@ -94,13 +87,9 @@ using message_shared_const_ptr_t = typename MessageSharedConstPtrType<MsgT>::typ
  *
  * @note May be specialized for any message which time stamp info
  */
-template<typename MsgT>
-struct StampSetter
+template <typename MsgT> struct StampSetter
 {
-  inline void operator()(MsgT& msg, const ros::Time& stamp) const
-  {
-    msg.header.stamp = stamp;
-  }
+  inline void operator()(MsgT& msg, const ros::Time& stamp) const { msg.header.stamp = stamp; }
 };
 
 
@@ -112,8 +101,7 @@ struct StampSetter
  * @param msg  message
  * @param stamp  stamp to set
  */
-template<typename MsgT>
-inline void set_stamp(MsgT&& msg, const ros::Time& stamp)
+template <typename MsgT> inline void set_stamp(MsgT&& msg, const ros::Time& stamp)
 {
   StampSetter<MsgT>{}(std::forward<MsgT>(msg), stamp);
 }
@@ -126,14 +114,15 @@ struct DefaultMessageDispatchAccess
   /**
    * @brief Returns message stamp, assuming a <code>header.stamp</code> field exists
    */
-  template <typename MsgPtrT>
-  inline static const ros::Time& stamp(const MsgPtrT& message) { return message->header.stamp; }
+  template <typename MsgPtrT> inline static const ros::Time& stamp(const MsgPtrT& message)
+  {
+    return message->header.stamp;
+  }
 
   /**
    * @brief Returns reference to message resource pointer (pass-through)
    */
-  template <typename MsgPtrT>
-  inline static const MsgPtrT& value(const MsgPtrT& message) { return message; }
+  template <typename MsgPtrT> inline static const MsgPtrT& value(const MsgPtrT& message) { return message; }
 };
 
 }  // namespace flow_ros
@@ -145,8 +134,7 @@ namespace flow
 /**
  * @brief ROS timing type traits for associated message Dispatch
  */
-template<>
-struct StampTraits<ros::Time>
+template <> struct StampTraits<ros::Time>
 {
   /// Stamp type
   using stamp_type = ros::Time;
@@ -165,8 +153,7 @@ struct StampTraits<ros::Time>
 /**
  * @brief Default ROS message Dispatch traits
  */
-template<typename MsgT>
-struct DispatchTraits<boost::shared_ptr<const MsgT>>
+template <typename MsgT> struct DispatchTraits<boost::shared_ptr<const MsgT>>
 {
   /// Dispatch stamp type
   using stamp_type = ros::Time;
@@ -179,8 +166,7 @@ struct DispatchTraits<boost::shared_ptr<const MsgT>>
 /**
  * @brief Default ROS message-like Dispatch traits
  */
-template<typename MsgT>
-struct DispatchTraits<std::shared_ptr<const MsgT>>
+template <typename MsgT> struct DispatchTraits<std::shared_ptr<const MsgT>>
 {
   /// Dispatch stamp type
   using stamp_type = ros::Time;
@@ -195,8 +181,8 @@ struct DispatchTraits<std::shared_ptr<const MsgT>>
  *
  * @tparam MsgT  message type
  */
-template<typename MsgT>
-struct DispatchAccess : ::flow_ros::DefaultMessageDispatchAccess {};
+template <typename MsgT> struct DispatchAccess : ::flow_ros::DefaultMessageDispatchAccess
+{};
 
 }  // namespace flow
 

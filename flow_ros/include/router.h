@@ -1,7 +1,7 @@
 /**
  * @copyright 2020 Fetch Robotics Inc. All rights reserved
  * @author Brian Cairl
- * 
+ *
  * @file  router.h
  */
 #ifndef FLOW_ROS_ROUTER_H
@@ -12,8 +12,8 @@
 #include <memory>
 #include <mutex>
 #include <sstream>
-#include <string>
 #include <stdexcept>
+#include <string>
 #include <thread>
 #include <type_traits>
 #include <unordered_map>
@@ -24,10 +24,10 @@
 
 // Flow
 #include <flow_ros/message.h>
-#include <flow_ros/routing/publication_wrapper.h>
-#include <flow_ros/routing/subscription_wrapper.h>
 #include <flow_ros/routing/local_publication.h>
 #include <flow_ros/routing/local_subscription.h>
+#include <flow_ros/routing/publication_wrapper.h>
+#include <flow_ros/routing/subscription_wrapper.h>
 
 namespace flow_ros
 {
@@ -38,8 +38,7 @@ namespace flow_ros
 class UnknownSubscriptionError final : public std::exception
 {
 public:
-  template <typename StringT>
-  explicit UnknownSubscriptionError(StringT&& what) : what_{std::forward<StringT>(what)} {}
+  template <typename StringT> explicit UnknownSubscriptionError(StringT&& what) : what_{std::forward<StringT>(what)} {}
 
   const char* what() const noexcept { return what_.c_str(); }
 
@@ -58,12 +57,10 @@ private:
 class Router
 {
   /// Alias for local publication type
-  template<typename MsgT>
-  using publication_t = routing::LocalPublication<MsgT>;
+  template <typename MsgT> using publication_t = routing::LocalPublication<MsgT>;
 
   /// Alias for local subscription type
-  template<typename MsgT>
-  using subscription_t = routing::LocalSubscription<std::add_const_t<MsgT>>;
+  template <typename MsgT> using subscription_t = routing::LocalSubscription<std::add_const_t<MsgT>>;
 
   /// Alias for subscription group resource
   using SubscriptionGroupPtr = std::shared_ptr<routing::LocalSubscriptionGroup>;
@@ -79,10 +76,7 @@ public:
   /**
    * @brief Returns name associated with this Router
    */
-  inline const std::string& getNamespace() const
-  {
-    return namespace_;
-  }
+  inline const std::string& getNamespace() const { return namespace_; }
 
   /**
    * @brief Clears all known subscriptions and publications
@@ -104,24 +98,21 @@ public:
    *
    * @return new Publication resource
    */
-  template<typename MsgT>
-  inline std::shared_ptr<publication_t<MsgT>> advertise(const std::string& topic,
-                                                        const std::uint32_t queue_size,
-                                                        bool latch = false)
+  template <typename MsgT>
+  inline std::shared_ptr<publication_t<MsgT>>
+  advertise(const std::string& topic, const std::uint32_t queue_size, bool latch = false)
   {
     // Lock when adding new connection
     std::lock_guard<std::mutex> lock{connect_mutex_};
 
     // Create new publisher resource tied to a subscription group
-    const auto pub =
-      [this, &topic]() -> std::shared_ptr<publication_t<MsgT>>
-      {
-        // Get resolved topic name
-        const std::string resolved_topic = resolveName(topic);
+    const auto pub = [this, &topic]() -> std::shared_ptr<publication_t<MsgT>> {
+      // Get resolved topic name
+      const std::string resolved_topic = resolveName(topic);
 
-        // Create pub associated with appropriate subscription group
-        return std::make_shared<publication_t<MsgT>>(resolved_topic, resolveSubscriptionGroup(resolved_topic));
-      }();
+      // Create pub associated with appropriate subscription group
+      return std::make_shared<publication_t<MsgT>>(resolved_topic, resolveSubscriptionGroup(resolved_topic));
+    }();
 
     // Add to held publishers
     publishers_.emplace_back(pub);
@@ -139,10 +130,9 @@ public:
    *
    * @return new Subscription resource
    */
-  template<typename MsgT, typename CallbackT>
-  inline std::shared_ptr<subscription_t<MsgT>> subscribe(const std::string& topic,
-                                                         const std::uint32_t queue_size,
-                                                         CallbackT&& callback)
+  template <typename MsgT, typename CallbackT>
+  inline std::shared_ptr<subscription_t<MsgT>>
+  subscribe(const std::string& topic, const std::uint32_t queue_size, CallbackT&& callback)
   {
     // Lock when adding new connection
     std::lock_guard<std::mutex> lock{connect_mutex_};
@@ -178,16 +168,14 @@ public:
    *
    * @return new Subscription resource
    */
-  template<typename MsgT, typename MethodT, typename ThisT>
-  inline std::shared_ptr<subscription_t<MsgT>> subscribe(const std::string& topic,
-                                                         const std::uint32_t queue_size,
-                                                         MethodT&& m_fn_ptr,
-                                                         ThisT&& this_ptr)
+  template <typename MsgT, typename MethodT, typename ThisT>
+  inline std::shared_ptr<subscription_t<MsgT>>
+  subscribe(const std::string& topic, const std::uint32_t queue_size, MethodT&& m_fn_ptr, ThisT&& this_ptr)
   {
-    return subscribe<MsgT>(topic, queue_size,
-                           std::bind(std::forward<MethodT>(m_fn_ptr),
-                                     std::forward<ThisT>(this_ptr),
-                                     std::placeholders::_1));
+    return subscribe<MsgT>(
+      topic,
+      queue_size,
+      std::bind(std::forward<MethodT>(m_fn_ptr), std::forward<ThisT>(this_ptr), std::placeholders::_1));
   }
 
   /**
@@ -201,7 +189,7 @@ public:
    *
    * @throws <code>UnknownSubscriptionError</code> if there is no subscription for given topic
    */
-  template<typename MsgT, template<typename> class SharedPtrTmpl>
+  template <typename MsgT, template <typename> class SharedPtrTmpl>
   inline void inject(const std::string& topic, const SharedPtrTmpl<MsgT>& msg)
   {
     // Lock on connection lookup
@@ -216,7 +204,7 @@ public:
     if (itr == local_subscription_mapping_.end())
     {
       std::ostringstream oss;
-      oss << "Unknown subscription for topic: " << topic << " (resolved to=" << resolved_topic << ")"; 
+      oss << "Unknown subscription for topic: " << topic << " (resolved to=" << resolved_topic << ")";
       throw UnknownSubscriptionError{oss.str()};
     }
     else
@@ -245,7 +233,7 @@ public:
     if (itr == local_subscription_mapping_.end())
     {
       std::ostringstream oss;
-      oss << "Unknown subscription for message instance with topic: " << mi.getTopic(); 
+      oss << "Unknown subscription for message instance with topic: " << mi.getTopic();
       throw UnknownSubscriptionError{oss.str()};
     }
     else

@@ -17,8 +17,8 @@
 #include <vector>
 
 // Flow
-#include <flow/synchronizer.h>
 #include <flow/impl/apply.hpp>
+#include <flow/synchronizer.h>
 #include <flow_ros/impl/event_handler.hpp>
 #include <flow_ros/publisher.h>
 #include <flow_ros/subscriber.h>
@@ -36,12 +36,12 @@ struct EventSummary
    */
   enum class State
   {
-    UNKNOWN,             //< unkown/unspecified state
-    EXECUTED,            //< handler synchronized inputs and produced output(s)
+    UNKNOWN,  //< unkown/unspecified state
+    EXECUTED,  //< handler synchronized inputs and produced output(s)
     EXECUTION_BYPASSED,  //< handler synchronized inputs but did not run event callback
-    SYNC_NEEDS_RETRY,    //< did not input sync before execution; needs retry
-    SYNC_ABORTED,        //< aborted input sync before execution
-    SYNC_TIMED_OUT,      //< timed out while waiting for data sync
+    SYNC_NEEDS_RETRY,  //< did not input sync before execution; needs retry
+    SYNC_ABORTED,  //< aborted input sync before execution
+    SYNC_TIMED_OUT,  //< timed out while waiting for data sync
   };
 
   /**
@@ -51,21 +51,23 @@ struct EventSummary
    * @param _execution_timeout  system-time point for execution timeout
    */
   EventSummary(const flow::Result<ros::Time>& _result, const std::chrono::steady_clock::time_point _execution_timeout) :
-    state{
-      [&rs=_result.state]
-      {
+      state{[& rs = _result.state] {
         switch (rs)
         {
-          case flow::State::PRIMED:  return EventSummary::State::EXECUTED;
-          case flow::State::RETRY:   return EventSummary::State::SYNC_NEEDS_RETRY;
-          case flow::State::ABORT:   return EventSummary::State::SYNC_ABORTED;
-          case flow::State::TIMEOUT: return EventSummary::State::SYNC_TIMED_OUT;
-          default:                   return EventSummary::State::UNKNOWN;
+        case flow::State::PRIMED:
+          return EventSummary::State::EXECUTED;
+        case flow::State::RETRY:
+          return EventSummary::State::SYNC_NEEDS_RETRY;
+        case flow::State::ABORT:
+          return EventSummary::State::SYNC_ABORTED;
+        case flow::State::TIMEOUT:
+          return EventSummary::State::SYNC_TIMED_OUT;
+        default:
+          return EventSummary::State::UNKNOWN;
         }
-      }()
-    },
-    range{_result.range},
-    execution_timeout{_execution_timeout}
+      }()},
+      range{_result.range},
+      execution_timeout{_execution_timeout}
   {}
 
   /// Event state
@@ -92,8 +94,8 @@ public:
    *
    * @return summary of event states
    */
-  virtual EventSummary update(std::chrono::steady_clock::time_point timeout =
-                                std::chrono::steady_clock::time_point::max()) = 0;
+  virtual EventSummary
+  update(std::chrono::steady_clock::time_point timeout = std::chrono::steady_clock::time_point::max()) = 0;
 
   /**
    * @brief Checks what synchronization result would be with current data
@@ -146,8 +148,7 @@ public:
  *
  * @tparam DispatchT  message dispatch type
  */
-template<typename DispatchT>
-struct DefaultOutputContainerTypeInfo
+template <typename DispatchT> struct DefaultOutputContainerTypeInfo
 {
   /**
    * @brief Output container type
@@ -162,10 +163,7 @@ struct DefaultOutputContainerTypeInfo
   /**
    * @brief Returns an appropriate container output iterator
    */
-  inline static output_iterator_type get_output_iterator(Container& c)
-  {
-    return std::back_inserter(c);
-  }
+  inline static output_iterator_type get_output_iterator(Container& c) { return std::back_inserter(c); }
 };
 
 
@@ -177,9 +175,10 @@ struct DefaultOutputContainerTypeInfo
  * @tparam DispatchContainerT  a container type description class; specifies what type of container to use when
  &                             capturing messages, and how to fill that container using an output iterator
  */
-template<typename PublisherTuple,
-         typename SubscriberTuple,
-         template<typename> class OutputContainerTypeInfoTmpl = DefaultOutputContainerTypeInfo>
+template <
+  typename PublisherTuple,
+  typename SubscriberTuple,
+  template <typename> class OutputContainerTypeInfoTmpl = DefaultOutputContainerTypeInfo>
 class EventHandler final : public EventHandlerBase
 {
 public:
@@ -195,7 +194,7 @@ public:
    *        Message type returned from event callback. If:
    *        - <code>PublisherTuple</code> specifies a single output, then this is a
    *          <code>OutputMsgT::Ptr</code> associated with that publisher
-    *       - <code>PublisherTuple</code> specifies multiple outputs, then this is a
+   *       - <code>PublisherTuple</code> specifies multiple outputs, then this is a
    *          <code>std::tuple<Output0MsgT::Ptr, ... , OutputNMsgT::Ptr></code> associated
    *          with those publishers in the order specified by <code>PublisherTuple</code>.
    */
@@ -229,39 +228,36 @@ public:
      * @brief Event callback constructor
      * @info allow implicit cast from invokable type
      */
-    template<typename CallbackT>
+    template <typename CallbackT>
     Callbacks(CallbackT&& _callback) :
-      event_callback{std::forward<CallbackT>(_callback)},
-      pre_execute_callback{[](EventHandlerBase&, const Input&, const EventSummary&) -> bool { return true;}}
+        event_callback{std::forward<CallbackT>(_callback)},
+        pre_execute_callback{[](EventHandlerBase&, const Input&, const EventSummary&) -> bool { return true; }}
     {}
 
     /**
      * @brief Full-callback constructor
      */
-    template<typename EventCallbackT, typename PreExecuteCallbackT>
-    Callbacks(EventCallbackT&& _event_callback,
-              PreExecuteCallbackT&& _pre_execute_callback) :
-      event_callback{std::forward<EventCallbackT>(_event_callback)},
-      pre_execute_callback{std::forward<PreExecuteCallbackT>(_pre_execute_callback)}
+    template <typename EventCallbackT, typename PreExecuteCallbackT>
+    Callbacks(EventCallbackT&& _event_callback, PreExecuteCallbackT&& _pre_execute_callback) :
+        event_callback{std::forward<EventCallbackT>(_event_callback)},
+        pre_execute_callback{std::forward<PreExecuteCallbackT>(_pre_execute_callback)}
     {}
   };
 
   /**
    * @brief Required setup constructor
    *
-   * @param callbacks  callback to run when all required inputs have been captured, and optional callbacks to handle abort/retry
+   * @param callbacks  callback to run when all required inputs have been captured, and optional callbacks to handle
+   * abort/retry
    * @param publishers  message output channel resources
    * @param subscribers  message input channel resources
    */
-  EventHandler(Callbacks callbacks,
-               PublisherPtrTuple publishers,
-               SubscriberPtrTuple subscribers) :
-    callbacks_{std::move(callbacks)},
-    publishers_{std::move(publishers)},
-    subscribers_{std::move(subscribers)},
-    lower_bound_stamp_{ros::TIME_MIN}
-  {
-  }
+  EventHandler(Callbacks callbacks, PublisherPtrTuple publishers, SubscriberPtrTuple subscribers) :
+      callbacks_{std::move(callbacks)},
+      publishers_{std::move(publishers)},
+      subscribers_{std::move(subscribers)},
+      lower_bound_stamp_{ros::TIME_MIN}
+  {}
 
   /**
    * @brief Destructor
@@ -274,8 +270,7 @@ public:
   EventSummary dry_update() override
   {
     // Get synchronized messages
-    const auto dry_update_result =
-      flow::Synchronizer::dry_capture(detail::forward_as_deref_tuple(subscribers_));
+    const auto dry_update_result = flow::Synchronizer::dry_capture(detail::forward_as_deref_tuple(subscribers_));
 
     // Initialize event summary from synchronizer result
     return EventSummary{dry_update_result, std::chrono::steady_clock::time_point::max()};
@@ -293,16 +288,17 @@ public:
    *
    * @return summary of event states
    */
-  EventSummary update(const std::chrono::steady_clock::time_point timeout = std::chrono::steady_clock::time_point::max()) override
+  EventSummary
+  update(const std::chrono::steady_clock::time_point timeout = std::chrono::steady_clock::time_point::max()) override
   {
     Input sync_inputs;
 
     // Get synchronized messages
-    const auto sync_result =
-      flow::Synchronizer::capture(detail::forward_as_deref_tuple(subscribers_),
-                                  detail::get_ouput_iterators<OutputContainerTypeInfoTmpl, SubscriberTuple>(sync_inputs),
-                                  lower_bound_stamp_,
-                                  timeout);
+    const auto sync_result = flow::Synchronizer::capture(
+      detail::forward_as_deref_tuple(subscribers_),
+      detail::get_ouput_iterators<OutputContainerTypeInfoTmpl, SubscriberTuple>(sync_inputs),
+      lower_bound_stamp_,
+      timeout);
 
     // Update lower-bound sync time
     if (sync_result.range and sync_result.state != ::flow::State::RETRY)

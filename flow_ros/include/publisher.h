@@ -63,33 +63,23 @@ public:
  *
  * @tparam MsgT  Message type
  */
-template<typename MsgT>
-class PublisherOutputBase : public PublisherBase
+template <typename MsgT> class PublisherOutputBase : public PublisherBase
 {
 public:
   /**
    * @brief Returns topic associated with publication
    */
-  std::string getTopic() const final
-  {
-    return publication_->getTopic();
-  }
+  std::string getTopic() const final { return publication_->getTopic(); }
 
   /**
    * @brief Returns number of local subscriptions connected to this publisher
    */
-  std::uint32_t getNumSubscribers() const final
-  {
-    return publication_->getNumSubscribers();
-  }
+  std::uint32_t getNumSubscribers() const final { return publication_->getNumSubscribers(); }
 
   /**
    * @brief Returns transport method (code) associated with this publisher
    */
-  routing::TransportMethod getTransportMethod() const final
-  {
-    return publication_->getTransportMethod();
-  }
+  routing::TransportMethod getTransportMethod() const final { return publication_->getTransportMethod(); }
 
   /**
    * @brief Returns transport direction (code) associated with this publisher
@@ -102,29 +92,21 @@ public:
   /**
    * @brief Validation cast operator
    */
-  bool isValid() const final
-  {
-    return publication_->isValid();
-  }
+  bool isValid() const final { return publication_->isValid(); }
 
 protected:
   /**
    * @brief Publication setup constructor (generic)
    * @param pub  publication resource
    */
-  explicit PublisherOutputBase(std::shared_ptr<routing::PublicationWrapper<MsgT>> pub) :
-    publication_{std::move(pub)}
-  {}
+  explicit PublisherOutputBase(std::shared_ptr<routing::PublicationWrapper<MsgT>> pub) : publication_{std::move(pub)} {}
 
   /**
    * @brief Call all held subscriber callbacks on message being published
    *
    * @param message  message data to publish
    */
-  inline void publish(const message_shared_ptr_t<MsgT>& message) const
-  {
-    publication_->publish(message);
-  }
+  inline void publish(const message_shared_ptr_t<MsgT>& message) const { publication_->publish(message); }
 
 private:
   /// Message publisher
@@ -137,11 +119,11 @@ private:
  *
  * @tparam MsgT  message type
  */
-template<typename MsgT>
-class Publisher final : public PublisherOutputBase<MsgT>
+template <typename MsgT> class Publisher final : public PublisherOutputBase<MsgT>
 {
   /// Subscriber base type alias
   using PublisherOutputBaseType = PublisherOutputBase<MsgT>;
+
 public:
   /**
    * @brief <code>ros::NodeHandle</code> setup constructor (extra-node messaging)
@@ -155,11 +137,8 @@ public:
    *          could not be establish a connection with ROS-master
    */
   Publisher(ros::NodeHandle& nh, std::string topic, std::uint32_t queue_size = 0, const bool latched = false) :
-    PublisherOutputBaseType
-    {
-      std::make_shared<routing::ROSPublication<MsgT>>(
-        nh.advertise<MsgT>(std::move(topic), queue_size, latched))
-    }
+      PublisherOutputBaseType{
+        std::make_shared<routing::ROSPublication<MsgT>>(nh.advertise<MsgT>(std::move(topic), queue_size, latched))}
   {}
 
   /**
@@ -174,10 +153,7 @@ public:
    *          could not be establish a connection with ROS-master
    */
   Publisher(Router& pb, std::string topic, std::uint32_t queue_size = 0, const bool latched = false) :
-    PublisherOutputBaseType
-    {
-      pb.advertise<MsgT>(std::move(topic), queue_size)
-    }
+      PublisherOutputBaseType{pb.advertise<MsgT>(std::move(topic), queue_size)}
   {}
 
   /**
@@ -203,11 +179,11 @@ public:
  *
  * @tparam MsgT  message type
  */
-template<typename MsgT>
-class MultiPublisher final : public PublisherOutputBase<MsgT>
+template <typename MsgT> class MultiPublisher final : public PublisherOutputBase<MsgT>
 {
   /// Subscriber base type alias
   using PublisherOutputBaseType = PublisherOutputBase<MsgT>;
+
 public:
   /**
    * @brief <code>ros::NodeHandle</code> setup constructor (extra-node messaging)
@@ -220,15 +196,13 @@ public:
    * @warning Will throw with <code>std::runtime_error</code> if underlying publisher
    *          could not be establish a connection with ROS-master
    */
-  MultiPublisher(ros::NodeHandle& nh,
-                 std::string topic,
-                 const std::uint32_t queue_size = 0,
-                 const bool latched = false) :
-    PublisherOutputBaseType
-    {
-      std::make_shared<routing::ROSPublication<MsgT>>(
-        nh.advertise<MsgT>(std::move(topic), queue_size, latched))
-    }
+  MultiPublisher(
+    ros::NodeHandle& nh,
+    std::string topic,
+    const std::uint32_t queue_size = 0,
+    const bool latched = false) :
+      PublisherOutputBaseType{
+        std::make_shared<routing::ROSPublication<MsgT>>(nh.advertise<MsgT>(std::move(topic), queue_size, latched))}
   {}
 
   /**
@@ -241,13 +215,8 @@ public:
    * @warning Will throw with <code>std::runtime_error</code> if underlying publisher
    *          could not be establish a connection with ROS-master
    */
-  MultiPublisher(Router& pb,
-                 std::string topic,
-                 const std::uint32_t queue_size = 0) :
-    PublisherOutputBaseType
-    {
-      pb.advertise<MsgT>(std::move(topic), queue_size)
-    }
+  MultiPublisher(Router& pb, std::string topic, const std::uint32_t queue_size = 0) :
+      PublisherOutputBaseType{pb.advertise<MsgT>(std::move(topic), queue_size)}
   {}
 
   /**
@@ -255,8 +224,7 @@ public:
    * @param first  iterator to first message to publish
    * @param last  one past last message iterator
    */
-  template<typename MsgPtrIteratorT>
-  inline void publish(MsgPtrIteratorT first, const MsgPtrIteratorT last) const
+  template <typename MsgPtrIteratorT> inline void publish(MsgPtrIteratorT first, const MsgPtrIteratorT last) const
   {
     for (/*empty*/; first != last; ++first)
     {
@@ -280,15 +248,13 @@ public:
 
 
 // Forward declaration
-template<typename MsgT>
-struct PublisherTraits;
+template <typename MsgT> struct PublisherTraits;
 
 
 /**
  * @brief Publisher type traits
  */
-template<typename MsgT>
-struct PublisherTraits<Publisher<MsgT>>
+template <typename MsgT> struct PublisherTraits<Publisher<MsgT>>
 {
   /// Output message type
   using MsgType = MsgT;
@@ -301,8 +267,7 @@ struct PublisherTraits<Publisher<MsgT>>
 /**
  * @brief Publisher type traits
  */
-template<typename MsgT>
-struct PublisherTraits<MultiPublisher<MsgT>>
+template <typename MsgT> struct PublisherTraits<MultiPublisher<MsgT>>
 {
   /// Output message type
   using MsgType = MsgT;

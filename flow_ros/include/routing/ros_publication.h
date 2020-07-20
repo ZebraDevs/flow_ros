@@ -27,8 +27,7 @@ namespace routing
  *
  * @tparam MsgT  message data resource type
  */
-template<typename MsgT>
-class ROSPublication final : public PublicationWrapper<MsgT>
+template <typename MsgT> class ROSPublication final : public PublicationWrapper<MsgT>
 {
 public:
   /**
@@ -36,53 +35,36 @@ public:
    *
    * @param pub  ROS publisher encapsulation object
    */
-  explicit ROSPublication(const ros::Publisher& pub) :
-    pub_{pub}
-  {}
+  explicit ROSPublication(const ros::Publisher& pub) : pub_{pub} {}
 
   /**
    * @brief Call all held subscriber callbacks on message being published
    *
    * @param message  message data to publish
    */
-  void publish(const message_shared_ptr_t<MsgT>& message) const override
-  {
-    pub_.publish(message);
-  }
+  void publish(const message_shared_ptr_t<MsgT>& message) const override { pub_.publish(message); }
 
   /**
    * @brief Returns topic associated with publication
    */
-  std::string getTopic() const override
-  {
-    return pub_.getTopic();
-  }
+  std::string getTopic() const override { return pub_.getTopic(); }
 
   /**
    * @brief Returns number of local subscriptions connected to this LocalPublication
    */
-  std::uint32_t getNumSubscribers() const override
-  {
-    return pub_.getNumSubscribers();
-  }
+  std::uint32_t getNumSubscribers() const override { return pub_.getNumSubscribers(); }
 
   /**
    * @brief Returns transport method (code) associated with this publisher
    */
-  TransportMethod getTransportMethod() const override
-  {
-    return TransportMethod::ROS;
-  }
+  TransportMethod getTransportMethod() const override { return TransportMethod::ROS; }
 
   /**
    * @brief Validation cast operator
    * @retval true  if underlying ROS publisher is valid
    * @retval false  otherwise
    */
-  bool isValid() const override
-  {
-    return static_cast<bool>(pub_);
-  }
+  bool isValid() const override { return static_cast<bool>(pub_); }
 
 private:
   /// Underlying ROS publisher
