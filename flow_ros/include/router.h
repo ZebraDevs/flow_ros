@@ -268,7 +268,9 @@ public:
 private:
   /**
    * @brief Returns subscription group from a topic name
+   *
    * @param resolved_topic  fully-qualified connection topic name
+   *
    * @return subscription group resource
    */
   SubscriptionGroupPtr resolveSubscriptionGroup(const std::string& resolved_topic);
