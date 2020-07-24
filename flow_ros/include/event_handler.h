@@ -18,11 +18,13 @@
 #include <vector>
 
 // Flow
-#include <flow/impl/apply.hpp>
 #include <flow/synchronizer.h>
-#include <flow_ros/impl/event_handler.hpp>
+#include <flow_ros/message_stamp_access.h>
 #include <flow_ros/publisher.h>
 #include <flow_ros/subscriber.h>
+
+// Flow (implementation)
+#include <flow_ros/impl/event_handler.hpp>
 
 namespace flow_ros
 {

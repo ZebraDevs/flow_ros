@@ -18,6 +18,7 @@
 #include <flow_ros/subscriber.h>
 
 // Flow
+#include <flow/impl/apply.hpp>
 #include <flow/impl/integer_sequence.hpp>
 
 
