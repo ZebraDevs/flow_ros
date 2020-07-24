@@ -13,7 +13,7 @@
 #include <type_traits>
 
 // Flow
-#include <flow_ros/message.h>
+#include <flow_ros/message_ptr.h>
 #include <flow_ros/publisher.h>
 #include <flow_ros/subscriber.h>
 
@@ -86,6 +86,21 @@ private:
  * @brief Publishes an output
  */
 template <typename OutputT> struct OutputPublishHelper;
+
+
+/**
+ * @brief Helper function use to set message sequencing stamp
+ *
+ * @tparam MsgT  (deduced) message type
+ * @tparam SeqT  (deduced) sequencing type
+ *
+ * @param msg  message
+ * @param seq  message sequence counter
+ */
+template <typename MsgT, typename SeqT> inline void set_stamp(MsgT&& msg, SeqT&& seq)
+{
+  StampSetter<MsgT>{}(std::forward<MsgT>(msg), std::forward<SeqT>(seq));
+}
 
 
 /**

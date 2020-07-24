@@ -17,6 +17,7 @@
 
 // Flow
 #include <flow/flow.h>
+#include <flow_ros/message_stamp_access.h>
 #include <flow_ros/event_handler.h>
 #include <flow_ros/event_handler_ostream.h>
 #include <flow_ros/publisher.h>

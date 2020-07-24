@@ -23,7 +23,7 @@
 #include <rosbag/message_instance.h>
 
 // Flow
-#include <flow_ros/message.h>
+#include <flow_ros/message_ptr.h>
 #include <flow_ros/routing/local_publication.h>
 #include <flow_ros/routing/local_subscription.h>
 #include <flow_ros/routing/publication_wrapper.h>

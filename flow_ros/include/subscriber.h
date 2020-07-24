@@ -23,7 +23,7 @@
 // Flow
 #include <flow/drivers.h>
 #include <flow/followers.h>
-#include <flow_ros/message.h>
+#include <flow_ros/message_ptr.h>
 #include <flow_ros/router.h>
 #include <flow_ros/routing/local_subscription.h>
 #include <flow_ros/routing/ros_subscription.h>

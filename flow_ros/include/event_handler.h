@@ -12,6 +12,7 @@
 #include <functional>
 #include <iterator>
 #include <memory>
+#include <stdexcept>
 #include <tuple>
 #include <utility>
 #include <vector>
@@ -227,15 +228,20 @@ public:
     /**
      * @brief Event callback constructor
      *
-     * @param _callback  callback to run after synchronization, accepting Input and producing Output data
+     * @param _event_callback  callback to run after synchronization, accepting Input and producing Output data
      *
      * @note allows implicit cast from invokable type
      */
     template <typename CallbackT>
-    Callbacks(CallbackT&& _callback) :
-        event_callback{std::forward<CallbackT>(_callback)},
+    Callbacks(CallbackT&& _event_callback) :
+        event_callback{std::forward<CallbackT>(_event_callback)},
         pre_execute_callback{nullptr}
-    {}
+    {
+      if (event_callback == nullptr)
+      {
+        throw std::invalid_argument{"'_event_callback' must be a valid invocable entity"};
+      }
+    }
 
     /**
      * @brief Full-callback constructor
@@ -247,7 +253,12 @@ public:
     Callbacks(EventCallbackT&& _event_callback, PreExecuteCallbackT&& _pre_execute_callback) :
         event_callback{std::forward<EventCallbackT>(_event_callback)},
         pre_execute_callback{std::forward<PreExecuteCallbackT>(_pre_execute_callback)}
-    {}
+    {
+      if (event_callback == nullptr)
+      {
+        throw std::invalid_argument{"'_event_callback' must be a valid invocable entity"};
+      }
+    }
   };
 
   /**
@@ -322,7 +333,7 @@ public:
       flow::apply_every(detail::RetryReinjectHelper{}, subscribers_, sync_inputs);
       return event_summary;
     }
-    else if (pre_execute_callback and !callbacks_.pre_execute_callback(*this, sync_inputs, event_summary))
+    else if (callbacks_.pre_execute_callback and !callbacks_.pre_execute_callback(*this, sync_inputs, event_summary))
     {
       event_summary.state = EventSummary::State::EXECUTION_BYPASSED;
     }

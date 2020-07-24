@@ -2,10 +2,14 @@
  * @copyright 2020 Fetch Robotics Inc. All rights reserved
  * @author Brian Cairl
  *
- * @file  message.h
+ * @file  message_stamp_access.h
  */
-#ifndef FLOW_ROS_MESSAGE_H
-#define FLOW_ROS_MESSAGE_H
+#ifndef FLOW_ROS_MESSAGE_STAMP_ACCESS_H
+#define FLOW_ROS_MESSAGE_STAMP_ACCESS_H
+
+#ifdef FLOW_ROS_MESSAGE_SEQ_ACCESS_H
+#error Either "message_seq_access.h" or "message_stamp_access.h" can be included, but not both
+#endif  // FLOW_ROS_MESSAGE_SEQ_ACCESS_H
 
 // C++ Standard Library
 #include <memory>
@@ -16,76 +20,21 @@
 #include <boost/shared_ptr.hpp>
 
 // ROS
-#include <ros/message_traits.h>
 #include <ros/time.h>
 
 // Flow
 #include <flow/dispatch.h>
+#include <flow_ros/message_ptr.h>
 
 namespace flow_ros
 {
-
-/// Checks if object is a ROS message
-template <typename MsgT> constexpr bool is_message_v = ros::message_traits::IsMessage<std::remove_const_t<MsgT>>::value;
-
-/**
- * @brief Traits object used to select correct shared_ptr wrapper type
- *
- * @tparam MsgT  message type
- * @tparam IS_ROS_MESSAGE  [DO NOT SUPPLY THIS ARGUMENT] (defaulted) to see if MsgT is a ROS message
- */
-template <typename MsgT, bool IS_ROS_MESSAGE = is_message_v<MsgT>> struct MessageSharedPtrType
-{
-  using type = std::shared_ptr<MsgT>;
-};
-
-
-/**
- * @brief Traits object used to select correct shared_ptr const value type wrapper
- *
- * @tparam MsgT  message type
- * @tparam IS_ROS_MESSAGE  [DO NOT SUPPLY THIS ARGUMENT] (defaulted) to see if MsgT is a ROS message
- */
-template <typename MsgT, bool IS_ROS_MESSAGE = is_message_v<MsgT>> struct MessageSharedConstPtrType
-{
-  using type = std::shared_ptr<const std::remove_const_t<MsgT>>;
-};
-
-
-/**
- * @copydoc MessageSharedPtrType
- * @note Specialization for ROS messages
- */
-template <typename MsgT> struct MessageSharedPtrType<MsgT, true>
-{
-  using type = boost::shared_ptr<MsgT>;
-};
-
-
-/**
- * @copydoc MessageSharedConstPtrType
- * @note Specialization for ROS messages
- */
-template <typename MsgT> struct MessageSharedConstPtrType<MsgT, true>
-{
-  using type = boost::shared_ptr<const std::remove_const_t<MsgT>>;
-};
-
-
-/// Extracts appropriate shared_ptr wrapper type for <code>MsgT</code>
-template <typename MsgT> using message_shared_ptr_t = typename MessageSharedPtrType<MsgT>::type;
-
-
-/// Extracts appropriate shared_ptr wrapper type for <code>MsgT</code>
-template <typename MsgT> using message_shared_const_ptr_t = typename MessageSharedConstPtrType<MsgT>::type;
-
 
 /**
  * @brief Helper object use to set message stamps
  *
  * @tparam MsgT  message type
  *
- * @note May be specialized for any message which time stamp info
+ * @note May be specialized for any message with a stamp
  */
 template <typename MsgT> struct StampSetter
 {
@@ -109,7 +58,7 @@ template <typename MsgT> inline void set_stamp(MsgT&& msg, const ros::Time& stam
 /**
  * @brief Defines default message accessors to use a fall-back when defining <code>flow::DispatchAccess</code>
  */
-struct DefaultMessageDispatchAccess
+struct DefaultMessageStampDispatchAccess
 {
   /**
    * @brief Returns message stamp, assuming a <code>header.stamp</code> field exists
@@ -181,9 +130,9 @@ template <typename MsgT> struct DispatchTraits<std::shared_ptr<const MsgT>>
  *
  * @tparam MsgT  message type
  */
-template <typename MsgT> struct DispatchAccess : ::flow_ros::DefaultMessageDispatchAccess
+template <typename MsgT> struct DispatchAccess : ::flow_ros::DefaultMessageStampDispatchAccess
 {};
 
 }  // namespace flow
 
-#endif  // FLOW_ROS_MESSAGE_H
+#endif  // FLOW_ROS_MESSAGE_STAMP_ACCESS_H

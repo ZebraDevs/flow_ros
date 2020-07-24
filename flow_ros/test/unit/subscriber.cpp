@@ -14,6 +14,7 @@
 
 // Flow
 #include <flow/flow.h>
+#include <flow_ros/message_stamp_access.h>
 #include <flow_ros/router.h>
 #include <flow_ros/subscriber.h>
 
