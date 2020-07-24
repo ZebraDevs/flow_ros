@@ -247,12 +247,15 @@ public:
 };
 
 
-// Forward declaration
+/**
+ * @brief Publisher type traits
+ */
 template <typename MsgT> struct PublisherTraits;
 
 
 /**
- * @brief Publisher type traits
+ * @copydoc PublisherTraits
+ * @note Publisher partial specialization
  */
 template <typename MsgT> struct PublisherTraits<Publisher<MsgT>>
 {
@@ -265,7 +268,8 @@ template <typename MsgT> struct PublisherTraits<Publisher<MsgT>>
 
 
 /**
- * @brief Publisher type traits
+ * @copydoc PublisherTraits
+ * @note MultiPublisher partial specialization
  */
 template <typename MsgT> struct PublisherTraits<MultiPublisher<MsgT>>
 {
