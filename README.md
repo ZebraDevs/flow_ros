@@ -10,7 +10,7 @@ Coming soon.
 
 ## What is this used for?
 
-This library is meant for synchronizing multiple series of ROS messages, collected by `ros::Subscribers`. This is typically desirable in ROS nodes in which multiple inputs are required to compute something where the result is only correct if the inputs have similar time-stamp values. Since messages may be produced at different rates and from different sources, it is usually important that there are some gaurantees about the time difference between associated message stamps. This library uses [Flow](https://github.com/fetchrobotics/flow) to provide message this message syncrhonization.
+This library is meant for synchronizing multiple series of ROS messages, collected by `ros::Subscribers`. This is typically desirable in ROS nodes in which multiple inputs are required to compute something where the result is only correct if the inputs have similar time-stamp values. Since messages may be produced at different rates and from different sources, it is usually important that there are some gaurantees about the time difference between associated message stamps. This library uses [Flow](https://github.com/fetchrobotics/flow) to enable message syncrhonization.
 
 Secondarily, this library provides in-process subscriber/publisher mechanisms which do not require a running ROS core and are swappable with their ROS-enabled counterparts. These are especially useful for testing message passing subsystems.
 
