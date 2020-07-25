@@ -12,16 +12,19 @@
 #include <functional>
 #include <iterator>
 #include <memory>
+#include <stdexcept>
 #include <tuple>
 #include <utility>
 #include <vector>
 
 // Flow
-#include <flow/impl/apply.hpp>
 #include <flow/synchronizer.h>
-#include <flow_ros/impl/event_handler.hpp>
+#include <flow_ros/message_stamp_access.h>
 #include <flow_ros/publisher.h>
 #include <flow_ros/subscriber.h>
+
+// Flow (implementation)
+#include <flow_ros/impl/event_handler.hpp>
 
 namespace flow_ros
 {
@@ -144,7 +147,7 @@ public:
 /**
  * @brief Default dispatch container type information
  *
- *        Dispatch object collect on sync are stored into a <code>std::vector</code>
+ *        Dispatch object collected on sync are stored into a <code>std::vector</code>
  *
  * @tparam DispatchT  message dispatch type
  */
@@ -168,7 +171,7 @@ template <typename DispatchT> struct DefaultOutputContainerTypeInfo
 
 
 /**
- * @brief Manages a flow::Synchronizer and runs flow-node update loop
+ * @brief Manages a input and output channels, and runs callbacks on input synchronization
  *
  * @tparam PublisherTuple  tuple of publisher types
  * @tparam SubscriberTuple  tuple of subscriber types
@@ -218,37 +221,52 @@ public:
     std::function<Output(const Input&)> event_callback;
 
     /**
-     * @brief Callback to run on any synchronization state for introspection
+     * @brief Callback to run after synchronization for event summary introspection
      *
-     *        May be used to bypass execution after synchronization, resulting in an ABORT state
+     *        May be used to bypass execution after synchronization, resulting in an EXECUTION_BYPASSED state
      */
     std::function<bool(EventHandlerBase&, const Input&, const EventSummary&)> pre_execute_callback;
 
     /**
      * @brief Event callback constructor
-     * @info allow implicit cast from invokable type
+     *
+     * @param _event_callback  callback to run after synchronization, accepting Input and producing Output data
+     *
+     * @note allows implicit cast from invokable type
      */
     template <typename CallbackT>
-    Callbacks(CallbackT&& _callback) :
-        event_callback{std::forward<CallbackT>(_callback)},
-        pre_execute_callback{[](EventHandlerBase&, const Input&, const EventSummary&) -> bool { return true; }}
-    {}
+    Callbacks(CallbackT&& _event_callback) :
+        event_callback{std::forward<CallbackT>(_event_callback)},
+        pre_execute_callback{nullptr}
+    {
+      if (event_callback == nullptr)
+      {
+        throw std::invalid_argument{"'_event_callback' must be a valid invocable entity"};
+      }
+    }
 
     /**
      * @brief Full-callback constructor
+     *
+     * @param _event_callback  callback to run after synchronization, accepting Input and producing Output data
+     * @param _pre_execute_callback  callback to run after synchronization, before <code>_event_callback</code>
      */
     template <typename EventCallbackT, typename PreExecuteCallbackT>
     Callbacks(EventCallbackT&& _event_callback, PreExecuteCallbackT&& _pre_execute_callback) :
         event_callback{std::forward<EventCallbackT>(_event_callback)},
         pre_execute_callback{std::forward<PreExecuteCallbackT>(_pre_execute_callback)}
-    {}
+    {
+      if (event_callback == nullptr)
+      {
+        throw std::invalid_argument{"'_event_callback' must be a valid invocable entity"};
+      }
+    }
   };
 
   /**
    * @brief Required setup constructor
    *
-   * @param callbacks  callback to run when all required inputs have been captured, and optional callbacks to handle
-   * abort/retry
+   * @param callbacks  callback to run after input synchronization
    * @param publishers  message output channel resources
    * @param subscribers  message input channel resources
    */
@@ -280,11 +298,13 @@ public:
    * @brief Event updater method
    *
    *        On each call, this method attempts input synchronization. The behavior that follows depends on
-   *        callbacks, specified by CallbackType, set on construction. In synchronization succeeds, the main
-   *        event (execution) callback is invoked.
+   *        user callbacks setup on construction. If synchronization succeeds, the main event (execution)
+   *        callback is invoked.
    * \n
-   *        If any subscribers are multi-threading enabled, this call may block under a condition variable
-   *        until data is available for a synchronization attempt. Blocking data waits will end at <code>timeout</code>
+   *        Subscribers which wait for data may wait until <code>timeout</code> unless synchronization
+   *        becomre possible
+   *
+   * @param timeout  synchronization timeout
    *
    * @return summary of event states
    */
@@ -315,7 +335,7 @@ public:
       flow::apply_every(detail::RetryReinjectHelper{}, subscribers_, sync_inputs);
       return event_summary;
     }
-    else if (!callbacks_.pre_execute_callback(*this, sync_inputs, event_summary))
+    else if (callbacks_.pre_execute_callback and !callbacks_.pre_execute_callback(*this, sync_inputs, event_summary))
     {
       event_summary.state = EventSummary::State::EXECUTION_BYPASSED;
     }

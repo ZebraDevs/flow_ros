@@ -23,7 +23,7 @@
 // Flow
 #include <flow/drivers.h>
 #include <flow/followers.h>
-#include <flow_ros/message.h>
+#include <flow_ros/message_ptr.h>
 #include <flow_ros/router.h>
 #include <flow_ros/routing/local_subscription.h>
 #include <flow_ros/routing/ros_subscription.h>
@@ -90,7 +90,7 @@ public:
   inline std::shared_ptr<routing::SubscriptionWrapper> impl() const { return subscription_; }
 
 protected:
-  /// Underling subscription wapper
+  /// Underling subscription wrapper
   std::shared_ptr<routing::SubscriptionWrapper> subscription_;
 };
 
@@ -138,10 +138,8 @@ protected:
 /**
  * @brief Input channel which subscribes to messages
  *
- *        This input channel object wraps an underlying message transport subscription. In
- *        most cases, this object should be thought of as double-buffering. Moreover,
- *        messages are received/buffered by a message transport subscription, and then
- *        pumped into a capture buffer (for synchronization) by a periodic callback.
+ *        This input channel object wraps an underlying message transport subscription
+ *        and a synchronization policy which works on buffered data
  *
  * @tparam MsgT  message type
  * @tparam PolicyTmpl  name associated with policy to be used when capturing inputs
@@ -235,18 +233,21 @@ public:
   }
 
   /**
-   * @brief Injects meassage into captor; automatically
+   * @brief Injects message into captor; automatically
    */
   inline void inject(message_shared_const_ptr_t<MsgT> msg) { PolicyType::inject(std::move(msg)); }
 };
 
 
-// Forward declaration
+/**
+ * @brief Subscriber type traits
+ */
 template <typename MsgT> struct SubscriberTraits;
 
 
 /**
- * @brief Subscriber type traits
+ * @copydoc SubscriberTraits
+ * @note Subscriber partial specialization
  */
 template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT>
 struct SubscriberTraits<Subscriber<MsgT, PolicyTmpl, LockPolicyT>>

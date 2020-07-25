@@ -6,7 +6,7 @@
  */
 
 // C++ Standard Library
-#include <iostream>
+#include <ostream>
 #include <memory>
 #include <stdexcept>
 #include <string>
