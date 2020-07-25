@@ -1,6 +1,18 @@
 # Flow-ROS
 
-C++14 library providing ROS-enabled wrappers for the synchronization facilities provided by [Flow](https://github.com/fetchrobotics/flow).
+C++14 library providing ROS-enabled wrappers for [Flow](https://github.com/fetchrobotics/flow).
+
+
+## API Documentation
+
+Coming soon.
+
+
+## What is this used for?
+
+This library is meant for synchronizing multiple series of ROS messages, collected by `ros::Subscribers`. This is typically desirable in ROS nodes in which multiple inputs are required to compute something where the result is only correct if the inputs have similar time-stamp values. Since messages may be produced at different rates and from different sources, it is usually important that there are some gaurantees about the time difference between associated message stamps. This library uses [Flow](https://github.com/fetchrobotics/flow) to provide message this message syncrhonization.
+
+Secondarily, this library provides in-process subscriber/publisher mechanisms which do not require a running ROS core and are swappable with their ROS-enabled counterparts. These are especially useful for testing message passing subsystems.
 
 
 ## Requirements
@@ -19,13 +31,15 @@ C++14 library providing ROS-enabled wrappers for the synchronization facilities 
 
 ### Subscribers
 
-`ros::Subscriber` objects are commonly used to run callbacks on message-receive events with the contents of a de-serialized message. This generally applies to a single series of messages. `flow_ros::Subscriber` wrap `ros::Subscriber` objects and use their message-callback behavior to "inject" messages into a buffer. The contents of this buffer are serviced to synchronize messages across multiple series.
+[`ros::Subscriber`](http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29) objects are commonly used to listen for messages and run callbacks on message-receive events. These callbacks are run with de-serialized message contents as an input. Since this callback works on a single series of messages, a synchronization mechanism is needed to match these messages to messages recieved by other subscribers. This is where `flow_ros::Subscribers` come in.
+
+`flow_ros::Subscriber` wrap `ros::Subscriber` objects and use their message-callback behavior to "inject" messages into a buffer. The contents of this buffer are serviced to synchronize messages across multiple series.
 
 
 ![Subscriber](doc/subscriber.png)
 
 
-Each `flow_ros::Subscriber` has an associated synchronization policy, which may be configured with a Flow [driver](https://github.com/fetchrobotics/flow#drivers) or [follower](https://github.com/fetchrobotics/flow#followers) template as a template argument.
+The way that messages are collected from a `flow_ros::Subscriber` buffer is defined by an associated synchronization policy, which may be configured with a Flow [driver](https://github.com/fetchrobotics/flow#drivers) or [follower](https://github.com/fetchrobotics/flow#followers) template as a template argument.
 
 A `flow_ros::Subscriber` type may look as follows:
 
