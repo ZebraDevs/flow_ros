@@ -5,10 +5,11 @@ C++14 library providing ROS-enabled wrappers for the synchronization facilities 
 
 ## Requirements
 
-- ROS
+- [ROS](http://wiki.ros.org/melodic/Installation)
     + Tested with ROS Melodic
-- Boost 1.65.1
-- Bazel
+- [rosbag](http://wiki.ros.org/rosbag)
+- [Boost](https://www.boost.org/users/history/version_1_65_1.html) (v1.65.1)
+- [Bazel](https://docs.bazel.build/versions/3.4.0/getting-started.html)
     + repository currently provides Bazel build configurations for the library and tests
     + `cmake` configurations _coming soon_; contribution welcome
     + This library can be used as a header-only library if you will not be making use of the ROS-free local message passing facilities provided by `flow_ros::Router`.
@@ -130,6 +131,39 @@ Aside from providing a synchronization mechanisms on top of `ros::Subscribers`, 
 
 The `flow_ros::Router` provides simple in-process message passing facilities. It implements a subset of the methods provided by `ros::NodeHandle` which can be used to initialize both `flow_ros::Subscriber` and `flow_ros::Publisher` objects. This is convenient for areas of a program that don't need to expose external message connections (like unit tests). It also enables the passing of "non-message" objects to be synchronized with ROS messages, so long as they also use the same sequencing stamp type, i.e. `ros::Time`, sequence number, etc.
 
+
+#### Messages from ROS bag files
+
+
+`flow_ros::Router` supports message data injection from a `rosbag::MessageInstance`. This means that you can pump messages through a system of `flow_ros::Publisher` and `flow_ros::Subscriber` objects setup to pass messages locally. This is especially useful for testing a subsystem which using data collected from a live run.
+
+```c++
+using LaserScanSubscriberType =
+  flow_ros::Subscriber<sensor_msgs::LaserScan, flow::driver::Next>;
+
+// Create local message router
+flow_ros::Router router;
+
+// Create lase scan subscriber
+LaserScanSubscriberType laser_scan_sub{router, "/base_scan", 10U};
+
+// Open a bag in read mode
+rosbag::Bag bag;
+bag.open("test.bag", rosbag::bagmode::Read);
+
+std::vector<std::string> topics;
+topics.emplace_back("/base_scan);
+
+// Inject messages
+rosbag::View view{bag, rosbag::TopicQuery{topics}};
+for (const auto& mi : view)
+{
+  router.inject(mi);
+}
+
+// Now there are messages loaded in laser_scan_sub
+// laser_scan_sub.size() == 10
+```
 
 ### Publishers
 
