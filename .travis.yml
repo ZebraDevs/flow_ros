@@ -24,4 +24,4 @@ before_install:
 
 
 script:
-  - bazel test //flow_ros/test/... --test_output=streamed
+  - bazel test //flow_ros/test/...
