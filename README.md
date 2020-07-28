@@ -7,7 +7,7 @@ C++14 library providing ROS-enabled wrappers for [Flow](https://github.com/fetch
 
 ## API Documentation
 
-Coming soon.
+Documentation for latest version available [here](https://fetchrobotics.github.io/flow_ros/doxygen-out/html/index.html).
 
 
 ## What is this used for?
