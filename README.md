@@ -10,7 +10,7 @@ Coming soon.
 
 ## What is this used for?
 
-This library is meant for synchronizing multiple series of ROS messages, collected by `ros::Subscribers`. This is typically desirable in ROS nodes where multiple inputs are required to compute something, and the computed result is accurate only if the inputs have consistent relative sequencing. This library uses [Flow](https://github.com/fetchrobotics/flow) to fulfill these requirements in a customizable way.
+This library is meant for synchronizing multiple series of ROS messages, collected by `ros::Subscriber` objects. This is typically desirable in ROS nodes where multiple inputs are required to compute something, and the computed result is accurate only if the inputs have consistent relative sequencing. This library uses [Flow](https://github.com/fetchrobotics/flow) to fulfill these requirements in a customizable way.
 
 Secondarily, this library provides in-process subscriber/publisher mechanisms which do not require a running ROS core and are swappable with their ROS-enabled counterparts. These are especially useful for testing message passing subsystems.
 
@@ -31,7 +31,7 @@ Secondarily, this library provides in-process subscriber/publisher mechanisms wh
 
 ### Subscribers
 
-[`ros::Subscriber`](http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29) objects are commonly used to listen for messages and run callbacks on message-receive events. These callbacks are run with de-serialized message contents as an input. Since this callback works on a single series of messages, a synchronization mechanism is needed to match these messages to messages received by other subscribers. This is where `flow_ros::Subscriber`s come in.
+[`ros::Subscriber`](http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29) objects are commonly used to listen for messages and run callbacks on message-receive events. These callbacks are run with de-serialized message contents as an input. Since this callback works on a single series of messages, a synchronization mechanism is needed to match these messages to messages received by other subscribers. This is where `flow_ros::Subscriber` objects come in.
 
 `flow_ros::Subscriber` wrap `ros::Subscriber` objects and use their message-callback behavior to "inject" messages into a buffer. The contents of this buffer are serviced to synchronize messages across multiple series.
 
@@ -56,7 +56,7 @@ PoseStampedSubscriberType sub{nh, "topic", 1 /*ROS queue size*/, ros::Duration{1
 #### Synchronization
 
 
-`flow_ros::Subscriber`s can be serviced just like `flow::Captor` objects to synchronize messages, like so:
+`flow_ros::Subscriber` objects can be serviced just like `flow::Captor` objects to synchronize messages, like so:
 
 ```c++
 // We have three subscribers to synchronize; odometry and pose data are
@@ -90,7 +90,7 @@ if (result == flow::State::PRIMED)
 }
 ```
 
-By default, `flow_ros::Subscriber`s are configured such that `flow::Synchronizer::capture` needs to be called in a separate thread, as subscriber synchronization policies have built-in data waits which wake on data injection. For single threaded contexts, and extra template argument should be provided.
+By default, `flow_ros::Subscriber` objects are configured such that `flow::Synchronizer::capture` needs to be called in a separate thread, as subscriber synchronization policies have built-in data waits which wake on data injection. For single threaded contexts, and extra template argument should be provided.
 
 For a completely single-threaded application, you can do away with the overhead thread-safety mechanisms with `flow::NoLock` as follows:
 
@@ -141,7 +141,7 @@ When using `flow_ros::Subscriber` objects directly, you may also opt to use sequ
 #### Transport abstraction
 
 
-Aside from providing a synchronization mechanisms on top of `ros::Subscriber`s, `flow_ros::Subscriber`s also provide a level of transport abstraction. Moreover, `flow_ros::Subscriber`s may also be used without a running ROS core through the use of `flow_ros::Router`.
+Aside from providing a synchronization mechanisms on top of `ros::Subscriber` objects, `flow_ros::Subscriber` objects also provide a level of transport abstraction. Moreover, `flow_ros::Subscriber` objects may also be used without a running ROS core through the use of `flow_ros::Router`.
 
 The `flow_ros::Router` provides simple in-process message passing facilities. It implements a subset of the methods provided by `ros::NodeHandle` which can be used to initialize both `flow_ros::Subscriber` and `flow_ros::Publisher` objects. This is convenient for areas of a program that don't need to expose external message connections (like unit tests). It also enables the passing of "non-message" objects to be synchronized with ROS messages, so long as they also use the same sequencing stamp type, i.e. `ros::Time`, sequence number, etc.
 
@@ -191,7 +191,7 @@ Note that calling `Router::inject` for an unknown topic (topics which haven't be
 ### Publishers
 
 
-`flow_ros::Publisher`s are meant to be simple wrappers around `ros::Publisher` functionality, and are used in the same way as `ros::Publisher` objects. All that they add is the ability to make use of local message passing for interoperability with `flow_ros::Subscriber` objects. They also ensure a stable interface for use with the `flow_ros::EventHandler`.
+`flow_ros::Publisher` objects are meant to be simple wrappers around `ros::Publisher` functionality, and are used in the same way as `ros::Publisher` objects. All that they add is the ability to make use of local message passing for interoperability with `flow_ros::Subscriber` objects. They also ensure a stable interface for use with the `flow_ros::EventHandler`.
 
 A `flow_ros::MultiPublisher` template is provided for the purpose of outputting a sequence of messages returned from a `flow_ros::EventHandler` event callback.
 
