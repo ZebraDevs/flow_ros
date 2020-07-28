@@ -33,7 +33,7 @@ new_local_repository(
 # Flow (core library)
 git_repository(
   name="flow",
-  remote="git@github.com:fetchrobotics/flow.git",
+  remote="https://github.com/fetchrobotics/flow.git",
   commit="a0ec157861c1069deb6223b4e593ac72b441dd79",
   shallow_since="1595124968 -0400",
 )
