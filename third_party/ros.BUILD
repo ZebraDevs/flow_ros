@@ -169,6 +169,7 @@ cc_library(
 
 cc_library(
     name='class_loader',
+    srcs=['lib/libclass_loader.so'],
     hdrs=glob(['include/class_loader/**/*.h', 'include/class_loader/**/*.hpp']),
     strip_include_prefix='include',
     deps=[':catkin', ':cmake_modules'],

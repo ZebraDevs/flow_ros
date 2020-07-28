@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/fetchrobotics/flow_ros.svg?branch=master)](https://travis-ci.com/fetchrobotics/flow_ros)
+
 # Flow-ROS
 
 C++14 library providing ROS-enabled wrappers for [Flow](https://github.com/fetchrobotics/flow).
