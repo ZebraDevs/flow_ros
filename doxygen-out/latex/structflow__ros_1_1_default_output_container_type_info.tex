@@ -1,0 +1,46 @@
+\hypertarget{structflow__ros_1_1_default_output_container_type_info}{}\section{flow\+\_\+ros\+:\+:Default\+Output\+Container\+Type\+Info$<$ DispatchT $>$ Struct Template Reference}
+\label{structflow__ros_1_1_default_output_container_type_info}\index{flow\+\_\+ros\+::\+Default\+Output\+Container\+Type\+Info$<$ Dispatch\+T $>$@{flow\+\_\+ros\+::\+Default\+Output\+Container\+Type\+Info$<$ Dispatch\+T $>$}}
+
+
+Default dispatch container type information.  
+
+
+
+
+{\ttfamily \#include $<$event\+\_\+handler.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structflow__ros_1_1_default_output_container_type_info_a4ffbb4d1e03977b064edda2072187299}\label{structflow__ros_1_1_default_output_container_type_info_a4ffbb4d1e03977b064edda2072187299}} 
+using \hyperlink{structflow__ros_1_1_default_output_container_type_info_a4ffbb4d1e03977b064edda2072187299}{Container} = std\+::vector$<$ DispatchT, std\+::allocator$<$ DispatchT $>$ $>$
+\begin{DoxyCompactList}\small\item\em Output container type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structflow__ros_1_1_default_output_container_type_info_a8fcd2ae4f8d0f4fb411b6a433b40d5f2}\label{structflow__ros_1_1_default_output_container_type_info_a8fcd2ae4f8d0f4fb411b6a433b40d5f2}} 
+using \hyperlink{structflow__ros_1_1_default_output_container_type_info_a8fcd2ae4f8d0f4fb411b6a433b40d5f2}{output\+\_\+iterator\+\_\+type} = std\+::back\+\_\+insert\+\_\+iterator$<$ \hyperlink{structflow__ros_1_1_default_output_container_type_info_a4ffbb4d1e03977b064edda2072187299}{Container} $>$
+\begin{DoxyCompactList}\small\item\em Container output iterator type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structflow__ros_1_1_default_output_container_type_info_ab175492907ef77b1f512a8acaa208260}\label{structflow__ros_1_1_default_output_container_type_info_ab175492907ef77b1f512a8acaa208260}} 
+static \hyperlink{structflow__ros_1_1_default_output_container_type_info_a8fcd2ae4f8d0f4fb411b6a433b40d5f2}{output\+\_\+iterator\+\_\+type} \hyperlink{structflow__ros_1_1_default_output_container_type_info_ab175492907ef77b1f512a8acaa208260}{get\+\_\+output\+\_\+iterator} (\hyperlink{structflow__ros_1_1_default_output_container_type_info_a4ffbb4d1e03977b064edda2072187299}{Container} \&c)
+\begin{DoxyCompactList}\small\item\em Returns an appropriate container output iterator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename DispatchT$>$\newline
+struct flow\+\_\+ros\+::\+Default\+Output\+Container\+Type\+Info$<$ Dispatch\+T $>$}
+
+Default dispatch container type information. 
+
+Dispatch object collected on sync are stored into a {\ttfamily std\+::vector}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em DispatchT} & message dispatch type \\
+\hline
+\end{DoxyTemplParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/\hyperlink{event__handler_8h}{event\+\_\+handler.\+h}\end{DoxyCompactItemize}

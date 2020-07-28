@@ -1,0 +1,53 @@
+\hypertarget{publisher_8h}{}\section{flow\+\_\+ros/include/publisher.h File Reference}
+\label{publisher_8h}\index{flow\+\_\+ros/include/publisher.\+h@{flow\+\_\+ros/include/publisher.\+h}}
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$ros/node\+\_\+handle.\+h$>$}\newline
+{\ttfamily \#include $<$ros/publisher.\+h$>$}\newline
+{\ttfamily \#include $<$flow/impl/static\+\_\+assert.\+hpp$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/message\+\_\+ptr.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/router.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/routing/local\+\_\+publication.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/routing/publication\+\_\+wrapper.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/routing/ros\+\_\+publication.\+h$>$}\newline
+Include dependency graph for publisher.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{publisher_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classflow__ros_1_1_publisher_base}{flow\+\_\+ros\+::\+Publisher\+Base}
+\begin{DoxyCompactList}\small\item\em Publish base to expose meta-\/information methods. \end{DoxyCompactList}\item 
+class \hyperlink{classflow__ros_1_1_publisher_output_base}{flow\+\_\+ros\+::\+Publisher\+Output\+Base$<$ Msg\+T $>$}
+\begin{DoxyCompactList}\small\item\em Message publisher base type. \end{DoxyCompactList}\item 
+class \hyperlink{classflow__ros_1_1_publisher}{flow\+\_\+ros\+::\+Publisher$<$ Msg\+T $>$}
+\begin{DoxyCompactList}\small\item\em Output channel which publishes messages. \end{DoxyCompactList}\item 
+class \hyperlink{classflow__ros_1_1_multi_publisher}{flow\+\_\+ros\+::\+Multi\+Publisher$<$ Msg\+T, Output\+Container\+T $>$}
+\begin{DoxyCompactList}\small\item\em Output channel specialization which publishes multiple messages. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow__ros_1_1_publisher_traits}{flow\+\_\+ros\+::\+Publisher\+Traits$<$ Msg\+T $>$}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classflow__ros_1_1_publisher}{Publisher} type traits. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow__ros_1_1_publisher_traits_3_01_publisher_3_01_msg_t_01_4_01_4}{flow\+\_\+ros\+::\+Publisher\+Traits$<$ Publisher$<$ Msg\+T $>$ $>$}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classflow__ros_1_1_publisher}{Publisher} type traits. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow__ros_1_1_publisher_traits_3_01_multi_publisher_3_01_msg_t_00_01_output_container_t_01_4_01_4}{flow\+\_\+ros\+::\+Publisher\+Traits$<$ Multi\+Publisher$<$ Msg\+T, Output\+Container\+T $>$ $>$}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classflow__ros_1_1_publisher}{Publisher} type traits. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceflow__ros}{flow\+\_\+ros}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyCopyright}{Copyright}
+2020 Fetch Robotics Inc. All rights reserved 
+\end{DoxyCopyright}
+\begin{DoxyAuthor}{Author}
+Brian Cairl 
+\end{DoxyAuthor}

@@ -1,0 +1,56 @@
+\hypertarget{event__handler_8cpp}{}\section{flow\+\_\+ros/test/unit/event\+\_\+handler.cpp File Reference}
+\label{event__handler_8cpp}\index{flow\+\_\+ros/test/unit/event\+\_\+handler.\+cpp@{flow\+\_\+ros/test/unit/event\+\_\+handler.\+cpp}}
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\newline
+{\ttfamily \#include $<$std\+\_\+msgs/\+Header.\+h$>$}\newline
+{\ttfamily \#include $<$flow/flow.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/event\+\_\+handler.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/event\+\_\+handler\+\_\+ostream.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/message\+\_\+stamp\+\_\+access.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/publisher.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/subscriber.\+h$>$}\newline
+Include dependency graph for event\+\_\+handler.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{event__handler_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_test_message1}{Test\+Message1}
+\begin{DoxyCompactList}\small\item\em A R\+OS messages-\/like object. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_test_message2}{Test\+Message2}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{event__handler_8cpp_a04de9dea221a8805cacb163c4123aba7}\label{event__handler_8cpp_a04de9dea221a8805cacb163c4123aba7}} 
+{\bfseries T\+E\+ST} (Event\+Handler\+Single\+Threaded, Get\+Subscribers)
+\item 
+\mbox{\Hypertarget{event__handler_8cpp_a25bbf25c99299210e6733fb9d7e60c13}\label{event__handler_8cpp_a25bbf25c99299210e6733fb9d7e60c13}} 
+{\bfseries T\+E\+ST} (Event\+Handler\+Single\+Threaded, Get\+Publishers)
+\item 
+\mbox{\Hypertarget{event__handler_8cpp_a325f2f130d3a352b27ea2289e4812ae9}\label{event__handler_8cpp_a325f2f130d3a352b27ea2289e4812ae9}} 
+{\bfseries T\+E\+ST} (Event\+Handler\+Single\+Threaded, Single\+Input\+No\+Outputs)
+\item 
+\mbox{\Hypertarget{event__handler_8cpp_a7307365494f3d0b12e1fe0c19e779a46}\label{event__handler_8cpp_a7307365494f3d0b12e1fe0c19e779a46}} 
+{\bfseries T\+E\+ST} (Event\+Handler\+Single\+Threaded, Single\+Input\+Single\+Output)
+\item 
+\mbox{\Hypertarget{event__handler_8cpp_a392e64216c6059d61a8ae1752701400d}\label{event__handler_8cpp_a392e64216c6059d61a8ae1752701400d}} 
+{\bfseries T\+E\+ST} (Event\+Handler\+Single\+Threaded, Single\+Input\+Multi\+Output)
+\item 
+\mbox{\Hypertarget{event__handler_8cpp_a91569587a73f2d6ee16b64ef57849cd7}\label{event__handler_8cpp_a91569587a73f2d6ee16b64ef57849cd7}} 
+{\bfseries T\+E\+ST} (Event\+Handler\+Single\+Threaded, Single\+Input\+Output\+Array)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyCopyright}{Copyright}
+2020 Fetch Robotics Inc. 
+\end{DoxyCopyright}
+\begin{DoxyAuthor}{Author}
+Brian Cairl 
+\end{DoxyAuthor}

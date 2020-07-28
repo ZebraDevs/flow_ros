@@ -1,0 +1,70 @@
+\hypertarget{structflow__ros_1_1_event_summary}{}\section{flow\+\_\+ros\+:\+:Event\+Summary Struct Reference}
+\label{structflow__ros_1_1_event_summary}\index{flow\+\_\+ros\+::\+Event\+Summary@{flow\+\_\+ros\+::\+Event\+Summary}}
+
+
+Summary of event information from results.  
+
+
+
+
+{\ttfamily \#include $<$event\+\_\+handler.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structflow__ros_1_1_event_summary_a9b5a677b4629e3c40e36a49a3f2cea6b}\label{structflow__ros_1_1_event_summary_a9b5a677b4629e3c40e36a49a3f2cea6b}} 
+enum \hyperlink{structflow__ros_1_1_event_summary_a9b5a677b4629e3c40e36a49a3f2cea6b}{State} \{ \newline
+{\bfseries U\+N\+K\+N\+O\+WN}, 
+{\bfseries E\+X\+E\+C\+U\+T\+ED}, 
+{\bfseries E\+X\+E\+C\+U\+T\+I\+O\+N\+\_\+\+B\+Y\+P\+A\+S\+S\+ED}, 
+{\bfseries S\+Y\+N\+C\+\_\+\+N\+E\+E\+D\+S\+\_\+\+R\+E\+T\+RY}, 
+\newline
+{\bfseries S\+Y\+N\+C\+\_\+\+A\+B\+O\+R\+T\+ED}, 
+{\bfseries S\+Y\+N\+C\+\_\+\+T\+I\+M\+E\+D\+\_\+\+O\+UT}
+ \}\begin{DoxyCompactList}\small\item\em Summary state codes. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structflow__ros_1_1_event_summary_af5403b915dc7bb690c216e445c12d655}{Event\+Summary} (const flow\+::\+Result$<$ ros\+::\+Time $>$ \&\+\_\+result, const std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point \+\_\+execution\+\_\+timeout)
+\begin{DoxyCompactList}\small\item\em Constructor for initialization from sync results. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structflow__ros_1_1_event_summary_a194fe981559bf6e9bc814742a5b36b02}\label{structflow__ros_1_1_event_summary_a194fe981559bf6e9bc814742a5b36b02}} 
+\hyperlink{structflow__ros_1_1_event_summary_a9b5a677b4629e3c40e36a49a3f2cea6b}{State} \hyperlink{structflow__ros_1_1_event_summary_a194fe981559bf6e9bc814742a5b36b02}{state}
+\begin{DoxyCompactList}\small\item\em Event state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structflow__ros_1_1_event_summary_a2c6cd6d0c869888e4783a365b5c20c4d}\label{structflow__ros_1_1_event_summary_a2c6cd6d0c869888e4783a365b5c20c4d}} 
+flow\+::\+Capture\+Range$<$ ros\+::\+Time $>$ \hyperlink{structflow__ros_1_1_event_summary_a2c6cd6d0c869888e4783a365b5c20c4d}{range}
+\begin{DoxyCompactList}\small\item\em Capture time range. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structflow__ros_1_1_event_summary_a18cd625e078cc5af161087134a28bd8f}\label{structflow__ros_1_1_event_summary_a18cd625e078cc5af161087134a28bd8f}} 
+std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point \hyperlink{structflow__ros_1_1_event_summary_a18cd625e078cc5af161087134a28bd8f}{execution\+\_\+timeout}
+\begin{DoxyCompactList}\small\item\em Execution timeout. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Summary of event information from results. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structflow__ros_1_1_event_summary_af5403b915dc7bb690c216e445c12d655}\label{structflow__ros_1_1_event_summary_af5403b915dc7bb690c216e445c12d655}} 
+\index{flow\+\_\+ros\+::\+Event\+Summary@{flow\+\_\+ros\+::\+Event\+Summary}!Event\+Summary@{Event\+Summary}}
+\index{Event\+Summary@{Event\+Summary}!flow\+\_\+ros\+::\+Event\+Summary@{flow\+\_\+ros\+::\+Event\+Summary}}
+\subsubsection{\texorpdfstring{Event\+Summary()}{EventSummary()}}
+{\footnotesize\ttfamily flow\+\_\+ros\+::\+Event\+Summary\+::\+Event\+Summary (\begin{DoxyParamCaption}\item[{const flow\+::\+Result$<$ ros\+::\+Time $>$ \&}]{\+\_\+result,  }\item[{const std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point}]{\+\_\+execution\+\_\+timeout }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for initialization from sync results. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+result} & synchronizer result information \\
+\hline
+{\em \+\_\+execution\+\_\+timeout} & system-\/time point for execution timeout \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/\hyperlink{event__handler_8h}{event\+\_\+handler.\+h}\end{DoxyCompactItemize}

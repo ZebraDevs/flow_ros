@@ -1,0 +1,45 @@
+\hypertarget{message__seq__access_8h}{}\section{flow\+\_\+ros/include/message\+\_\+seq\+\_\+access.h File Reference}
+\label{message__seq__access_8h}\index{flow\+\_\+ros/include/message\+\_\+seq\+\_\+access.\+h@{flow\+\_\+ros/include/message\+\_\+seq\+\_\+access.\+h}}
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$boost/shared\+\_\+ptr.\+hpp$>$}\newline
+{\ttfamily \#include $<$ros/message\+\_\+traits.\+h$>$}\newline
+{\ttfamily \#include $<$ros/time.\+h$>$}\newline
+{\ttfamily \#include $<$flow/dispatch.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/message\+\_\+ptr.\+h$>$}\newline
+Include dependency graph for message\+\_\+seq\+\_\+access.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__seq__access_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structflow__ros_1_1_stamp_setter}{flow\+\_\+ros\+::\+Stamp\+Setter$<$ Msg\+T $>$}
+\begin{DoxyCompactList}\small\item\em Helper object use to set message stamps. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow__ros_1_1_default_message_seq_dispatch_access}{flow\+\_\+ros\+::\+Default\+Message\+Seq\+Dispatch\+Access}
+\begin{DoxyCompactList}\small\item\em Defines default message accessors to use a fall-\/back when defining {\ttfamily \hyperlink{structflow_1_1_dispatch_access}{flow\+::\+Dispatch\+Access}} \end{DoxyCompactList}\item 
+struct \hyperlink{structflow_1_1_dispatch_traits_3_01boost_1_1shared__ptr_3_01const_01_msg_t_01_4_01_4}{flow\+::\+Dispatch\+Traits$<$ boost\+::shared\+\_\+ptr$<$ const Msg\+T $>$ $>$}
+\begin{DoxyCompactList}\small\item\em Default R\+OS message Dispatch traits. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow_1_1_dispatch_traits_3_01std_1_1shared__ptr_3_01const_01_msg_t_01_4_01_4}{flow\+::\+Dispatch\+Traits$<$ std\+::shared\+\_\+ptr$<$ const Msg\+T $>$ $>$}
+\begin{DoxyCompactList}\small\item\em Default R\+OS message-\/like Dispatch traits. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow_1_1_dispatch_access}{flow\+::\+Dispatch\+Access$<$ Msg\+T $>$}
+\begin{DoxyCompactList}\small\item\em Template which basic methods for Message\+Dispatch. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceflow__ros}{flow\+\_\+ros}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyCopyright}{Copyright}
+2020 Fetch Robotics Inc. All rights reserved 
+\end{DoxyCopyright}
+\begin{DoxyAuthor}{Author}
+Brian Cairl 
+\end{DoxyAuthor}

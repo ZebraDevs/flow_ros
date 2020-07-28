@@ -1,0 +1,105 @@
+\hypertarget{classflow__ros_1_1routing_1_1_local_subscription_group}{}\section{flow\+\_\+ros\+:\+:routing\+:\+:Local\+Subscription\+Group Class Reference}
+\label{classflow__ros_1_1routing_1_1_local_subscription_group}\index{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group@{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group}}
+
+
+Holds a group of \hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{Local\+Subscription} objects associated with a particular topic.  
+
+
+
+
+{\ttfamily \#include $<$local\+\_\+subscription.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename MsgT $>$ }\\void \hyperlink{classflow__ros_1_1routing_1_1_local_subscription_group_af8ee0436491f90218fd94b088dd170ee}{call} (const \hyperlink{namespaceflow__ros_ad222b6c2bd0341c551129c3a03241ad7}{message\+\_\+shared\+\_\+const\+\_\+ptr\+\_\+t}$<$ MsgT $>$ \&message) const
+\begin{DoxyCompactList}\small\item\em Calls all subscriber callbacks on a new message. \end{DoxyCompactList}\item 
+void \hyperlink{classflow__ros_1_1routing_1_1_local_subscription_group_a2ec4b4ade12601eaf36e9ffbee113100}{inject} (const \+::rosbag\+::\+Message\+Instance \&mi) const
+\begin{DoxyCompactList}\small\item\em Calls subscriber callback with a rosbag message instance. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename MsgT $>$ }\\void \hyperlink{classflow__ros_1_1routing_1_1_local_subscription_group_ab6feb50cfaff51aae2b06da8b95a355a}{add\+Subscription} (std\+::shared\+\_\+ptr$<$ \hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{Local\+Subscription}$<$ MsgT $>$$>$ sub)
+\begin{DoxyCompactList}\small\item\em Adds new subscriptions to group. \end{DoxyCompactList}\item 
+\hyperlink{classflow__ros_1_1routing_1_1_local_subscription_group_aa63f6c379889d06a99c118d2dc9cdb67}{operator bool} () const
+\begin{DoxyCompactList}\small\item\em Validation cast operator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_local_subscription_group_a4a8df5ea6c5c4e2a6f961e8d9bb626cf}\label{classflow__ros_1_1routing_1_1_local_subscription_group_a4a8df5ea6c5c4e2a6f961e8d9bb626cf}} 
+std\+::size\+\_\+t \hyperlink{classflow__ros_1_1routing_1_1_local_subscription_group_a4a8df5ea6c5c4e2a6f961e8d9bb626cf}{size} () const
+\begin{DoxyCompactList}\small\item\em Returns the number of held subscriptions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Holds a group of \hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{Local\+Subscription} objects associated with a particular topic. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_local_subscription_group_ab6feb50cfaff51aae2b06da8b95a355a}\label{classflow__ros_1_1routing_1_1_local_subscription_group_ab6feb50cfaff51aae2b06da8b95a355a}} 
+\index{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group@{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group}!add\+Subscription@{add\+Subscription}}
+\index{add\+Subscription@{add\+Subscription}!flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group@{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group}}
+\subsubsection{\texorpdfstring{add\+Subscription()}{addSubscription()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+void flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group\+::add\+Subscription (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{Local\+Subscription}$<$ MsgT $>$$>$}]{sub }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds new subscriptions to group. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sub} & \hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{Local\+Subscription} resource \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_local_subscription_group_af8ee0436491f90218fd94b088dd170ee}\label{classflow__ros_1_1routing_1_1_local_subscription_group_af8ee0436491f90218fd94b088dd170ee}} 
+\index{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group@{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group}!call@{call}}
+\index{call@{call}!flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group@{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group}}
+\subsubsection{\texorpdfstring{call()}{call()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+void flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group\+::call (\begin{DoxyParamCaption}\item[{const \hyperlink{namespaceflow__ros_ad222b6c2bd0341c551129c3a03241ad7}{message\+\_\+shared\+\_\+const\+\_\+ptr\+\_\+t}$<$ MsgT $>$ \&}]{message }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calls all subscriber callbacks on a new message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & message data\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em $<$code$>$\+Message\+Type\+Error$<$/code$>$} & if {\ttfamily MsgT} is incompatible with subscription group \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_local_subscription_group_a2ec4b4ade12601eaf36e9ffbee113100}\label{classflow__ros_1_1routing_1_1_local_subscription_group_a2ec4b4ade12601eaf36e9ffbee113100}} 
+\index{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group@{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group}!inject@{inject}}
+\index{inject@{inject}!flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group@{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group}}
+\subsubsection{\texorpdfstring{inject()}{inject()}}
+{\footnotesize\ttfamily void flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group\+::inject (\begin{DoxyParamCaption}\item[{const \+::rosbag\+::\+Message\+Instance \&}]{mi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calls subscriber callback with a rosbag message instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mi} & R\+OS bag message instance \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_local_subscription_group_aa63f6c379889d06a99c118d2dc9cdb67}\label{classflow__ros_1_1routing_1_1_local_subscription_group_aa63f6c379889d06a99c118d2dc9cdb67}} 
+\index{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group@{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group}!operator bool@{operator bool}}
+\index{operator bool@{operator bool}!flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group@{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group}}
+\subsubsection{\texorpdfstring{operator bool()}{operator bool()}}
+{\footnotesize\ttfamily flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group\+::operator bool (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validation cast operator. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & if there are any held subscriptions \\
+\hline
+{\em false} & otherwise \\
+\hline
+\end{DoxyRetVals}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/routing/\hyperlink{local__subscription_8h}{local\+\_\+subscription.\+h}\end{DoxyCompactItemize}

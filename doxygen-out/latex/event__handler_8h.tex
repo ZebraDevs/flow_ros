@@ -1,0 +1,49 @@
+\hypertarget{event__handler_8h}{}\section{flow\+\_\+ros/include/event\+\_\+handler.h File Reference}
+\label{event__handler_8h}\index{flow\+\_\+ros/include/event\+\_\+handler.\+h@{flow\+\_\+ros/include/event\+\_\+handler.\+h}}
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$flow/synchronizer.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/message\+\_\+stamp\+\_\+access.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/publisher.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/subscriber.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/impl/event\+\_\+handler.\+hpp$>$}\newline
+Include dependency graph for event\+\_\+handler.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{event__handler_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structflow__ros_1_1_event_summary}{flow\+\_\+ros\+::\+Event\+Summary}
+\begin{DoxyCompactList}\small\item\em Summary of event information from results. \end{DoxyCompactList}\item 
+class \hyperlink{classflow__ros_1_1_event_handler_base}{flow\+\_\+ros\+::\+Event\+Handler\+Base}
+\begin{DoxyCompactList}\small\item\em Event handler base type. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow__ros_1_1_default_output_container_type_info}{flow\+\_\+ros\+::\+Default\+Output\+Container\+Type\+Info$<$ Dispatch\+T $>$}
+\begin{DoxyCompactList}\small\item\em Default dispatch container type information. \end{DoxyCompactList}\item 
+class \hyperlink{classflow__ros_1_1_event_handler}{flow\+\_\+ros\+::\+Event\+Handler$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$}
+\begin{DoxyCompactList}\small\item\em Manages a input and output channels, and runs callbacks on input synchronization. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow__ros_1_1_event_handler_1_1_callbacks}{flow\+\_\+ros\+::\+Event\+Handler$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$\+::\+Callbacks}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classflow__ros_1_1_event_handler}{Event\+Handler} callback options. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceflow__ros}{flow\+\_\+ros}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyCopyright}{Copyright}
+2020 Fetch Robotics Inc. All rights reserved 
+\end{DoxyCopyright}
+\begin{DoxyAuthor}{Author}
+Brian Cairl 
+\end{DoxyAuthor}

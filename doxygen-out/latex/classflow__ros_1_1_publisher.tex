@@ -1,0 +1,131 @@
+\hypertarget{classflow__ros_1_1_publisher}{}\section{flow\+\_\+ros\+:\+:Publisher$<$ MsgT $>$ Class Template Reference}
+\label{classflow__ros_1_1_publisher}\index{flow\+\_\+ros\+::\+Publisher$<$ Msg\+T $>$@{flow\+\_\+ros\+::\+Publisher$<$ Msg\+T $>$}}
+
+
+Output channel which publishes messages.  
+
+
+
+
+{\ttfamily \#include $<$publisher.\+h$>$}
+
+
+
+Inheritance diagram for flow\+\_\+ros\+:\+:Publisher$<$ MsgT $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=209pt]{classflow__ros_1_1_publisher__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for flow\+\_\+ros\+:\+:Publisher$<$ MsgT $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=209pt]{classflow__ros_1_1_publisher__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classflow__ros_1_1_publisher_a51a76fa72d57c38e23857c0c95103ef4}{Publisher} (ros\+::\+Node\+Handle \&nh, const std\+::string \&topic, std\+::uint32\+\_\+t queue\+\_\+size=0, const bool latched=false)
+\begin{DoxyCompactList}\small\item\em {\ttfamily ros\+::\+Node\+Handle} setup constructor (extra-\/node messaging) \end{DoxyCompactList}\item 
+\hyperlink{classflow__ros_1_1_publisher_a2a5c14b45b30efa5227c6b5b2586ab7e}{Publisher} (\hyperlink{classflow__ros_1_1_router}{Router} \&pb, std\+::string topic, std\+::uint32\+\_\+t queue\+\_\+size=0, const bool latched=false)
+\begin{DoxyCompactList}\small\item\em {\ttfamily \hyperlink{classflow__ros_1_1_router}{Router}} setup constructor (intra-\/node messaging) \end{DoxyCompactList}\item 
+void \hyperlink{classflow__ros_1_1_publisher_abba3d43e5dfe0bc1690fd4980e2f927f}{publish} (\hyperlink{namespaceflow__ros_a21a684f38ee2083b3858613317c46d82}{message\+\_\+shared\+\_\+ptr\+\_\+t}$<$ MsgT $>$ msg) const
+\begin{DoxyCompactList}\small\item\em Publishes output message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename MsgT$>$\newline
+class flow\+\_\+ros\+::\+Publisher$<$ Msg\+T $>$}
+
+Output channel which publishes messages. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em MsgT} & message type \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1_publisher_a51a76fa72d57c38e23857c0c95103ef4}\label{classflow__ros_1_1_publisher_a51a76fa72d57c38e23857c0c95103ef4}} 
+\index{flow\+\_\+ros\+::\+Publisher@{flow\+\_\+ros\+::\+Publisher}!Publisher@{Publisher}}
+\index{Publisher@{Publisher}!flow\+\_\+ros\+::\+Publisher@{flow\+\_\+ros\+::\+Publisher}}
+\subsubsection{\texorpdfstring{Publisher()}{Publisher()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename MsgT$>$ \\
+\hyperlink{classflow__ros_1_1_publisher}{flow\+\_\+ros\+::\+Publisher}$<$ MsgT $>$\+::\hyperlink{classflow__ros_1_1_publisher}{Publisher} (\begin{DoxyParamCaption}\item[{ros\+::\+Node\+Handle \&}]{nh,  }\item[{const std\+::string \&}]{topic,  }\item[{std\+::uint32\+\_\+t}]{queue\+\_\+size = {\ttfamily 0},  }\item[{const bool}]{latched = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+{\ttfamily ros\+::\+Node\+Handle} setup constructor (extra-\/node messaging) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em nh} & R\+OS node handle to negotiate topic advertisement/connection \\
+\hline
+ & {\em topic} & topic associated with messages to be output \\
+\hline
+ & {\em queue\+\_\+size} & underlying R\+OS publisher queue size \\
+\hline
+ & {\em latched} & options for creating a \char`\"{}latched\char`\"{} output publisher\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Will throw with {\ttfamily std\+::runtime\+\_\+error} if underlying publisher could not be establish a connection with R\+O\+S-\/master 
+\end{DoxyWarning}
+\mbox{\Hypertarget{classflow__ros_1_1_publisher_a2a5c14b45b30efa5227c6b5b2586ab7e}\label{classflow__ros_1_1_publisher_a2a5c14b45b30efa5227c6b5b2586ab7e}} 
+\index{flow\+\_\+ros\+::\+Publisher@{flow\+\_\+ros\+::\+Publisher}!Publisher@{Publisher}}
+\index{Publisher@{Publisher}!flow\+\_\+ros\+::\+Publisher@{flow\+\_\+ros\+::\+Publisher}}
+\subsubsection{\texorpdfstring{Publisher()}{Publisher()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename MsgT$>$ \\
+\hyperlink{classflow__ros_1_1_publisher}{flow\+\_\+ros\+::\+Publisher}$<$ MsgT $>$\+::\hyperlink{classflow__ros_1_1_publisher}{Publisher} (\begin{DoxyParamCaption}\item[{\hyperlink{classflow__ros_1_1_router}{Router} \&}]{pb,  }\item[{std\+::string}]{topic,  }\item[{std\+::uint32\+\_\+t}]{queue\+\_\+size = {\ttfamily 0},  }\item[{const bool}]{latched = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+{\ttfamily \hyperlink{classflow__ros_1_1_router}{Router}} setup constructor (intra-\/node messaging) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em pb} & Intra-\/node \hyperlink{classflow__ros_1_1_router}{Router} routing object \\
+\hline
+ & {\em topic} & topic associated with messages to be output \\
+\hline
+ & {\em queue\+\_\+size} & underlying publication queue size \\
+\hline
+ & {\em latched} & not used; dummy for A\+PI consistency\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Will throw with {\ttfamily std\+::runtime\+\_\+error} if underlying publisher could not be establish a connection with R\+O\+S-\/master 
+\end{DoxyWarning}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1_publisher_abba3d43e5dfe0bc1690fd4980e2f927f}\label{classflow__ros_1_1_publisher_abba3d43e5dfe0bc1690fd4980e2f927f}} 
+\index{flow\+\_\+ros\+::\+Publisher@{flow\+\_\+ros\+::\+Publisher}!publish@{publish}}
+\index{publish@{publish}!flow\+\_\+ros\+::\+Publisher@{flow\+\_\+ros\+::\+Publisher}}
+\subsubsection{\texorpdfstring{publish()}{publish()}}
+{\footnotesize\ttfamily template$<$typename MsgT$>$ \\
+void \hyperlink{classflow__ros_1_1_publisher}{flow\+\_\+ros\+::\+Publisher}$<$ MsgT $>$\+::publish (\begin{DoxyParamCaption}\item[{\hyperlink{namespaceflow__ros_a21a684f38ee2083b3858613317c46d82}{message\+\_\+shared\+\_\+ptr\+\_\+t}$<$ MsgT $>$}]{msg }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Publishes output message. 
+
+If message resource is invalid (i.\+e. {\ttfamily msg == nullptr}), then no message is sent over underlying publication channel
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & next output message \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/\hyperlink{publisher_8h}{publisher.\+h}\end{DoxyCompactItemize}

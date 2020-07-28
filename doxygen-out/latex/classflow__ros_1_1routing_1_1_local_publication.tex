@@ -1,0 +1,187 @@
+\hypertarget{classflow__ros_1_1routing_1_1_local_publication}{}\section{flow\+\_\+ros\+:\+:routing\+:\+:Local\+Publication$<$ MsgT $>$ Class Template Reference}
+\label{classflow__ros_1_1routing_1_1_local_publication}\index{flow\+\_\+ros\+::routing\+::\+Local\+Publication$<$ Msg\+T $>$@{flow\+\_\+ros\+::routing\+::\+Local\+Publication$<$ Msg\+T $>$}}
+
+
+A Subscription object used for passing messages locally.  
+
+
+
+
+{\ttfamily \#include $<$local\+\_\+publication.\+h$>$}
+
+
+
+Inheritance diagram for flow\+\_\+ros\+:\+:routing\+:\+:Local\+Publication$<$ MsgT $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classflow__ros_1_1routing_1_1_local_publication__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for flow\+\_\+ros\+:\+:routing\+:\+:Local\+Publication$<$ MsgT $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classflow__ros_1_1routing_1_1_local_publication__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classflow__ros_1_1routing_1_1_local_publication_a1430b9009fbb39639d69faa0545b8ec8}{Local\+Publication} (std\+::string topic, std\+::shared\+\_\+ptr$<$ \hyperlink{classflow__ros_1_1routing_1_1_local_subscription_group}{Local\+Subscription\+Group} $>$ subscribers)
+\begin{DoxyCompactList}\small\item\em Required setup constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classflow__ros_1_1routing_1_1_local_publication_ab2d53a2bd93e83ee11095f35d5820226}{publish} (const \hyperlink{namespaceflow__ros_a21a684f38ee2083b3858613317c46d82}{message\+\_\+shared\+\_\+ptr\+\_\+t}$<$ MsgT $>$ \&message) const
+\begin{DoxyCompactList}\small\item\em Call all held subscriber callbacks on message being published. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classflow__ros_1_1routing_1_1_local_publication_ab4d9ccc2b388dfe3db3ca1f4c1b0651d}{get\+Topic} () const override
+\begin{DoxyCompactList}\small\item\em Returns topic associated with publication. \end{DoxyCompactList}\item 
+std\+::uint32\+\_\+t \hyperlink{classflow__ros_1_1routing_1_1_local_publication_a3c79d6a426202a0ba0fad4f3de9e07b4}{get\+Num\+Subscribers} () const override
+\begin{DoxyCompactList}\small\item\em Returns number of subscriptions connected to this publication. \end{DoxyCompactList}\item 
+bool \hyperlink{classflow__ros_1_1routing_1_1_local_publication_ad1b48ed20ccdab599389f3132f545dd8}{is\+Latched} () const override
+\begin{DoxyCompactList}\small\item\em Returns flag indicating whether or not publisher is latched. \end{DoxyCompactList}\item 
+\hyperlink{transport__info_8h_ae57afcf849a5bdb82b958347c6ccc57b}{Transport\+Method} \hyperlink{classflow__ros_1_1routing_1_1_local_publication_a386554f0af2d80bdf566c496ea01b4b8}{get\+Transport\+Method} () const override
+\item 
+bool \hyperlink{classflow__ros_1_1routing_1_1_local_publication_a982359da6513c94f5befd4e990796c28}{is\+Valid} () const override
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename MsgT$>$\newline
+class flow\+\_\+ros\+::routing\+::\+Local\+Publication$<$ Msg\+T $>$}
+
+A Subscription object used for passing messages locally. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em MsgT} & transported data type \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_local_publication_a1430b9009fbb39639d69faa0545b8ec8}\label{classflow__ros_1_1routing_1_1_local_publication_a1430b9009fbb39639d69faa0545b8ec8}} 
+\index{flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}!Local\+Publication@{Local\+Publication}}
+\index{Local\+Publication@{Local\+Publication}!flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}}
+\subsubsection{\texorpdfstring{Local\+Publication()}{LocalPublication()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+\hyperlink{classflow__ros_1_1routing_1_1_local_publication}{flow\+\_\+ros\+::routing\+::\+Local\+Publication}$<$ MsgT $>$\+::\hyperlink{classflow__ros_1_1routing_1_1_local_publication}{Local\+Publication} (\begin{DoxyParamCaption}\item[{std\+::string}]{topic,  }\item[{std\+::shared\+\_\+ptr$<$ \hyperlink{classflow__ros_1_1routing_1_1_local_subscription_group}{Local\+Subscription\+Group} $>$}]{subscribers }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Required setup constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em topic} & topic associated with published messages \\
+\hline
+{\em subscribers} & group of \hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{Local\+Subscription} object which will be passed published messages \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_local_publication_a3c79d6a426202a0ba0fad4f3de9e07b4}\label{classflow__ros_1_1routing_1_1_local_publication_a3c79d6a426202a0ba0fad4f3de9e07b4}} 
+\index{flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}!get\+Num\+Subscribers@{get\+Num\+Subscribers}}
+\index{get\+Num\+Subscribers@{get\+Num\+Subscribers}!flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}}
+\subsubsection{\texorpdfstring{get\+Num\+Subscribers()}{getNumSubscribers()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+std\+::uint32\+\_\+t \hyperlink{classflow__ros_1_1routing_1_1_local_publication}{flow\+\_\+ros\+::routing\+::\+Local\+Publication}$<$ MsgT $>$\+::get\+Num\+Subscribers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns number of subscriptions connected to this publication. 
+
+
+
+Implements \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_a3e2fb2a4cafe729a643af5ed5033dc50}{flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper$<$ Msg\+T $>$}.
+
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_local_publication_ab4d9ccc2b388dfe3db3ca1f4c1b0651d}\label{classflow__ros_1_1routing_1_1_local_publication_ab4d9ccc2b388dfe3db3ca1f4c1b0651d}} 
+\index{flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}!get\+Topic@{get\+Topic}}
+\index{get\+Topic@{get\+Topic}!flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}}
+\subsubsection{\texorpdfstring{get\+Topic()}{getTopic()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+std\+::string \hyperlink{classflow__ros_1_1routing_1_1_local_publication}{flow\+\_\+ros\+::routing\+::\+Local\+Publication}$<$ MsgT $>$\+::get\+Topic (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns topic associated with publication. 
+
+
+
+Implements \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_a1aa441bb1846211cb803362233d4ee0b}{flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper$<$ Msg\+T $>$}.
+
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_local_publication_a386554f0af2d80bdf566c496ea01b4b8}\label{classflow__ros_1_1routing_1_1_local_publication_a386554f0af2d80bdf566c496ea01b4b8}} 
+\index{flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}!get\+Transport\+Method@{get\+Transport\+Method}}
+\index{get\+Transport\+Method@{get\+Transport\+Method}!flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}}
+\subsubsection{\texorpdfstring{get\+Transport\+Method()}{getTransportMethod()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+\hyperlink{transport__info_8h_ae57afcf849a5bdb82b958347c6ccc57b}{Transport\+Method} \hyperlink{classflow__ros_1_1routing_1_1_local_publication}{flow\+\_\+ros\+::routing\+::\+Local\+Publication}$<$ MsgT $>$\+::get\+Transport\+Method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+
+
+
+
+Implements \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_a0398202c79a6bdb1ff57acc8c730bc65}{flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper$<$ Msg\+T $>$}.
+
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_local_publication_ad1b48ed20ccdab599389f3132f545dd8}\label{classflow__ros_1_1routing_1_1_local_publication_ad1b48ed20ccdab599389f3132f545dd8}} 
+\index{flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}!is\+Latched@{is\+Latched}}
+\index{is\+Latched@{is\+Latched}!flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}}
+\subsubsection{\texorpdfstring{is\+Latched()}{isLatched()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+bool \hyperlink{classflow__ros_1_1routing_1_1_local_publication}{flow\+\_\+ros\+::routing\+::\+Local\+Publication}$<$ MsgT $>$\+::is\+Latched (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns flag indicating whether or not publisher is latched. 
+
+\begin{DoxyNote}{Note}
+Dummy implementation; local publications cannot be latched 
+\end{DoxyNote}
+
+
+Implements \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_a86fdc857e02347e862dbbb113e5a6cb6}{flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper$<$ Msg\+T $>$}.
+
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_local_publication_a982359da6513c94f5befd4e990796c28}\label{classflow__ros_1_1routing_1_1_local_publication_a982359da6513c94f5befd4e990796c28}} 
+\index{flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}!is\+Valid@{is\+Valid}}
+\index{is\+Valid@{is\+Valid}!flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}}
+\subsubsection{\texorpdfstring{is\+Valid()}{isValid()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+bool \hyperlink{classflow__ros_1_1routing_1_1_local_publication}{flow\+\_\+ros\+::routing\+::\+Local\+Publication}$<$ MsgT $>$\+::is\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+
+
+
+
+Implements \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_afc33bf27092f8e8188e3f7955a6b7c97}{flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper$<$ Msg\+T $>$}.
+
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_local_publication_ab2d53a2bd93e83ee11095f35d5820226}\label{classflow__ros_1_1routing_1_1_local_publication_ab2d53a2bd93e83ee11095f35d5820226}} 
+\index{flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}!publish@{publish}}
+\index{publish@{publish}!flow\+\_\+ros\+::routing\+::\+Local\+Publication@{flow\+\_\+ros\+::routing\+::\+Local\+Publication}}
+\subsubsection{\texorpdfstring{publish()}{publish()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+void \hyperlink{classflow__ros_1_1routing_1_1_local_publication}{flow\+\_\+ros\+::routing\+::\+Local\+Publication}$<$ MsgT $>$\+::publish (\begin{DoxyParamCaption}\item[{const \hyperlink{namespaceflow__ros_a21a684f38ee2083b3858613317c46d82}{message\+\_\+shared\+\_\+ptr\+\_\+t}$<$ MsgT $>$ \&}]{message }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Call all held subscriber callbacks on message being published. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & message data to publish \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_a43b9989390bf9f001fe9670a0c1d5897}{flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper$<$ Msg\+T $>$}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/routing/local\+\_\+publication.\+h\end{DoxyCompactItemize}

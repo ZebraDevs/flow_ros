@@ -1,0 +1,135 @@
+\hypertarget{classflow__ros_1_1routing_1_1_r_o_s_subscription}{}\section{flow\+\_\+ros\+:\+:routing\+:\+:R\+O\+S\+Subscription Class Reference}
+\label{classflow__ros_1_1routing_1_1_r_o_s_subscription}\index{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription@{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription}}
+
+
+Wrapper object for a {\ttfamily ros\+::\+Subscriber}  
+
+
+
+
+{\ttfamily \#include $<$ros\+\_\+subscription.\+h$>$}
+
+
+
+Inheritance diagram for flow\+\_\+ros\+:\+:routing\+:\+:R\+O\+S\+Subscription\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=187pt]{classflow__ros_1_1routing_1_1_r_o_s_subscription__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for flow\+\_\+ros\+:\+:routing\+:\+:R\+O\+S\+Subscription\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=187pt]{classflow__ros_1_1routing_1_1_r_o_s_subscription__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classflow__ros_1_1routing_1_1_r_o_s_subscription_a8223b1ebd0550e650a53c8593a524253}{R\+O\+S\+Subscription} (const ros\+::\+Subscriber \&sub)
+\begin{DoxyCompactList}\small\item\em R\+OS subscription constructor. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classflow__ros_1_1routing_1_1_r_o_s_subscription_a3bdbb4897a1a8bdb67af2f72fb7645a7}{get\+Topic} () const override
+\begin{DoxyCompactList}\small\item\em Returns topic associated with publication. \end{DoxyCompactList}\item 
+std\+::uint32\+\_\+t \hyperlink{classflow__ros_1_1routing_1_1_r_o_s_subscription_a90b710d0cd089f60a3a2549acae6e8cb}{get\+Num\+Publishers} () const override
+\begin{DoxyCompactList}\small\item\em Returns number of local publications connected to this subscription. \end{DoxyCompactList}\item 
+\hyperlink{transport__info_8h_ae57afcf849a5bdb82b958347c6ccc57b}{Transport\+Method} \hyperlink{classflow__ros_1_1routing_1_1_r_o_s_subscription_a3dc2cff4348f072352a307c6902d1a18}{get\+Transport\+Method} () const override
+\begin{DoxyCompactList}\small\item\em Returns transport method (code) associated with this subscription. \end{DoxyCompactList}\item 
+bool \hyperlink{classflow__ros_1_1routing_1_1_r_o_s_subscription_a5f845fe965a9b166b02a87ffbb00e6ac}{is\+Valid} () const override
+\begin{DoxyCompactList}\small\item\em Validity check. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Wrapper object for a {\ttfamily ros\+::\+Subscriber} 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_r_o_s_subscription_a8223b1ebd0550e650a53c8593a524253}\label{classflow__ros_1_1routing_1_1_r_o_s_subscription_a8223b1ebd0550e650a53c8593a524253}} 
+\index{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription@{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription}!R\+O\+S\+Subscription@{R\+O\+S\+Subscription}}
+\index{R\+O\+S\+Subscription@{R\+O\+S\+Subscription}!flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription@{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription}}
+\subsubsection{\texorpdfstring{R\+O\+S\+Subscription()}{ROSSubscription()}}
+{\footnotesize\ttfamily flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription\+::\+R\+O\+S\+Subscription (\begin{DoxyParamCaption}\item[{const ros\+::\+Subscriber \&}]{sub }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+R\+OS subscription constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sub} & R\+OS subscription encapsulation object \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_r_o_s_subscription_a90b710d0cd089f60a3a2549acae6e8cb}\label{classflow__ros_1_1routing_1_1_r_o_s_subscription_a90b710d0cd089f60a3a2549acae6e8cb}} 
+\index{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription@{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription}!get\+Num\+Publishers@{get\+Num\+Publishers}}
+\index{get\+Num\+Publishers@{get\+Num\+Publishers}!flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription@{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription}}
+\subsubsection{\texorpdfstring{get\+Num\+Publishers()}{getNumPublishers()}}
+{\footnotesize\ttfamily std\+::uint32\+\_\+t flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription\+::get\+Num\+Publishers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns number of local publications connected to this subscription. 
+
+
+
+Implements \hyperlink{classflow__ros_1_1routing_1_1_subscription_wrapper_a8ae55d34a07c505dc2b4bcb2440b2d32}{flow\+\_\+ros\+::routing\+::\+Subscription\+Wrapper}.
+
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_r_o_s_subscription_a3bdbb4897a1a8bdb67af2f72fb7645a7}\label{classflow__ros_1_1routing_1_1_r_o_s_subscription_a3bdbb4897a1a8bdb67af2f72fb7645a7}} 
+\index{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription@{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription}!get\+Topic@{get\+Topic}}
+\index{get\+Topic@{get\+Topic}!flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription@{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription}}
+\subsubsection{\texorpdfstring{get\+Topic()}{getTopic()}}
+{\footnotesize\ttfamily std\+::string flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription\+::get\+Topic (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns topic associated with publication. 
+
+
+
+Implements \hyperlink{classflow__ros_1_1routing_1_1_subscription_wrapper_a2ef27475e7b7d7555e90d02cdc220b88}{flow\+\_\+ros\+::routing\+::\+Subscription\+Wrapper}.
+
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_r_o_s_subscription_a3dc2cff4348f072352a307c6902d1a18}\label{classflow__ros_1_1routing_1_1_r_o_s_subscription_a3dc2cff4348f072352a307c6902d1a18}} 
+\index{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription@{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription}!get\+Transport\+Method@{get\+Transport\+Method}}
+\index{get\+Transport\+Method@{get\+Transport\+Method}!flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription@{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription}}
+\subsubsection{\texorpdfstring{get\+Transport\+Method()}{getTransportMethod()}}
+{\footnotesize\ttfamily \hyperlink{transport__info_8h_ae57afcf849a5bdb82b958347c6ccc57b}{Transport\+Method} flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription\+::get\+Transport\+Method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns transport method (code) associated with this subscription. 
+
+
+
+Implements \hyperlink{classflow__ros_1_1routing_1_1_subscription_wrapper_a063fcc10600ef657620e2b58ce1fca85}{flow\+\_\+ros\+::routing\+::\+Subscription\+Wrapper}.
+
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_r_o_s_subscription_a5f845fe965a9b166b02a87ffbb00e6ac}\label{classflow__ros_1_1routing_1_1_r_o_s_subscription_a5f845fe965a9b166b02a87ffbb00e6ac}} 
+\index{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription@{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription}!is\+Valid@{is\+Valid}}
+\index{is\+Valid@{is\+Valid}!flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription@{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription}}
+\subsubsection{\texorpdfstring{is\+Valid()}{isValid()}}
+{\footnotesize\ttfamily bool flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Subscription\+::is\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Validity check. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & if underlying R\+OS subscriber is valid \\
+\hline
+{\em false} & otherwise \\
+\hline
+\end{DoxyRetVals}
+
+
+Implements \hyperlink{classflow__ros_1_1routing_1_1_subscription_wrapper_a0f23052807c3533d28168d7c681a221e}{flow\+\_\+ros\+::routing\+::\+Subscription\+Wrapper}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/routing/ros\+\_\+subscription.\+h\end{DoxyCompactItemize}

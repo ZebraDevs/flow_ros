@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classflow__ros_1_1routing_1_1_local_subscription_base.html" title="LocalSubscription base which provides basic info and erases MsgT&#45;dependent methods. " alt="" coords="5,5,160,47"/>
+<area shape="rect" id="node2" href="$classflow__ros_1_1routing_1_1_local_subscription.html" title="flow_ros::routing::\lLocalSubscription\&lt; MsgT \&gt;" alt="" coords="208,5,391,47"/>
+<area shape="rect" id="node3" href="$classflow__ros_1_1routing_1_1_subscription_wrapper.html" title="Base for message subscribing implementation. " alt="" coords="11,71,154,112"/>
+<area shape="rect" id="node4" href="$classflow__ros_1_1routing_1_1_r_o_s_subscription.html" title="Wrapper object for a ros::Subscriber " alt="" coords="236,71,363,112"/>
+</map>

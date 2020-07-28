@@ -1,0 +1,4 @@
+<map id="flow_ros::routing::PublicationWrapper&lt; MsgT &gt;" name="flow_ros::routing::PublicationWrapper&lt; MsgT &gt;">
+<area shape="rect" id="node2" href="$classflow__ros_1_1routing_1_1_local_publication.html" title="A Subscription object used for passing messages locally. " alt="" coords="196,5,371,47"/>
+<area shape="rect" id="node3" href="$classflow__ros_1_1routing_1_1_r_o_s_publication.html" title="Wrapper object for a ros::Publisher " alt="" coords="197,71,369,112"/>
+</map>

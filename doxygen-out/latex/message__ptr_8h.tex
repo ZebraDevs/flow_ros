@@ -1,0 +1,75 @@
+\hypertarget{message__ptr_8h}{}\section{flow\+\_\+ros/include/message\+\_\+ptr.h File Reference}
+\label{message__ptr_8h}\index{flow\+\_\+ros/include/message\+\_\+ptr.\+h@{flow\+\_\+ros/include/message\+\_\+ptr.\+h}}
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$boost/shared\+\_\+ptr.\+hpp$>$}\newline
+{\ttfamily \#include $<$ros/message\+\_\+traits.\+h$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+Include dependency graph for message\+\_\+ptr.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__ptr_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structflow__ros_1_1_message_shared_ptr_type}{flow\+\_\+ros\+::\+Message\+Shared\+Ptr\+Type$<$ Msg\+T, I\+S\+\_\+\+R\+O\+S\+\_\+\+M\+E\+S\+S\+A\+G\+E $>$}
+\begin{DoxyCompactList}\small\item\em Traits object used to select correct shared\+\_\+ptr resource type. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow__ros_1_1_message_shared_const_ptr_type}{flow\+\_\+ros\+::\+Message\+Shared\+Const\+Ptr\+Type$<$ Msg\+T, I\+S\+\_\+\+R\+O\+S\+\_\+\+M\+E\+S\+S\+A\+G\+E $>$}
+\begin{DoxyCompactList}\small\item\em Traits object used to select correct shared\+\_\+ptr const resource wrapper. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow__ros_1_1_message_shared_ptr_type_3_01_msg_t_00_01true_01_4}{flow\+\_\+ros\+::\+Message\+Shared\+Ptr\+Type$<$ Msg\+T, true $>$}
+\begin{DoxyCompactList}\small\item\em Traits object used to select correct shared\+\_\+ptr resource type. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow__ros_1_1_message_shared_const_ptr_type_3_01_msg_t_00_01true_01_4}{flow\+\_\+ros\+::\+Message\+Shared\+Const\+Ptr\+Type$<$ Msg\+T, true $>$}
+\begin{DoxyCompactList}\small\item\em Traits object used to select correct shared\+\_\+ptr const resource wrapper. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceflow__ros}{flow\+\_\+ros}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{message__ptr_8h_a17fb2c81a1959d50ef0f0e0a31fcb667}{N\+O\+N\+\_\+\+R\+O\+S\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+P\+T\+R\+\_\+\+T\+M\+PL}~std\+::shared\+\_\+ptr$<$MsgT$>$
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceflow__ros_aa27be896eb2c4c34fef0e9b7dd444d4c}\label{namespaceflow__ros_aa27be896eb2c4c34fef0e9b7dd444d4c}} 
+{\footnotesize template$<$typename MsgT $>$ }\\using \hyperlink{namespaceflow__ros_aa27be896eb2c4c34fef0e9b7dd444d4c}{flow\+\_\+ros\+::non\+\_\+message\+\_\+shared\+\_\+ptr\+\_\+t} = \hyperlink{message__ptr_8h_a17fb2c81a1959d50ef0f0e0a31fcb667}{N\+O\+N\+\_\+\+R\+O\+S\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+P\+T\+R\+\_\+\+T\+M\+PL}
+\begin{DoxyCompactList}\small\item\em Non-\/message resource pointer alias. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{namespaceflow__ros_a21a684f38ee2083b3858613317c46d82}\label{namespaceflow__ros_a21a684f38ee2083b3858613317c46d82}} 
+{\footnotesize template$<$typename MsgT $>$ }\\using \hyperlink{namespaceflow__ros_a21a684f38ee2083b3858613317c46d82}{flow\+\_\+ros\+::message\+\_\+shared\+\_\+ptr\+\_\+t} = typename Message\+Shared\+Ptr\+Type$<$ MsgT $>$\+::type
+\begin{DoxyCompactList}\small\item\em Extracts appropriate shared\+\_\+ptr wrapper type for {\ttfamily MsgT} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{namespaceflow__ros_ad222b6c2bd0341c551129c3a03241ad7}\label{namespaceflow__ros_ad222b6c2bd0341c551129c3a03241ad7}} 
+{\footnotesize template$<$typename MsgT $>$ }\\using \hyperlink{namespaceflow__ros_ad222b6c2bd0341c551129c3a03241ad7}{flow\+\_\+ros\+::message\+\_\+shared\+\_\+const\+\_\+ptr\+\_\+t} = typename Message\+Shared\+Const\+Ptr\+Type$<$ MsgT $>$\+::type
+\begin{DoxyCompactList}\small\item\em Extracts appropriate shared\+\_\+ptr wrapper type for {\ttfamily MsgT} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceflow__ros_a9628f8bb8243036a41bcf1639e7ba57a}\label{namespaceflow__ros_a9628f8bb8243036a41bcf1639e7ba57a}} 
+{\footnotesize template$<$typename MsgT $>$ }\\constexpr bool \hyperlink{namespaceflow__ros_a9628f8bb8243036a41bcf1639e7ba57a}{flow\+\_\+ros\+::is\+\_\+message\+\_\+v} = ros\+::message\+\_\+traits\+::\+Is\+Message$<$std\+::remove\+\_\+const\+\_\+t$<$MsgT$>$$>$\+::value
+\begin{DoxyCompactList}\small\item\em Checks if object is a R\+OS message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyCopyright}{Copyright}
+2020 Fetch Robotics Inc. All rights reserved 
+\end{DoxyCopyright}
+\begin{DoxyAuthor}{Author}
+Brian Cairl 
+\end{DoxyAuthor}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{message__ptr_8h_a17fb2c81a1959d50ef0f0e0a31fcb667}\label{message__ptr_8h_a17fb2c81a1959d50ef0f0e0a31fcb667}} 
+\index{message\+\_\+ptr.\+h@{message\+\_\+ptr.\+h}!N\+O\+N\+\_\+\+R\+O\+S\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+P\+T\+R\+\_\+\+T\+M\+PL@{N\+O\+N\+\_\+\+R\+O\+S\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+P\+T\+R\+\_\+\+T\+M\+PL}}
+\index{N\+O\+N\+\_\+\+R\+O\+S\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+P\+T\+R\+\_\+\+T\+M\+PL@{N\+O\+N\+\_\+\+R\+O\+S\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+P\+T\+R\+\_\+\+T\+M\+PL}!message\+\_\+ptr.\+h@{message\+\_\+ptr.\+h}}
+\subsubsection{\texorpdfstring{N\+O\+N\+\_\+\+R\+O\+S\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+P\+T\+R\+\_\+\+T\+M\+PL}{NON\_ROS\_MESSAGE\_SHARED\_PTR\_TMPL}}
+{\footnotesize\ttfamily \#define N\+O\+N\+\_\+\+R\+O\+S\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+P\+T\+R\+\_\+\+T\+M\+PL~std\+::shared\+\_\+ptr$<$MsgT$>$}
+
+R\+OS messages are stored as {\ttfamily boost\+::shared\+\_\+ptr} resources, which was a design decision made before C++ had introduce {\ttfamily std\+::shared\+\_\+ptr} with C++11.
+
+This definition provides a fall-\/back for non-\/message entities passed between \hyperlink{namespaceflow__ros}{flow\+\_\+ros} Publisher and Subscriber objects through local message passing using \hyperlink{classflow__ros_1_1_router}{flow\+\_\+ros\+::\+Router}, since there is no restriction to use boost in these cases.
+
+If you would like to use {\ttfamily boost\+::shared\+\_\+ptr}, or something else, define {\ttfamily N\+O\+N\+\_\+\+R\+O\+S\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+H\+A\+R\+E\+D\+\_\+\+P\+T\+R\+\_\+\+T\+M\+PL = {\itshape shared\+\_\+ptr}} before this point 

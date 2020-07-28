@@ -1,0 +1,4 @@
+<map id="flow_ros::Subscriber&lt; MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT &gt;" name="flow_ros::Subscriber&lt; MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT &gt;">
+<area shape="rect" id="node2" href="$classflow__ros_1_1_subscriber_policy_base.html" title="flow_ros::SubscriberPolicy\lBase\&lt; PolicyTmpl\&lt; message\l_shared_const_ptr_t\&lt; const\l MsgT \&gt;, LockPolicyT, MsgConstPtrContainerT \&gt; \&gt;" alt="" coords="252,43,576,113"/>
+<area shape="rect" id="node4" href="$classflow__ros_1_1_subscriber_base.html" title="Message input channel with meta information interfaces. " alt="" coords="19,101,190,127"/>
+</map>

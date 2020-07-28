@@ -1,0 +1,196 @@
+\hypertarget{classflow__ros_1_1_publisher_output_base}{}\section{flow\+\_\+ros\+:\+:Publisher\+Output\+Base$<$ MsgT $>$ Class Template Reference}
+\label{classflow__ros_1_1_publisher_output_base}\index{flow\+\_\+ros\+::\+Publisher\+Output\+Base$<$ Msg\+T $>$@{flow\+\_\+ros\+::\+Publisher\+Output\+Base$<$ Msg\+T $>$}}
+
+
+Message publisher base type.  
+
+
+
+
+{\ttfamily \#include $<$publisher.\+h$>$}
+
+
+
+Inheritance diagram for flow\+\_\+ros\+:\+:Publisher\+Output\+Base$<$ MsgT $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{classflow__ros_1_1_publisher_output_base__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for flow\+\_\+ros\+:\+:Publisher\+Output\+Base$<$ MsgT $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=209pt]{classflow__ros_1_1_publisher_output_base__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{classflow__ros_1_1_publisher_output_base_a28d4636b7d52e0dac54f27556308e9d4}{get\+Topic} () const final
+\begin{DoxyCompactList}\small\item\em Returns topic associated with publication. \end{DoxyCompactList}\item 
+std\+::uint32\+\_\+t \hyperlink{classflow__ros_1_1_publisher_output_base_a8f51f3d329d65aad7d0f9ea6b4f3c4b6}{get\+Num\+Subscribers} () const final
+\begin{DoxyCompactList}\small\item\em Returns number of subscriptions connected to this publication. \end{DoxyCompactList}\item 
+bool \hyperlink{classflow__ros_1_1_publisher_output_base_a34acf851a9aa31ece46b6b5887b3db24}{is\+Latched} () const final
+\begin{DoxyCompactList}\small\item\em Returns flag indicating whether or not publisher is latched. \end{DoxyCompactList}\item 
+\hyperlink{transport__info_8h_ae57afcf849a5bdb82b958347c6ccc57b}{routing\+::\+Transport\+Method} \hyperlink{classflow__ros_1_1_publisher_output_base_ac052232bb5a6fb9ea04ab61453d14f69}{get\+Transport\+Method} () const final
+\begin{DoxyCompactList}\small\item\em Returns transport method (code) associated with this publication. \end{DoxyCompactList}\item 
+bool \hyperlink{classflow__ros_1_1_publisher_output_base_a60ffa435ac1243b046d8029584c097a3}{is\+Valid} () const final
+\begin{DoxyCompactList}\small\item\em Validity check. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr \hyperlink{transport__info_8h_acb4b6ac875de32a0d0ee8cec235f7752}{routing\+::\+Direction} \hyperlink{classflow__ros_1_1_publisher_output_base_a4f42e2bf09aa92117879071652a0df17}{get\+Transport\+Direction} ()
+\begin{DoxyCompactList}\small\item\em Returns transport direction (code) associated with this publication. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classflow__ros_1_1_publisher_output_base_a9e937b3b34f0a78ea03826b484dfa354}{Publisher\+Output\+Base} (std\+::shared\+\_\+ptr$<$ \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper}{routing\+::\+Publication\+Wrapper}$<$ MsgT $>$$>$ pub)
+\begin{DoxyCompactList}\small\item\em Publication setup constructor (generic) \end{DoxyCompactList}\item 
+void \hyperlink{classflow__ros_1_1_publisher_output_base_a66abc7f5296a4b2c29c776539df70cd1}{publish} (const \hyperlink{namespaceflow__ros_a21a684f38ee2083b3858613317c46d82}{message\+\_\+shared\+\_\+ptr\+\_\+t}$<$ MsgT $>$ \&message) const
+\begin{DoxyCompactList}\small\item\em Call all held subscriber callbacks on message being published. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename MsgT$>$\newline
+class flow\+\_\+ros\+::\+Publisher\+Output\+Base$<$ Msg\+T $>$}
+
+Message publisher base type. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em MsgT} & Message type \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1_publisher_output_base_a9e937b3b34f0a78ea03826b484dfa354}\label{classflow__ros_1_1_publisher_output_base_a9e937b3b34f0a78ea03826b484dfa354}} 
+\index{flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}!Publisher\+Output\+Base@{Publisher\+Output\+Base}}
+\index{Publisher\+Output\+Base@{Publisher\+Output\+Base}!flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}}
+\subsubsection{\texorpdfstring{Publisher\+Output\+Base()}{PublisherOutputBase()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+\hyperlink{classflow__ros_1_1_publisher_output_base}{flow\+\_\+ros\+::\+Publisher\+Output\+Base}$<$ MsgT $>$\+::\hyperlink{classflow__ros_1_1_publisher_output_base}{Publisher\+Output\+Base} (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper}{routing\+::\+Publication\+Wrapper}$<$ MsgT $>$$>$}]{pub }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}, {\ttfamily [protected]}}
+
+
+
+Publication setup constructor (generic) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pub} & publication resource \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1_publisher_output_base_a8f51f3d329d65aad7d0f9ea6b4f3c4b6}\label{classflow__ros_1_1_publisher_output_base_a8f51f3d329d65aad7d0f9ea6b4f3c4b6}} 
+\index{flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}!get\+Num\+Subscribers@{get\+Num\+Subscribers}}
+\index{get\+Num\+Subscribers@{get\+Num\+Subscribers}!flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}}
+\subsubsection{\texorpdfstring{get\+Num\+Subscribers()}{getNumSubscribers()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+std\+::uint32\+\_\+t \hyperlink{classflow__ros_1_1_publisher_output_base}{flow\+\_\+ros\+::\+Publisher\+Output\+Base}$<$ MsgT $>$\+::get\+Num\+Subscribers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Returns number of subscriptions connected to this publication. 
+
+
+
+Implements \hyperlink{classflow__ros_1_1_publisher_base_ae5638184ee60bbc1326a5e7b47919bec}{flow\+\_\+ros\+::\+Publisher\+Base}.
+
+\mbox{\Hypertarget{classflow__ros_1_1_publisher_output_base_a28d4636b7d52e0dac54f27556308e9d4}\label{classflow__ros_1_1_publisher_output_base_a28d4636b7d52e0dac54f27556308e9d4}} 
+\index{flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}!get\+Topic@{get\+Topic}}
+\index{get\+Topic@{get\+Topic}!flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}}
+\subsubsection{\texorpdfstring{get\+Topic()}{getTopic()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+std\+::string \hyperlink{classflow__ros_1_1_publisher_output_base}{flow\+\_\+ros\+::\+Publisher\+Output\+Base}$<$ MsgT $>$\+::get\+Topic (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Returns topic associated with publication. 
+
+
+
+Implements \hyperlink{classflow__ros_1_1_publisher_base_aed36dfd3c58ff3c588b2030319cd26e1}{flow\+\_\+ros\+::\+Publisher\+Base}.
+
+\mbox{\Hypertarget{classflow__ros_1_1_publisher_output_base_a4f42e2bf09aa92117879071652a0df17}\label{classflow__ros_1_1_publisher_output_base_a4f42e2bf09aa92117879071652a0df17}} 
+\index{flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}!get\+Transport\+Direction@{get\+Transport\+Direction}}
+\index{get\+Transport\+Direction@{get\+Transport\+Direction}!flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}}
+\subsubsection{\texorpdfstring{get\+Transport\+Direction()}{getTransportDirection()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+static constexpr \hyperlink{transport__info_8h_acb4b6ac875de32a0d0ee8cec235f7752}{routing\+::\+Direction} \hyperlink{classflow__ros_1_1_publisher_output_base}{flow\+\_\+ros\+::\+Publisher\+Output\+Base}$<$ MsgT $>$\+::get\+Transport\+Direction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Returns transport direction (code) associated with this publication. 
+
+\mbox{\Hypertarget{classflow__ros_1_1_publisher_output_base_ac052232bb5a6fb9ea04ab61453d14f69}\label{classflow__ros_1_1_publisher_output_base_ac052232bb5a6fb9ea04ab61453d14f69}} 
+\index{flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}!get\+Transport\+Method@{get\+Transport\+Method}}
+\index{get\+Transport\+Method@{get\+Transport\+Method}!flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}}
+\subsubsection{\texorpdfstring{get\+Transport\+Method()}{getTransportMethod()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+\hyperlink{transport__info_8h_ae57afcf849a5bdb82b958347c6ccc57b}{routing\+::\+Transport\+Method} \hyperlink{classflow__ros_1_1_publisher_output_base}{flow\+\_\+ros\+::\+Publisher\+Output\+Base}$<$ MsgT $>$\+::get\+Transport\+Method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Returns transport method (code) associated with this publication. 
+
+
+
+Implements \hyperlink{classflow__ros_1_1_publisher_base_ad0cd41b4d2a8e4697610643c7e90d8c7}{flow\+\_\+ros\+::\+Publisher\+Base}.
+
+\mbox{\Hypertarget{classflow__ros_1_1_publisher_output_base_a34acf851a9aa31ece46b6b5887b3db24}\label{classflow__ros_1_1_publisher_output_base_a34acf851a9aa31ece46b6b5887b3db24}} 
+\index{flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}!is\+Latched@{is\+Latched}}
+\index{is\+Latched@{is\+Latched}!flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}}
+\subsubsection{\texorpdfstring{is\+Latched()}{isLatched()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+bool \hyperlink{classflow__ros_1_1_publisher_output_base}{flow\+\_\+ros\+::\+Publisher\+Output\+Base}$<$ MsgT $>$\+::is\+Latched (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Returns flag indicating whether or not publisher is latched. 
+
+
+
+Implements \hyperlink{classflow__ros_1_1_publisher_base_a51ef6d34734d3dc39053234491665d2c}{flow\+\_\+ros\+::\+Publisher\+Base}.
+
+\mbox{\Hypertarget{classflow__ros_1_1_publisher_output_base_a60ffa435ac1243b046d8029584c097a3}\label{classflow__ros_1_1_publisher_output_base_a60ffa435ac1243b046d8029584c097a3}} 
+\index{flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}!is\+Valid@{is\+Valid}}
+\index{is\+Valid@{is\+Valid}!flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}}
+\subsubsection{\texorpdfstring{is\+Valid()}{isValid()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+bool \hyperlink{classflow__ros_1_1_publisher_output_base}{flow\+\_\+ros\+::\+Publisher\+Output\+Base}$<$ MsgT $>$\+::is\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Validity check. 
+
+
+
+Implements \hyperlink{classflow__ros_1_1_publisher_base_ac9bc27703de2394a0e1f3df7dac93548}{flow\+\_\+ros\+::\+Publisher\+Base}.
+
+\mbox{\Hypertarget{classflow__ros_1_1_publisher_output_base_a66abc7f5296a4b2c29c776539df70cd1}\label{classflow__ros_1_1_publisher_output_base_a66abc7f5296a4b2c29c776539df70cd1}} 
+\index{flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}!publish@{publish}}
+\index{publish@{publish}!flow\+\_\+ros\+::\+Publisher\+Output\+Base@{flow\+\_\+ros\+::\+Publisher\+Output\+Base}}
+\subsubsection{\texorpdfstring{publish()}{publish()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+void \hyperlink{classflow__ros_1_1_publisher_output_base}{flow\+\_\+ros\+::\+Publisher\+Output\+Base}$<$ MsgT $>$\+::publish (\begin{DoxyParamCaption}\item[{const \hyperlink{namespaceflow__ros_a21a684f38ee2083b3858613317c46d82}{message\+\_\+shared\+\_\+ptr\+\_\+t}$<$ MsgT $>$ \&}]{message }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Call all held subscriber callbacks on message being published. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & message data to publish \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/\hyperlink{publisher_8h}{publisher.\+h}\end{DoxyCompactItemize}

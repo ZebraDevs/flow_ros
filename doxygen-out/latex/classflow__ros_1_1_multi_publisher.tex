@@ -1,0 +1,155 @@
+\hypertarget{classflow__ros_1_1_multi_publisher}{}\section{flow\+\_\+ros\+:\+:Multi\+Publisher$<$ MsgT, Output\+ContainerT $>$ Class Template Reference}
+\label{classflow__ros_1_1_multi_publisher}\index{flow\+\_\+ros\+::\+Multi\+Publisher$<$ Msg\+T, Output\+Container\+T $>$@{flow\+\_\+ros\+::\+Multi\+Publisher$<$ Msg\+T, Output\+Container\+T $>$}}
+
+
+Output channel specialization which publishes multiple messages.  
+
+
+
+
+{\ttfamily \#include $<$publisher.\+h$>$}
+
+
+
+Inheritance diagram for flow\+\_\+ros\+:\+:Multi\+Publisher$<$ MsgT, Output\+ContainerT $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{classflow__ros_1_1_multi_publisher__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for flow\+\_\+ros\+:\+:Multi\+Publisher$<$ MsgT, Output\+ContainerT $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{classflow__ros_1_1_multi_publisher__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classflow__ros_1_1_multi_publisher_a4bf4647962d3dcd52e3c89549f9abceb}\label{classflow__ros_1_1_multi_publisher_a4bf4647962d3dcd52e3c89549f9abceb}} 
+{\bfseries F\+L\+O\+W\+\_\+\+S\+T\+A\+T\+I\+C\+\_\+\+A\+S\+S\+E\+RT} (std\+::is\+\_\+const$<$ MsgT $>$(), \char`\"{}MsgT must be const\char`\"{})
+\item 
+\hyperlink{classflow__ros_1_1_multi_publisher_a3e2ddbd297bd541cd4c7be71786a4bf0}{Multi\+Publisher} (ros\+::\+Node\+Handle \&nh, const std\+::string \&topic, const std\+::uint32\+\_\+t queue\+\_\+size=0, const bool latched=false)
+\begin{DoxyCompactList}\small\item\em {\ttfamily ros\+::\+Node\+Handle} setup constructor (extra-\/node messaging) \end{DoxyCompactList}\item 
+\hyperlink{classflow__ros_1_1_multi_publisher_af1d0509e1464ddb1a92e72cc90ed08cd}{Multi\+Publisher} (\hyperlink{classflow__ros_1_1_router}{Router} \&pb, std\+::string topic, const std\+::uint32\+\_\+t queue\+\_\+size=0)
+\begin{DoxyCompactList}\small\item\em {\ttfamily \hyperlink{classflow__ros_1_1_router}{Router}} setup constructor (intra-\/node messaging) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Msg\+Ptr\+IteratorT $>$ }\\void \hyperlink{classflow__ros_1_1_multi_publisher_a639d20b3dd0dbc9598b8e08c0ec84255}{publish} (Msg\+Ptr\+IteratorT first, const Msg\+Ptr\+IteratorT last) const
+\begin{DoxyCompactList}\small\item\em Publishes range of messages. \end{DoxyCompactList}\item 
+void \hyperlink{classflow__ros_1_1_multi_publisher_adea00fbe1e1b566c9e374105325cbc6c}{publish} (const Output\+ContainerT \&messages) const
+\begin{DoxyCompactList}\small\item\em Publishes range of messages. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename MsgT, typename Output\+ContainerT = std\+::vector$<$message\+\_\+shared\+\_\+ptr\+\_\+t$<$\+Msg\+T$>$$>$$>$\newline
+class flow\+\_\+ros\+::\+Multi\+Publisher$<$ Msg\+T, Output\+Container\+T $>$}
+
+Output channel specialization which publishes multiple messages. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em MsgT} & message type \\
+\hline
+{\em Output\+ContainerT} & container of message resources used as {\ttfamily Output\+Type}; this information is most relevant when using with \hyperlink{classflow__ros_1_1_multi_publisher}{Multi\+Publisher} with \hyperlink{classflow__ros_1_1_event_handler}{Event\+Handler} \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1_multi_publisher_a3e2ddbd297bd541cd4c7be71786a4bf0}\label{classflow__ros_1_1_multi_publisher_a3e2ddbd297bd541cd4c7be71786a4bf0}} 
+\index{flow\+\_\+ros\+::\+Multi\+Publisher@{flow\+\_\+ros\+::\+Multi\+Publisher}!Multi\+Publisher@{Multi\+Publisher}}
+\index{Multi\+Publisher@{Multi\+Publisher}!flow\+\_\+ros\+::\+Multi\+Publisher@{flow\+\_\+ros\+::\+Multi\+Publisher}}
+\subsubsection{\texorpdfstring{Multi\+Publisher()}{MultiPublisher()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename MsgT, typename Output\+ContainerT = std\+::vector$<$message\+\_\+shared\+\_\+ptr\+\_\+t$<$\+Msg\+T$>$$>$$>$ \\
+\hyperlink{classflow__ros_1_1_multi_publisher}{flow\+\_\+ros\+::\+Multi\+Publisher}$<$ MsgT, Output\+ContainerT $>$\+::\hyperlink{classflow__ros_1_1_multi_publisher}{Multi\+Publisher} (\begin{DoxyParamCaption}\item[{ros\+::\+Node\+Handle \&}]{nh,  }\item[{const std\+::string \&}]{topic,  }\item[{const std\+::uint32\+\_\+t}]{queue\+\_\+size = {\ttfamily 0},  }\item[{const bool}]{latched = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+{\ttfamily ros\+::\+Node\+Handle} setup constructor (extra-\/node messaging) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em nh} & R\+OS node handle to negotiate topic advertisement/connection \\
+\hline
+ & {\em topic} & topic associated with messages to be output \\
+\hline
+ & {\em queue\+\_\+size} & underlying R\+OS publisher queue size \\
+\hline
+ & {\em latched} & options for creating a \char`\"{}latched\char`\"{} output publisher\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Will throw with {\ttfamily std\+::runtime\+\_\+error} if underlying publisher could not be establish a connection with R\+O\+S-\/master 
+\end{DoxyWarning}
+\mbox{\Hypertarget{classflow__ros_1_1_multi_publisher_af1d0509e1464ddb1a92e72cc90ed08cd}\label{classflow__ros_1_1_multi_publisher_af1d0509e1464ddb1a92e72cc90ed08cd}} 
+\index{flow\+\_\+ros\+::\+Multi\+Publisher@{flow\+\_\+ros\+::\+Multi\+Publisher}!Multi\+Publisher@{Multi\+Publisher}}
+\index{Multi\+Publisher@{Multi\+Publisher}!flow\+\_\+ros\+::\+Multi\+Publisher@{flow\+\_\+ros\+::\+Multi\+Publisher}}
+\subsubsection{\texorpdfstring{Multi\+Publisher()}{MultiPublisher()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename MsgT, typename Output\+ContainerT = std\+::vector$<$message\+\_\+shared\+\_\+ptr\+\_\+t$<$\+Msg\+T$>$$>$$>$ \\
+\hyperlink{classflow__ros_1_1_multi_publisher}{flow\+\_\+ros\+::\+Multi\+Publisher}$<$ MsgT, Output\+ContainerT $>$\+::\hyperlink{classflow__ros_1_1_multi_publisher}{Multi\+Publisher} (\begin{DoxyParamCaption}\item[{\hyperlink{classflow__ros_1_1_router}{Router} \&}]{pb,  }\item[{std\+::string}]{topic,  }\item[{const std\+::uint32\+\_\+t}]{queue\+\_\+size = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+{\ttfamily \hyperlink{classflow__ros_1_1_router}{Router}} setup constructor (intra-\/node messaging) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em pb} & Intra-\/node \hyperlink{classflow__ros_1_1_router}{Router} routing object \\
+\hline
+ & {\em topic} & topic associated with messages to be output \\
+\hline
+ & {\em queue\+\_\+size} & underlying publication queue size\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Will throw with {\ttfamily std\+::runtime\+\_\+error} if underlying publisher could not be establish a connection with R\+O\+S-\/master 
+\end{DoxyWarning}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1_multi_publisher_a639d20b3dd0dbc9598b8e08c0ec84255}\label{classflow__ros_1_1_multi_publisher_a639d20b3dd0dbc9598b8e08c0ec84255}} 
+\index{flow\+\_\+ros\+::\+Multi\+Publisher@{flow\+\_\+ros\+::\+Multi\+Publisher}!publish@{publish}}
+\index{publish@{publish}!flow\+\_\+ros\+::\+Multi\+Publisher@{flow\+\_\+ros\+::\+Multi\+Publisher}}
+\subsubsection{\texorpdfstring{publish()}{publish()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename MsgT, typename Output\+ContainerT = std\+::vector$<$message\+\_\+shared\+\_\+ptr\+\_\+t$<$\+Msg\+T$>$$>$$>$ \\
+template$<$typename Msg\+Ptr\+IteratorT $>$ \\
+void \hyperlink{classflow__ros_1_1_multi_publisher}{flow\+\_\+ros\+::\+Multi\+Publisher}$<$ MsgT, Output\+ContainerT $>$\+::publish (\begin{DoxyParamCaption}\item[{Msg\+Ptr\+IteratorT}]{first,  }\item[{const Msg\+Ptr\+IteratorT}]{last }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Publishes range of messages. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em first} & iterator to first message to publish \\
+\hline
+{\em last} & one past last message iterator \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classflow__ros_1_1_multi_publisher_adea00fbe1e1b566c9e374105325cbc6c}\label{classflow__ros_1_1_multi_publisher_adea00fbe1e1b566c9e374105325cbc6c}} 
+\index{flow\+\_\+ros\+::\+Multi\+Publisher@{flow\+\_\+ros\+::\+Multi\+Publisher}!publish@{publish}}
+\index{publish@{publish}!flow\+\_\+ros\+::\+Multi\+Publisher@{flow\+\_\+ros\+::\+Multi\+Publisher}}
+\subsubsection{\texorpdfstring{publish()}{publish()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename MsgT, typename Output\+ContainerT = std\+::vector$<$message\+\_\+shared\+\_\+ptr\+\_\+t$<$\+Msg\+T$>$$>$$>$ \\
+void \hyperlink{classflow__ros_1_1_multi_publisher}{flow\+\_\+ros\+::\+Multi\+Publisher}$<$ MsgT, Output\+ContainerT $>$\+::publish (\begin{DoxyParamCaption}\item[{const Output\+ContainerT \&}]{messages }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Publishes range of messages. 
+
+If any message resource is invalid (i.\+e. {\ttfamily msg == nullptr}), then no message is sent over underlying publication channel
+
+
+\begin{DoxyParams}{Parameters}
+{\em messages} & container of messages \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/\hyperlink{publisher_8h}{publisher.\+h}\end{DoxyCompactItemize}

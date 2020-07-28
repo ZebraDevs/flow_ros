@@ -1,0 +1,5 @@
+<map id="flow_ros::PublisherBase" name="flow_ros::PublisherBase">
+<area shape="rect" id="node2" href="$classflow__ros_1_1_publisher_output_base.html" title="Message publisher base type. " alt="" coords="85,80,257,121"/>
+<area shape="rect" id="node3" href="$classflow__ros_1_1_multi_publisher.html" title="Output channel specialization which publishes multiple messages. " alt="" coords="5,169,167,211"/>
+<area shape="rect" id="node4" href="$classflow__ros_1_1_publisher.html" title="Output channel which publishes messages. " alt="" coords="191,169,325,211"/>
+</map>

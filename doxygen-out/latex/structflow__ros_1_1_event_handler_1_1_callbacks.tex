@@ -1,0 +1,93 @@
+\hypertarget{structflow__ros_1_1_event_handler_1_1_callbacks}{}\section{flow\+\_\+ros\+:\+:Event\+Handler$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$\+:\+:Callbacks Struct Reference}
+\label{structflow__ros_1_1_event_handler_1_1_callbacks}\index{flow\+\_\+ros\+::\+Event\+Handler$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$\+::\+Callbacks@{flow\+\_\+ros\+::\+Event\+Handler$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$\+::\+Callbacks}}
+
+
+\hyperlink{classflow__ros_1_1_event_handler}{Event\+Handler} callback options.  
+
+
+
+
+{\ttfamily \#include $<$event\+\_\+handler.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename CallbackT $>$ }\\\hyperlink{structflow__ros_1_1_event_handler_1_1_callbacks_ad939803306c7eba1e8ea6731f53f301c}{Callbacks} (CallbackT \&\&\+\_\+event\+\_\+callback)
+\begin{DoxyCompactList}\small\item\em Event callback constructor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Event\+CallbackT , typename Pre\+Execute\+CallbackT $>$ }\\\hyperlink{structflow__ros_1_1_event_handler_1_1_callbacks_ae6a43604c27afa05e48153df03d96d2a}{Callbacks} (Event\+CallbackT \&\&\+\_\+event\+\_\+callback, Pre\+Execute\+CallbackT \&\&\+\_\+pre\+\_\+execute\+\_\+callback)
+\begin{DoxyCompactList}\small\item\em Full-\/callback constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structflow__ros_1_1_event_handler_1_1_callbacks_a59bb4b497f7f3b8daff5822cc41ea551}\label{structflow__ros_1_1_event_handler_1_1_callbacks_a59bb4b497f7f3b8daff5822cc41ea551}} 
+std\+::function$<$ \hyperlink{classflow__ros_1_1_event_handler_ae5dc263e5c12a4b7fb60f320dc403173}{Output}(const \hyperlink{classflow__ros_1_1_event_handler_a53af7756aaf98646281d57b036510d56}{Input} \&)$>$ \hyperlink{structflow__ros_1_1_event_handler_1_1_callbacks_a59bb4b497f7f3b8daff5822cc41ea551}{event\+\_\+callback}
+\begin{DoxyCompactList}\small\item\em Callback to run on input synchronization event. \end{DoxyCompactList}\item 
+std\+::function$<$ bool(\hyperlink{classflow__ros_1_1_event_handler_base}{Event\+Handler\+Base} \&, const \hyperlink{classflow__ros_1_1_event_handler_a53af7756aaf98646281d57b036510d56}{Input} \&, const \hyperlink{structflow__ros_1_1_event_summary}{Event\+Summary} \&)$>$ \hyperlink{structflow__ros_1_1_event_handler_1_1_callbacks_ac2f9171575dff2a7adc0d5e4efa38849}{pre\+\_\+execute\+\_\+callback}
+\begin{DoxyCompactList}\small\item\em Callback to run after synchronization for event summary introspection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Publisher\+Tuple, typename Subscriber\+Tuple, template$<$ typename $>$ class Output\+Container\+Type\+Info\+Tmpl = Default\+Output\+Container\+Type\+Info$>$\newline
+struct flow\+\_\+ros\+::\+Event\+Handler$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$\+::\+Callbacks}
+
+\hyperlink{classflow__ros_1_1_event_handler}{Event\+Handler} callback options. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structflow__ros_1_1_event_handler_1_1_callbacks_ad939803306c7eba1e8ea6731f53f301c}\label{structflow__ros_1_1_event_handler_1_1_callbacks_ad939803306c7eba1e8ea6731f53f301c}} 
+\index{flow\+\_\+ros\+::\+Event\+Handler\+::\+Callbacks@{flow\+\_\+ros\+::\+Event\+Handler\+::\+Callbacks}!Callbacks@{Callbacks}}
+\index{Callbacks@{Callbacks}!flow\+\_\+ros\+::\+Event\+Handler\+::\+Callbacks@{flow\+\_\+ros\+::\+Event\+Handler\+::\+Callbacks}}
+\subsubsection{\texorpdfstring{Callbacks()}{Callbacks()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Publisher\+Tuple , typename Subscriber\+Tuple , template$<$ typename $>$ class Output\+Container\+Type\+Info\+Tmpl = Default\+Output\+Container\+Type\+Info$>$ \\
+template$<$typename CallbackT $>$ \\
+\hyperlink{classflow__ros_1_1_event_handler}{flow\+\_\+ros\+::\+Event\+Handler}$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$\+::Callbacks\+::\+Callbacks (\begin{DoxyParamCaption}\item[{CallbackT \&\&}]{\+\_\+event\+\_\+callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Event callback constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+event\+\_\+callback} & callback to run after synchronization, accepting Input and producing Output data\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+allows implicit cast from invokable type 
+\end{DoxyNote}
+\mbox{\Hypertarget{structflow__ros_1_1_event_handler_1_1_callbacks_ae6a43604c27afa05e48153df03d96d2a}\label{structflow__ros_1_1_event_handler_1_1_callbacks_ae6a43604c27afa05e48153df03d96d2a}} 
+\index{flow\+\_\+ros\+::\+Event\+Handler\+::\+Callbacks@{flow\+\_\+ros\+::\+Event\+Handler\+::\+Callbacks}!Callbacks@{Callbacks}}
+\index{Callbacks@{Callbacks}!flow\+\_\+ros\+::\+Event\+Handler\+::\+Callbacks@{flow\+\_\+ros\+::\+Event\+Handler\+::\+Callbacks}}
+\subsubsection{\texorpdfstring{Callbacks()}{Callbacks()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Publisher\+Tuple , typename Subscriber\+Tuple , template$<$ typename $>$ class Output\+Container\+Type\+Info\+Tmpl = Default\+Output\+Container\+Type\+Info$>$ \\
+template$<$typename Event\+CallbackT , typename Pre\+Execute\+CallbackT $>$ \\
+\hyperlink{classflow__ros_1_1_event_handler}{flow\+\_\+ros\+::\+Event\+Handler}$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$\+::Callbacks\+::\+Callbacks (\begin{DoxyParamCaption}\item[{Event\+CallbackT \&\&}]{\+\_\+event\+\_\+callback,  }\item[{Pre\+Execute\+CallbackT \&\&}]{\+\_\+pre\+\_\+execute\+\_\+callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Full-\/callback constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+event\+\_\+callback} & callback to run after synchronization, accepting Input and producing Output data \\
+\hline
+{\em \+\_\+pre\+\_\+execute\+\_\+callback} & callback to run after synchronization, before {\ttfamily \+\_\+event\+\_\+callback} \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{structflow__ros_1_1_event_handler_1_1_callbacks_ac2f9171575dff2a7adc0d5e4efa38849}\label{structflow__ros_1_1_event_handler_1_1_callbacks_ac2f9171575dff2a7adc0d5e4efa38849}} 
+\index{flow\+\_\+ros\+::\+Event\+Handler\+::\+Callbacks@{flow\+\_\+ros\+::\+Event\+Handler\+::\+Callbacks}!pre\+\_\+execute\+\_\+callback@{pre\+\_\+execute\+\_\+callback}}
+\index{pre\+\_\+execute\+\_\+callback@{pre\+\_\+execute\+\_\+callback}!flow\+\_\+ros\+::\+Event\+Handler\+::\+Callbacks@{flow\+\_\+ros\+::\+Event\+Handler\+::\+Callbacks}}
+\subsubsection{\texorpdfstring{pre\+\_\+execute\+\_\+callback}{pre\_execute\_callback}}
+{\footnotesize\ttfamily template$<$typename Publisher\+Tuple , typename Subscriber\+Tuple , template$<$ typename $>$ class Output\+Container\+Type\+Info\+Tmpl = Default\+Output\+Container\+Type\+Info$>$ \\
+std\+::function$<$bool(\hyperlink{classflow__ros_1_1_event_handler_base}{Event\+Handler\+Base}\&, const \hyperlink{classflow__ros_1_1_event_handler_a53af7756aaf98646281d57b036510d56}{Input}\&, const \hyperlink{structflow__ros_1_1_event_summary}{Event\+Summary}\&)$>$ \hyperlink{classflow__ros_1_1_event_handler}{flow\+\_\+ros\+::\+Event\+Handler}$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$\+::Callbacks\+::pre\+\_\+execute\+\_\+callback}
+
+
+
+Callback to run after synchronization for event summary introspection. 
+
+May be used to bypass execution after synchronization, resulting in an E\+X\+E\+C\+U\+T\+I\+O\+N\+\_\+\+B\+Y\+P\+A\+S\+S\+ED state 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/\hyperlink{event__handler_8h}{event\+\_\+handler.\+h}\end{DoxyCompactItemize}

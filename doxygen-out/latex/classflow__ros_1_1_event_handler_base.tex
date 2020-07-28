@@ -1,0 +1,157 @@
+\hypertarget{classflow__ros_1_1_event_handler_base}{}\section{flow\+\_\+ros\+:\+:Event\+Handler\+Base Class Reference}
+\label{classflow__ros_1_1_event_handler_base}\index{flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}}
+
+
+Event handler base type.  
+
+
+
+
+{\ttfamily \#include $<$event\+\_\+handler.\+h$>$}
+
+
+
+Inheritance diagram for flow\+\_\+ros\+:\+:Event\+Handler\+Base\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classflow__ros_1_1_event_handler_base__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{structflow__ros_1_1_event_summary}{Event\+Summary} \hyperlink{classflow__ros_1_1_event_handler_base_a5a4d9baa42d26f4d639b69ebbcc2aa0a}{update} (std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point timeout=std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point\+::max())=0
+\begin{DoxyCompactList}\small\item\em Updates event handler. \end{DoxyCompactList}\item 
+virtual \hyperlink{structflow__ros_1_1_event_summary}{Event\+Summary} \hyperlink{classflow__ros_1_1_event_handler_base_a85873d1e3eaa3c152295c5c49d5948f6}{dry\+\_\+update} ()=0
+\begin{DoxyCompactList}\small\item\em Checks what synchronization result would be with current data. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classflow__ros_1_1_event_handler_base_a73c65bda396f3d8606e64487a7b30a76}{remove} (const ros\+::\+Time \&t\+\_\+remove)=0
+\begin{DoxyCompactList}\small\item\em Removes all events before specified time. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classflow__ros_1_1_event_handler_base_a5611152cffdc62a4215726d19ce58ab5}{abort} (const ros\+::\+Time \&t\+\_\+abort)=0
+\begin{DoxyCompactList}\small\item\em Aborts all event at or before specified time. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1_event_handler_base_acd6151fd8c25f23c84fc4c815302f584}\label{classflow__ros_1_1_event_handler_base_acd6151fd8c25f23c84fc4c815302f584}} 
+virtual void \hyperlink{classflow__ros_1_1_event_handler_base_acd6151fd8c25f23c84fc4c815302f584}{reset} ()=0
+\begin{DoxyCompactList}\small\item\em Resets event handler and all managed channels. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ std\+::shared\+\_\+ptr$<$ const \hyperlink{classflow__ros_1_1_publisher_base}{Publisher\+Base} $>$ $>$ \hyperlink{classflow__ros_1_1_event_handler_base_a1e476ba767ddceda60aadc5655ef33ed}{get\+Publishers} () const =0
+\begin{DoxyCompactList}\small\item\em Returns vector of publisher resources associated with \hyperlink{classflow__ros_1_1_event_handler}{Event\+Handler}. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ std\+::shared\+\_\+ptr$<$ const \hyperlink{classflow__ros_1_1_subscriber_base}{Subscriber\+Base} $>$ $>$ \hyperlink{classflow__ros_1_1_event_handler_base_a5c6b2e230dcb308eff3f0aea18c47be3}{get\+Subscribers} () const =0
+\begin{DoxyCompactList}\small\item\em Returns vector of subscriber resources associated with \hyperlink{classflow__ros_1_1_event_handler}{Event\+Handler}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Event handler base type. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1_event_handler_base_a5611152cffdc62a4215726d19ce58ab5}\label{classflow__ros_1_1_event_handler_base_a5611152cffdc62a4215726d19ce58ab5}} 
+\index{flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}!abort@{abort}}
+\index{abort@{abort}!flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}}
+\subsubsection{\texorpdfstring{abort()}{abort()}}
+{\footnotesize\ttfamily virtual void flow\+\_\+ros\+::\+Event\+Handler\+Base\+::abort (\begin{DoxyParamCaption}\item[{const ros\+::\+Time \&}]{t\+\_\+abort }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Aborts all event at or before specified time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t\+\_\+abort} & time before which events should be aborted \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{classflow__ros_1_1_event_handler_a95200a36fc64725ac280c04c2697f709}{flow\+\_\+ros\+::\+Event\+Handler$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$}.
+
+\mbox{\Hypertarget{classflow__ros_1_1_event_handler_base_a85873d1e3eaa3c152295c5c49d5948f6}\label{classflow__ros_1_1_event_handler_base_a85873d1e3eaa3c152295c5c49d5948f6}} 
+\index{flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}!dry\+\_\+update@{dry\+\_\+update}}
+\index{dry\+\_\+update@{dry\+\_\+update}!flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}}
+\subsubsection{\texorpdfstring{dry\+\_\+update()}{dry\_update()}}
+{\footnotesize\ttfamily virtual \hyperlink{structflow__ros_1_1_event_summary}{Event\+Summary} flow\+\_\+ros\+::\+Event\+Handler\+Base\+::dry\+\_\+update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Checks what synchronization result would be with current data. 
+
+Performs no data waits, and skips actual capture
+
+\begin{DoxyReturn}{Returns}
+summary of potential event states on next {\ttfamily update} 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classflow__ros_1_1_event_handler_abc2f1821d85ab05d86270cbf20da6cd9}{flow\+\_\+ros\+::\+Event\+Handler$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$}.
+
+\mbox{\Hypertarget{classflow__ros_1_1_event_handler_base_a1e476ba767ddceda60aadc5655ef33ed}\label{classflow__ros_1_1_event_handler_base_a1e476ba767ddceda60aadc5655ef33ed}} 
+\index{flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}!get\+Publishers@{get\+Publishers}}
+\index{get\+Publishers@{get\+Publishers}!flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}}
+\subsubsection{\texorpdfstring{get\+Publishers()}{getPublishers()}}
+{\footnotesize\ttfamily virtual std\+::vector$<$std\+::shared\+\_\+ptr$<$const \hyperlink{classflow__ros_1_1_publisher_base}{Publisher\+Base}$>$ $>$ flow\+\_\+ros\+::\+Event\+Handler\+Base\+::get\+Publishers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Returns vector of publisher resources associated with \hyperlink{classflow__ros_1_1_event_handler}{Event\+Handler}. 
+
+\begin{DoxyNote}{Note}
+Resource pointers in return value provide partial access to meta information about \hyperlink{classflow__ros_1_1_publisher}{Publisher} objects, but do not allow for data mutation 
+\end{DoxyNote}
+
+
+Implemented in \hyperlink{classflow__ros_1_1_event_handler_ae786846cf4cf48b9b952265862e73ef1}{flow\+\_\+ros\+::\+Event\+Handler$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$}.
+
+\mbox{\Hypertarget{classflow__ros_1_1_event_handler_base_a5c6b2e230dcb308eff3f0aea18c47be3}\label{classflow__ros_1_1_event_handler_base_a5c6b2e230dcb308eff3f0aea18c47be3}} 
+\index{flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}!get\+Subscribers@{get\+Subscribers}}
+\index{get\+Subscribers@{get\+Subscribers}!flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}}
+\subsubsection{\texorpdfstring{get\+Subscribers()}{getSubscribers()}}
+{\footnotesize\ttfamily virtual std\+::vector$<$std\+::shared\+\_\+ptr$<$const \hyperlink{classflow__ros_1_1_subscriber_base}{Subscriber\+Base}$>$ $>$ flow\+\_\+ros\+::\+Event\+Handler\+Base\+::get\+Subscribers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Returns vector of subscriber resources associated with \hyperlink{classflow__ros_1_1_event_handler}{Event\+Handler}. 
+
+\begin{DoxyNote}{Note}
+Resource pointers in return value provide partial access to meta information about \hyperlink{classflow__ros_1_1_publisher}{Publisher} objects, but do not allow for data mutation 
+\end{DoxyNote}
+
+
+Implemented in \hyperlink{classflow__ros_1_1_event_handler_ac91cf67be38d79d3d86a9aa6318eca53}{flow\+\_\+ros\+::\+Event\+Handler$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$}.
+
+\mbox{\Hypertarget{classflow__ros_1_1_event_handler_base_a73c65bda396f3d8606e64487a7b30a76}\label{classflow__ros_1_1_event_handler_base_a73c65bda396f3d8606e64487a7b30a76}} 
+\index{flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}!remove@{remove}}
+\index{remove@{remove}!flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}}
+\subsubsection{\texorpdfstring{remove()}{remove()}}
+{\footnotesize\ttfamily virtual void flow\+\_\+ros\+::\+Event\+Handler\+Base\+::remove (\begin{DoxyParamCaption}\item[{const ros\+::\+Time \&}]{t\+\_\+remove }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Removes all events before specified time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t\+\_\+remove} & time before which events should be removed \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{classflow__ros_1_1_event_handler_aeaf45592fd8c7fe8c3a4b0da23496d69}{flow\+\_\+ros\+::\+Event\+Handler$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$}.
+
+\mbox{\Hypertarget{classflow__ros_1_1_event_handler_base_a5a4d9baa42d26f4d639b69ebbcc2aa0a}\label{classflow__ros_1_1_event_handler_base_a5a4d9baa42d26f4d639b69ebbcc2aa0a}} 
+\index{flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}!update@{update}}
+\index{update@{update}!flow\+\_\+ros\+::\+Event\+Handler\+Base@{flow\+\_\+ros\+::\+Event\+Handler\+Base}}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily virtual \hyperlink{structflow__ros_1_1_event_summary}{Event\+Summary} flow\+\_\+ros\+::\+Event\+Handler\+Base\+::update (\begin{DoxyParamCaption}\item[{std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point}]{timeout = {\ttfamily std\+:\+:chrono\+:\+:steady\+\_\+clock\+:\+:time\+\_\+point\+:\+:max()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Updates event handler. 
+
+\begin{DoxyReturn}{Returns}
+summary of event states 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classflow__ros_1_1_event_handler_a445ecc20268a455bf47df8598413ae67}{flow\+\_\+ros\+::\+Event\+Handler$<$ Publisher\+Tuple, Subscriber\+Tuple, Output\+Container\+Type\+Info\+Tmpl $>$}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/\hyperlink{event__handler_8h}{event\+\_\+handler.\+h}\end{DoxyCompactItemize}

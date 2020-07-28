@@ -1,0 +1,4 @@
+<map id="flow_ros::routing::LocalSubscription&lt; MsgT &gt;" name="flow_ros::routing::LocalSubscription&lt; MsgT &gt;">
+<area shape="rect" id="node2" href="$classflow__ros_1_1routing_1_1_local_subscription_base.html" title="LocalSubscription base which provides basic info and erases MsgT&#45;dependent methods. " alt="" coords="5,5,160,47"/>
+<area shape="rect" id="node3" href="$classflow__ros_1_1routing_1_1_subscription_wrapper.html" title="Base for message subscribing implementation. " alt="" coords="185,5,327,47"/>
+</map>

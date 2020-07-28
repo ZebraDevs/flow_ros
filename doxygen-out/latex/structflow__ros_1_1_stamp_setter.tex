@@ -1,0 +1,50 @@
+\hypertarget{structflow__ros_1_1_stamp_setter}{}\section{flow\+\_\+ros\+:\+:Stamp\+Setter$<$ MsgT $>$ Struct Template Reference}
+\label{structflow__ros_1_1_stamp_setter}\index{flow\+\_\+ros\+::\+Stamp\+Setter$<$ Msg\+T $>$@{flow\+\_\+ros\+::\+Stamp\+Setter$<$ Msg\+T $>$}}
+
+
+Helper object use to set message stamps.  
+
+
+
+
+{\ttfamily \#include $<$message\+\_\+seq\+\_\+access.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structflow__ros_1_1_stamp_setter_af507692487d1b9efe3c21c76a5351a6c}\label{structflow__ros_1_1_stamp_setter_af507692487d1b9efe3c21c76a5351a6c}} 
+void {\bfseries operator()} (MsgT \&msg, std\+::uint32\+\_\+t seq) const
+\item 
+\mbox{\Hypertarget{structflow__ros_1_1_stamp_setter_a6cec19566ccce497e73240ef20db7fc1}\label{structflow__ros_1_1_stamp_setter_a6cec19566ccce497e73240ef20db7fc1}} 
+void {\bfseries operator()} (MsgT \&msg, const ros\+::\+Time \&stamp) const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename MsgT$>$\newline
+struct flow\+\_\+ros\+::\+Stamp\+Setter$<$ Msg\+T $>$}
+
+Helper object use to set message stamps. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em MsgT} & message type\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyNote}{Note}
+May be specialized for any message with a sequence count
+\end{DoxyNote}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em MsgT} & message type\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyNote}{Note}
+May be specialized for any message with a stamp 
+\end{DoxyNote}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/\hyperlink{message__seq__access_8h}{message\+\_\+seq\+\_\+access.\+h}\item 
+flow\+\_\+ros/include/\hyperlink{message__stamp__access_8h}{message\+\_\+stamp\+\_\+access.\+h}\end{DoxyCompactItemize}

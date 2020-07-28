@@ -1,0 +1,60 @@
+\hypertarget{subscriber_8h}{}\section{flow\+\_\+ros/include/subscriber.h File Reference}
+\label{subscriber_8h}\index{flow\+\_\+ros/include/subscriber.\+h@{flow\+\_\+ros/include/subscriber.\+h}}
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$ros/message\+\_\+traits.\+h$>$}\newline
+{\ttfamily \#include $<$ros/node\+\_\+handle.\+h$>$}\newline
+{\ttfamily \#include $<$ros/subscriber.\+h$>$}\newline
+{\ttfamily \#include $<$flow/drivers.\+h$>$}\newline
+{\ttfamily \#include $<$flow/followers.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/message\+\_\+ptr.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/router.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/routing/local\+\_\+subscription.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/routing/ros\+\_\+subscription.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/routing/subscription\+\_\+wrapper.\+h$>$}\newline
+Include dependency graph for subscriber.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{subscriber_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classflow__ros_1_1_subscriber_base}{flow\+\_\+ros\+::\+Subscriber\+Base}
+\begin{DoxyCompactList}\small\item\em Message input channel with meta information interfaces. \end{DoxyCompactList}\item 
+class \hyperlink{classflow__ros_1_1_subscriber_policy_base}{flow\+\_\+ros\+::\+Subscriber\+Policy\+Base$<$ Policy\+T $>$}
+\begin{DoxyCompactList}\small\item\em Message input channel with an associated capture policy. \end{DoxyCompactList}\item 
+class \hyperlink{classflow__ros_1_1_subscriber}{flow\+\_\+ros\+::\+Subscriber$<$ Msg\+T, Policy\+Tmpl, Lock\+Policy\+T, Msg\+Const\+Ptr\+Container\+T $>$}
+\begin{DoxyCompactList}\small\item\em Input channel which subscribes to messages. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow__ros_1_1_subscriber_traits}{flow\+\_\+ros\+::\+Subscriber\+Traits$<$ Msg\+T $>$}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classflow__ros_1_1_subscriber}{Subscriber} type traits. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow__ros_1_1_subscriber_traits_3_01_subscriber_3_01_msg_t_00_01_policy_tmpl_00_01_lock_policy_t_01_4_01_4}{flow\+\_\+ros\+::\+Subscriber\+Traits$<$ Subscriber$<$ Msg\+T, Policy\+Tmpl, Lock\+Policy\+T $>$ $>$}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classflow__ros_1_1_subscriber}{Subscriber} type traits. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow_1_1is__driver_3_1_1flow__ros_1_1_subscriber_3_01_msg_t_00_01_policy_tmpl_00_01_lock_policy_t_01_4_01_4}{flow\+::is\+\_\+driver$<$\+::flow\+\_\+ros\+::\+Subscriber$<$ Msg\+T, Policy\+Tmpl, Lock\+Policy\+T $>$ $>$}
+\begin{DoxyCompactList}\small\item\em Checks if subscriber capture policy is derived from a Driver base. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow_1_1is__follower_3_1_1flow__ros_1_1_subscriber_3_01_msg_t_00_01_policy_tmpl_00_01_lock_policy_t_01_4_01_4}{flow\+::is\+\_\+follower$<$\+::flow\+\_\+ros\+::\+Subscriber$<$ Msg\+T, Policy\+Tmpl, Lock\+Policy\+T $>$ $>$}
+\begin{DoxyCompactList}\small\item\em Checks if subscriber capture policy is derived from a Follower base. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow_1_1_captor_traits_3_1_1flow__ros_1_1_subscriber_policy_base_3_01_policy_t_01_4_01_4}{flow\+::\+Captor\+Traits$<$\+::flow\+\_\+ros\+::\+Subscriber\+Policy\+Base$<$ Policy\+T $>$ $>$}
+\begin{DoxyCompactList}\small\item\em Captor traits associated with underlying Captor of Subscriber\+Policy\+Base. \end{DoxyCompactList}\item 
+struct \hyperlink{structflow_1_1_captor_traits_3_1_1flow__ros_1_1_subscriber_3_01_msg_t_00_01_policy_tmpl_00_01_lock_policy_t_01_4_01_4}{flow\+::\+Captor\+Traits$<$\+::flow\+\_\+ros\+::\+Subscriber$<$ Msg\+T, Policy\+Tmpl, Lock\+Policy\+T $>$ $>$}
+\begin{DoxyCompactList}\small\item\em Captor traits associated with underlying Captor of Subscriber. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceflow__ros}{flow\+\_\+ros}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyCopyright}{Copyright}
+2020 Fetch Robotics Inc. All rights reserved 
+\end{DoxyCopyright}
+\begin{DoxyAuthor}{Author}
+Brian Cairl 
+\end{DoxyAuthor}

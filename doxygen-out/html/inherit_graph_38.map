@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classflow__ros_1_1_subscriber_policy_base.html" title="Message input channel with an associated capture policy. " alt="" coords="297,5,475,47"/>
+<area shape="rect" id="node4" href="$classflow__ros_1_1_subscriber_policy_base.html" title="flow_ros::SubscriberPolicy\lBase\&lt; PolicyTmpl\&lt; message\l_shared_const_ptr_t\&lt; const\l MsgT \&gt;, LockPolicyT, MsgConstPtrContainerT \&gt; \&gt;" alt="" coords="224,76,548,147"/>
+<area shape="rect" id="node5" href="$classflow__ros_1_1_subscriber.html" title="Input channel which subscribes to messages. " alt="" coords="596,83,808,139"/>
+<area shape="rect" id="node6" href="$classflow__ros_1_1_subscriber_base.html" title="Message input channel with meta information interfaces. " alt="" coords="5,58,176,85"/>
+</map>

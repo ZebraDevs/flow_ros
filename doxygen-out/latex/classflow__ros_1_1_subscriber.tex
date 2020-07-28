@@ -1,0 +1,163 @@
+\hypertarget{classflow__ros_1_1_subscriber}{}\section{flow\+\_\+ros\+:\+:Subscriber$<$ MsgT, Policy\+Tmpl, Lock\+PolicyT, Msg\+Const\+Ptr\+ContainerT $>$ Class Template Reference}
+\label{classflow__ros_1_1_subscriber}\index{flow\+\_\+ros\+::\+Subscriber$<$ Msg\+T, Policy\+Tmpl, Lock\+Policy\+T, Msg\+Const\+Ptr\+Container\+T $>$@{flow\+\_\+ros\+::\+Subscriber$<$ Msg\+T, Policy\+Tmpl, Lock\+Policy\+T, Msg\+Const\+Ptr\+Container\+T $>$}}
+
+
+Input channel which subscribes to messages.  
+
+
+
+
+{\ttfamily \#include $<$subscriber.\+h$>$}
+
+
+
+Inheritance diagram for flow\+\_\+ros\+:\+:Subscriber$<$ MsgT, Policy\+Tmpl, Lock\+PolicyT, Msg\+Const\+Ptr\+ContainerT $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classflow__ros_1_1_subscriber__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for flow\+\_\+ros\+:\+:Subscriber$<$ MsgT, Policy\+Tmpl, Lock\+PolicyT, Msg\+Const\+Ptr\+ContainerT $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classflow__ros_1_1_subscriber__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename... Policy\+Arg\+Ts$>$ }\\\hyperlink{classflow__ros_1_1_subscriber_ae47148b0782dd9d38cd68b7860751fe6}{Subscriber} (ros\+::\+Node\+Handle \&nh, const std\+::string \&topic, const std\+::uint32\+\_\+t queue\+\_\+size, Policy\+Arg\+Ts \&\&... args)
+\begin{DoxyCompactList}\small\item\em {\ttfamily ros\+::\+Node\+Handle} setup constructor (no transport hints) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Policy\+Arg\+Ts$>$ }\\\hyperlink{classflow__ros_1_1_subscriber_af772f601562ee99828bf1389f29d31f2}{Subscriber} (ros\+::\+Node\+Handle \&nh, const std\+::string \&topic, const ros\+::\+Transport\+Hints \&transport\+\_\+hints, const std\+::uint32\+\_\+t queue\+\_\+size, Policy\+Arg\+Ts \&\&... args)
+\begin{DoxyCompactList}\small\item\em {\ttfamily ros\+::\+Node\+Handle} setup constructor (with transport hints) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Policy\+Arg\+Ts$>$ }\\\hyperlink{classflow__ros_1_1_subscriber_a3110e656a138239c24339c57ea7259cc}{Subscriber} (\hyperlink{classflow__ros_1_1_router}{Router} \&router, std\+::string topic, const std\+::uint32\+\_\+t queue\+\_\+size, Policy\+Arg\+Ts \&\&... args)
+\begin{DoxyCompactList}\small\item\em {\ttfamily \hyperlink{classflow__ros_1_1_router}{Router}} setup constructor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_acbe7aa4e4fcfd3c4406436ba9d917be6}\label{classflow__ros_1_1_subscriber_acbe7aa4e4fcfd3c4406436ba9d917be6}} 
+void \hyperlink{classflow__ros_1_1_subscriber_acbe7aa4e4fcfd3c4406436ba9d917be6}{inject} (\hyperlink{namespaceflow__ros_ad222b6c2bd0341c551129c3a03241ad7}{message\+\_\+shared\+\_\+const\+\_\+ptr\+\_\+t}$<$ MsgT $>$ msg)
+\begin{DoxyCompactList}\small\item\em Injects message into captor; automatically. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename MsgT, template$<$ typename... $>$ class Policy\+Tmpl, typename Lock\+PolicyT = std\+::unique\+\_\+lock$<$std\+::mutex$>$, typename Msg\+Const\+Ptr\+ContainerT = flow\+::\+Default\+Container$<$message\+\_\+shared\+\_\+const\+\_\+ptr\+\_\+t$<$const Msg\+T$>$$>$$>$\newline
+class flow\+\_\+ros\+::\+Subscriber$<$ Msg\+T, Policy\+Tmpl, Lock\+Policy\+T, Msg\+Const\+Ptr\+Container\+T $>$}
+
+Input channel which subscribes to messages. 
+
+This input channel object wraps an underlying message transport subscription and a synchronization policy which works on buffered data
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em MsgT} & message type \\
+\hline
+{\em Policy\+Tmpl} & name associated with policy to be used when capturing inputs \\
+\hline
+{\em Lock\+PolicyT} & a Basic\+Lockable (\href{https://en.cppreference.com/w/cpp/named_req/BasicLockable}{\tt https\+://en.\+cppreference.\+com/w/cpp/named\+\_\+req/\+Basic\+Lockable}) object; using {\ttfamily flow\+::\+No\+Lock} will bypass internal thread locking/safety mechanisms \\
+\hline
+{\em Msg\+Const\+Ptr\+ContainerT} & underlying container type used to store shared message resource pointers \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_ae47148b0782dd9d38cd68b7860751fe6}\label{classflow__ros_1_1_subscriber_ae47148b0782dd9d38cd68b7860751fe6}} 
+\index{flow\+\_\+ros\+::\+Subscriber@{flow\+\_\+ros\+::\+Subscriber}!Subscriber@{Subscriber}}
+\index{Subscriber@{Subscriber}!flow\+\_\+ros\+::\+Subscriber@{flow\+\_\+ros\+::\+Subscriber}}
+\subsubsection{\texorpdfstring{Subscriber()}{Subscriber()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename MsgT , template$<$ typename... $>$ class Policy\+Tmpl, typename Lock\+PolicyT  = std\+::unique\+\_\+lock$<$std\+::mutex$>$, typename Msg\+Const\+Ptr\+ContainerT  = flow\+::\+Default\+Container$<$message\+\_\+shared\+\_\+const\+\_\+ptr\+\_\+t$<$const Msg\+T$>$$>$$>$ \\
+template$<$typename... Policy\+Arg\+Ts$>$ \\
+\hyperlink{classflow__ros_1_1_subscriber}{flow\+\_\+ros\+::\+Subscriber}$<$ MsgT, Policy\+Tmpl, Lock\+PolicyT, Msg\+Const\+Ptr\+ContainerT $>$\+::\hyperlink{classflow__ros_1_1_subscriber}{Subscriber} (\begin{DoxyParamCaption}\item[{ros\+::\+Node\+Handle \&}]{nh,  }\item[{const std\+::string \&}]{topic,  }\item[{const std\+::uint32\+\_\+t}]{queue\+\_\+size,  }\item[{Policy\+Arg\+Ts \&\&...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+{\ttfamily ros\+::\+Node\+Handle} setup constructor (no transport hints) 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Policy\+Arg\+Ts} & type associated with arguments passed to underlying captor type\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em nh} & R\+OS node handle to negotiate topic subscription/connection \\
+\hline
+ & {\em topic} & topic associated with input messages \\
+\hline
+ & {\em queue\+\_\+size} & underlying R\+OS subscriber queue size \\
+\hline
+ & {\em args} & arguments to pass to underlying captor types as {\ttfamily Policy\+Tmpl(args,...)}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Will throw with {\ttfamily std\+::runtime\+\_\+error} if underlying subscriber could not be establish a connection with R\+O\+S-\/master 
+\end{DoxyWarning}
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_af772f601562ee99828bf1389f29d31f2}\label{classflow__ros_1_1_subscriber_af772f601562ee99828bf1389f29d31f2}} 
+\index{flow\+\_\+ros\+::\+Subscriber@{flow\+\_\+ros\+::\+Subscriber}!Subscriber@{Subscriber}}
+\index{Subscriber@{Subscriber}!flow\+\_\+ros\+::\+Subscriber@{flow\+\_\+ros\+::\+Subscriber}}
+\subsubsection{\texorpdfstring{Subscriber()}{Subscriber()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename MsgT , template$<$ typename... $>$ class Policy\+Tmpl, typename Lock\+PolicyT  = std\+::unique\+\_\+lock$<$std\+::mutex$>$, typename Msg\+Const\+Ptr\+ContainerT  = flow\+::\+Default\+Container$<$message\+\_\+shared\+\_\+const\+\_\+ptr\+\_\+t$<$const Msg\+T$>$$>$$>$ \\
+template$<$typename... Policy\+Arg\+Ts$>$ \\
+\hyperlink{classflow__ros_1_1_subscriber}{flow\+\_\+ros\+::\+Subscriber}$<$ MsgT, Policy\+Tmpl, Lock\+PolicyT, Msg\+Const\+Ptr\+ContainerT $>$\+::\hyperlink{classflow__ros_1_1_subscriber}{Subscriber} (\begin{DoxyParamCaption}\item[{ros\+::\+Node\+Handle \&}]{nh,  }\item[{const std\+::string \&}]{topic,  }\item[{const ros\+::\+Transport\+Hints \&}]{transport\+\_\+hints,  }\item[{const std\+::uint32\+\_\+t}]{queue\+\_\+size,  }\item[{Policy\+Arg\+Ts \&\&...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+{\ttfamily ros\+::\+Node\+Handle} setup constructor (with transport hints) 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Policy\+Arg\+Ts} & type associated with arguments passed to underlying captor type\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em nh} & R\+OS node handle to negotiate topic subscription/connection \\
+\hline
+ & {\em topic} & topic associated with input messages \\
+\hline
+ & {\em transport\+\_\+hints} & a {\ttfamily ros\+::\+Transport\+Hints} structure which defines various transport-\/related options \\
+\hline
+ & {\em queue\+\_\+size} & underlying R\+OS subscriber queue size \\
+\hline
+ & {\em args} & arguments to pass to underlying captor types as {\ttfamily Policy\+Tmpl(args,...)}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Will throw with {\ttfamily std\+::runtime\+\_\+error} if underlying subscriber could not be establish a connection with R\+O\+S-\/master 
+\end{DoxyWarning}
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_a3110e656a138239c24339c57ea7259cc}\label{classflow__ros_1_1_subscriber_a3110e656a138239c24339c57ea7259cc}} 
+\index{flow\+\_\+ros\+::\+Subscriber@{flow\+\_\+ros\+::\+Subscriber}!Subscriber@{Subscriber}}
+\index{Subscriber@{Subscriber}!flow\+\_\+ros\+::\+Subscriber@{flow\+\_\+ros\+::\+Subscriber}}
+\subsubsection{\texorpdfstring{Subscriber()}{Subscriber()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename MsgT , template$<$ typename... $>$ class Policy\+Tmpl, typename Lock\+PolicyT  = std\+::unique\+\_\+lock$<$std\+::mutex$>$, typename Msg\+Const\+Ptr\+ContainerT  = flow\+::\+Default\+Container$<$message\+\_\+shared\+\_\+const\+\_\+ptr\+\_\+t$<$const Msg\+T$>$$>$$>$ \\
+template$<$typename... Policy\+Arg\+Ts$>$ \\
+\hyperlink{classflow__ros_1_1_subscriber}{flow\+\_\+ros\+::\+Subscriber}$<$ MsgT, Policy\+Tmpl, Lock\+PolicyT, Msg\+Const\+Ptr\+ContainerT $>$\+::\hyperlink{classflow__ros_1_1_subscriber}{Subscriber} (\begin{DoxyParamCaption}\item[{\hyperlink{classflow__ros_1_1_router}{Router} \&}]{router,  }\item[{std\+::string}]{topic,  }\item[{const std\+::uint32\+\_\+t}]{queue\+\_\+size,  }\item[{Policy\+Arg\+Ts \&\&...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+{\ttfamily \hyperlink{classflow__ros_1_1_router}{Router}} setup constructor 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Policy\+Arg\+Ts} & type associated with arguments passed to underlying captor type\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em router} & Intra-\/node \hyperlink{classflow__ros_1_1_router}{Router} routing object \\
+\hline
+ & {\em topic} & topic associated with input messages \\
+\hline
+ & {\em queue\+\_\+size} & underlying subscription queue size \\
+\hline
+ & {\em args} & arguments to pass to underlying captor types as {\ttfamily Policy\+Tmpl(args,...)} \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/\hyperlink{subscriber_8h}{subscriber.\+h}\end{DoxyCompactItemize}

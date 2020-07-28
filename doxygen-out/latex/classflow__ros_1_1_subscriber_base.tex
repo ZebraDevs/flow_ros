@@ -1,0 +1,115 @@
+\hypertarget{classflow__ros_1_1_subscriber_base}{}\section{flow\+\_\+ros\+:\+:Subscriber\+Base Class Reference}
+\label{classflow__ros_1_1_subscriber_base}\index{flow\+\_\+ros\+::\+Subscriber\+Base@{flow\+\_\+ros\+::\+Subscriber\+Base}}
+
+
+Message input channel with meta information interfaces.  
+
+
+
+
+{\ttfamily \#include $<$subscriber.\+h$>$}
+
+
+
+Inheritance diagram for flow\+\_\+ros\+:\+:Subscriber\+Base\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classflow__ros_1_1_subscriber_base__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{classflow__ros_1_1_subscriber_base_a3af4148c9a1fef17b9243116260455c7}{get\+Topic} () const
+\begin{DoxyCompactList}\small\item\em Returns topic associated with publication. \end{DoxyCompactList}\item 
+std\+::uint32\+\_\+t \hyperlink{classflow__ros_1_1_subscriber_base_aabaa5a35708ea005c95b2ab206bc172e}{get\+Num\+Publishers} () const
+\begin{DoxyCompactList}\small\item\em Returns number of local publications connected to this subscription. \end{DoxyCompactList}\item 
+\hyperlink{transport__info_8h_ae57afcf849a5bdb82b958347c6ccc57b}{routing\+::\+Transport\+Method} \hyperlink{classflow__ros_1_1_subscriber_base_ae68b6a76c0ffc8d2fd8080206f7ce891}{get\+Transport\+Method} () const
+\begin{DoxyCompactList}\small\item\em Returns transport method (code) associated with this subscription. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_base_a25536a5f4b8a3c3dba3b581647e161b5}\label{classflow__ros_1_1_subscriber_base_a25536a5f4b8a3c3dba3b581647e161b5}} 
+virtual std\+::size\+\_\+t \hyperlink{classflow__ros_1_1_subscriber_base_a25536a5f4b8a3c3dba3b581647e161b5}{get\+Capacity} () const =0
+\begin{DoxyCompactList}\small\item\em Returns underlying {\ttfamily flow\+::\+Captor} buffer capacity. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_base_a65fa9835d2c8135a5b118279e5cf1588}\label{classflow__ros_1_1_subscriber_base_a65fa9835d2c8135a5b118279e5cf1588}} 
+virtual std\+::size\+\_\+t \hyperlink{classflow__ros_1_1_subscriber_base_a65fa9835d2c8135a5b118279e5cf1588}{get\+Num\+Buffered} () const =0
+\begin{DoxyCompactList}\small\item\em Returns number of buffers messages in underlying {\ttfamily flow\+::\+Captor} buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_base_a7cea45e8cbbeb3f7406dd5b4336d86d5}\label{classflow__ros_1_1_subscriber_base_a7cea45e8cbbeb3f7406dd5b4336d86d5}} 
+virtual flow\+::\+Capture\+Range$<$ ros\+::\+Time $>$ \hyperlink{classflow__ros_1_1_subscriber_base_a7cea45e8cbbeb3f7406dd5b4336d86d5}{get\+Available\+Buffered\+Range} () const =0
+\begin{DoxyCompactList}\small\item\em Returns stamp range of all buffered messages. \end{DoxyCompactList}\item 
+bool \hyperlink{classflow__ros_1_1_subscriber_base_a1c2ed330f95a5711c6f71b80b556e742}{is\+Valid} () const
+\begin{DoxyCompactList}\small\item\em Validity check. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_base_a776d32808c392411b4e9b308c79d866b}\label{classflow__ros_1_1_subscriber_base_a776d32808c392411b4e9b308c79d866b}} 
+std\+::shared\+\_\+ptr$<$ \hyperlink{classflow__ros_1_1routing_1_1_subscription_wrapper}{routing\+::\+Subscription\+Wrapper} $>$ \hyperlink{classflow__ros_1_1_subscriber_base_a776d32808c392411b4e9b308c79d866b}{impl} () const
+\begin{DoxyCompactList}\small\item\em Returns underlying subscription implementation wrapper resource. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr \hyperlink{transport__info_8h_acb4b6ac875de32a0d0ee8cec235f7752}{routing\+::\+Direction} \hyperlink{classflow__ros_1_1_subscriber_base_a260255c9a1a05e1fa60a076177609f57}{get\+Transport\+Direction} ()
+\begin{DoxyCompactList}\small\item\em Returns transport direction (code) associated with this subscription. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_base_ac30d4bd880dd826f4930b3abef1da02f}\label{classflow__ros_1_1_subscriber_base_ac30d4bd880dd826f4930b3abef1da02f}} 
+std\+::shared\+\_\+ptr$<$ \hyperlink{classflow__ros_1_1routing_1_1_subscription_wrapper}{routing\+::\+Subscription\+Wrapper} $>$ \hyperlink{classflow__ros_1_1_subscriber_base_ac30d4bd880dd826f4930b3abef1da02f}{subscription\+\_\+}
+\begin{DoxyCompactList}\small\item\em Underling subscription wrapper. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Message input channel with meta information interfaces. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_base_aabaa5a35708ea005c95b2ab206bc172e}\label{classflow__ros_1_1_subscriber_base_aabaa5a35708ea005c95b2ab206bc172e}} 
+\index{flow\+\_\+ros\+::\+Subscriber\+Base@{flow\+\_\+ros\+::\+Subscriber\+Base}!get\+Num\+Publishers@{get\+Num\+Publishers}}
+\index{get\+Num\+Publishers@{get\+Num\+Publishers}!flow\+\_\+ros\+::\+Subscriber\+Base@{flow\+\_\+ros\+::\+Subscriber\+Base}}
+\subsubsection{\texorpdfstring{get\+Num\+Publishers()}{getNumPublishers()}}
+{\footnotesize\ttfamily std\+::uint32\+\_\+t flow\+\_\+ros\+::\+Subscriber\+Base\+::get\+Num\+Publishers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns number of local publications connected to this subscription. 
+
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_base_a3af4148c9a1fef17b9243116260455c7}\label{classflow__ros_1_1_subscriber_base_a3af4148c9a1fef17b9243116260455c7}} 
+\index{flow\+\_\+ros\+::\+Subscriber\+Base@{flow\+\_\+ros\+::\+Subscriber\+Base}!get\+Topic@{get\+Topic}}
+\index{get\+Topic@{get\+Topic}!flow\+\_\+ros\+::\+Subscriber\+Base@{flow\+\_\+ros\+::\+Subscriber\+Base}}
+\subsubsection{\texorpdfstring{get\+Topic()}{getTopic()}}
+{\footnotesize\ttfamily std\+::string flow\+\_\+ros\+::\+Subscriber\+Base\+::get\+Topic (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns topic associated with publication. 
+
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_base_a260255c9a1a05e1fa60a076177609f57}\label{classflow__ros_1_1_subscriber_base_a260255c9a1a05e1fa60a076177609f57}} 
+\index{flow\+\_\+ros\+::\+Subscriber\+Base@{flow\+\_\+ros\+::\+Subscriber\+Base}!get\+Transport\+Direction@{get\+Transport\+Direction}}
+\index{get\+Transport\+Direction@{get\+Transport\+Direction}!flow\+\_\+ros\+::\+Subscriber\+Base@{flow\+\_\+ros\+::\+Subscriber\+Base}}
+\subsubsection{\texorpdfstring{get\+Transport\+Direction()}{getTransportDirection()}}
+{\footnotesize\ttfamily static constexpr \hyperlink{transport__info_8h_acb4b6ac875de32a0d0ee8cec235f7752}{routing\+::\+Direction} flow\+\_\+ros\+::\+Subscriber\+Base\+::get\+Transport\+Direction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Returns transport direction (code) associated with this subscription. 
+
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_base_ae68b6a76c0ffc8d2fd8080206f7ce891}\label{classflow__ros_1_1_subscriber_base_ae68b6a76c0ffc8d2fd8080206f7ce891}} 
+\index{flow\+\_\+ros\+::\+Subscriber\+Base@{flow\+\_\+ros\+::\+Subscriber\+Base}!get\+Transport\+Method@{get\+Transport\+Method}}
+\index{get\+Transport\+Method@{get\+Transport\+Method}!flow\+\_\+ros\+::\+Subscriber\+Base@{flow\+\_\+ros\+::\+Subscriber\+Base}}
+\subsubsection{\texorpdfstring{get\+Transport\+Method()}{getTransportMethod()}}
+{\footnotesize\ttfamily \hyperlink{transport__info_8h_ae57afcf849a5bdb82b958347c6ccc57b}{routing\+::\+Transport\+Method} flow\+\_\+ros\+::\+Subscriber\+Base\+::get\+Transport\+Method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns transport method (code) associated with this subscription. 
+
+\mbox{\Hypertarget{classflow__ros_1_1_subscriber_base_a1c2ed330f95a5711c6f71b80b556e742}\label{classflow__ros_1_1_subscriber_base_a1c2ed330f95a5711c6f71b80b556e742}} 
+\index{flow\+\_\+ros\+::\+Subscriber\+Base@{flow\+\_\+ros\+::\+Subscriber\+Base}!is\+Valid@{is\+Valid}}
+\index{is\+Valid@{is\+Valid}!flow\+\_\+ros\+::\+Subscriber\+Base@{flow\+\_\+ros\+::\+Subscriber\+Base}}
+\subsubsection{\texorpdfstring{is\+Valid()}{isValid()}}
+{\footnotesize\ttfamily bool flow\+\_\+ros\+::\+Subscriber\+Base\+::is\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Validity check. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/\hyperlink{subscriber_8h}{subscriber.\+h}\end{DoxyCompactItemize}

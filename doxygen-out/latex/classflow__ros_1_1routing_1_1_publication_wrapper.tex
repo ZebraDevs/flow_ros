@@ -1,0 +1,83 @@
+\hypertarget{classflow__ros_1_1routing_1_1_publication_wrapper}{}\section{flow\+\_\+ros\+:\+:routing\+:\+:Publication\+Wrapper$<$ MsgT $>$ Class Template Reference}
+\label{classflow__ros_1_1routing_1_1_publication_wrapper}\index{flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper$<$ Msg\+T $>$@{flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper$<$ Msg\+T $>$}}
+
+
+C\+R\+T\+P-\/base for message publishing objects.  
+
+
+
+
+{\ttfamily \#include $<$publication\+\_\+wrapper.\+h$>$}
+
+
+
+Inheritance diagram for flow\+\_\+ros\+:\+:routing\+:\+:Publication\+Wrapper$<$ MsgT $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classflow__ros_1_1routing_1_1_publication_wrapper__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_a43b9989390bf9f001fe9670a0c1d5897}{publish} (const \hyperlink{namespaceflow__ros_a21a684f38ee2083b3858613317c46d82}{message\+\_\+shared\+\_\+ptr\+\_\+t}$<$ MsgT $>$ \&message) const =0
+\begin{DoxyCompactList}\small\item\em Publishes message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_publication_wrapper_a1aa441bb1846211cb803362233d4ee0b}\label{classflow__ros_1_1routing_1_1_publication_wrapper_a1aa441bb1846211cb803362233d4ee0b}} 
+virtual std\+::string \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_a1aa441bb1846211cb803362233d4ee0b}{get\+Topic} () const =0
+\begin{DoxyCompactList}\small\item\em Returns topic associated with publication. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_publication_wrapper_a3e2fb2a4cafe729a643af5ed5033dc50}\label{classflow__ros_1_1routing_1_1_publication_wrapper_a3e2fb2a4cafe729a643af5ed5033dc50}} 
+virtual std\+::uint32\+\_\+t \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_a3e2fb2a4cafe729a643af5ed5033dc50}{get\+Num\+Subscribers} () const =0
+\begin{DoxyCompactList}\small\item\em Returns number of subscriptions connected to this publication. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_publication_wrapper_a86fdc857e02347e862dbbb113e5a6cb6}\label{classflow__ros_1_1routing_1_1_publication_wrapper_a86fdc857e02347e862dbbb113e5a6cb6}} 
+virtual bool \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_a86fdc857e02347e862dbbb113e5a6cb6}{is\+Latched} () const =0
+\begin{DoxyCompactList}\small\item\em Returns flag indicating whether or not publisher is latched. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_publication_wrapper_a0398202c79a6bdb1ff57acc8c730bc65}\label{classflow__ros_1_1routing_1_1_publication_wrapper_a0398202c79a6bdb1ff57acc8c730bc65}} 
+virtual \hyperlink{transport__info_8h_ae57afcf849a5bdb82b958347c6ccc57b}{Transport\+Method} \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_a0398202c79a6bdb1ff57acc8c730bc65}{get\+Transport\+Method} () const =0
+\begin{DoxyCompactList}\small\item\em Returns transport method (code) associated with this publication. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_publication_wrapper_afc33bf27092f8e8188e3f7955a6b7c97}\label{classflow__ros_1_1routing_1_1_publication_wrapper_afc33bf27092f8e8188e3f7955a6b7c97}} 
+virtual bool \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_afc33bf27092f8e8188e3f7955a6b7c97}{is\+Valid} () const =0
+\begin{DoxyCompactList}\small\item\em Validity check. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_publication_wrapper_ae3d53f17565deb8a0d5b6d971d11e813}\label{classflow__ros_1_1routing_1_1_publication_wrapper_ae3d53f17565deb8a0d5b6d971d11e813}} 
+virtual \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_ae3d53f17565deb8a0d5b6d971d11e813}{operator bool} () const
+\begin{DoxyCompactList}\small\item\em Validity check cast. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_publication_wrapper_a5ee03549ef54a9e5cc78d185ad866ec1}\label{classflow__ros_1_1routing_1_1_publication_wrapper_a5ee03549ef54a9e5cc78d185ad866ec1}} 
+static constexpr \hyperlink{transport__info_8h_acb4b6ac875de32a0d0ee8cec235f7752}{Direction} \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper_a5ee03549ef54a9e5cc78d185ad866ec1}{get\+Transport\+Direction} ()
+\begin{DoxyCompactList}\small\item\em Returns transport direction (code) associated with this publication. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename MsgT$>$\newline
+class flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper$<$ Msg\+T $>$}
+
+C\+R\+T\+P-\/base for message publishing objects. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1routing_1_1_publication_wrapper_a43b9989390bf9f001fe9670a0c1d5897}\label{classflow__ros_1_1routing_1_1_publication_wrapper_a43b9989390bf9f001fe9670a0c1d5897}} 
+\index{flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper@{flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper}!publish@{publish}}
+\index{publish@{publish}!flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper@{flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper}}
+\subsubsection{\texorpdfstring{publish()}{publish()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+virtual void \hyperlink{classflow__ros_1_1routing_1_1_publication_wrapper}{flow\+\_\+ros\+::routing\+::\+Publication\+Wrapper}$<$ MsgT $>$\+::publish (\begin{DoxyParamCaption}\item[{const \hyperlink{namespaceflow__ros_a21a684f38ee2083b3858613317c46d82}{message\+\_\+shared\+\_\+ptr\+\_\+t}$<$ MsgT $>$ \&}]{message }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Publishes message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & message data to publish \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{classflow__ros_1_1routing_1_1_local_publication_ab2d53a2bd93e83ee11095f35d5820226}{flow\+\_\+ros\+::routing\+::\+Local\+Publication$<$ Msg\+T $>$}, and \hyperlink{classflow__ros_1_1routing_1_1_r_o_s_publication_a1ad3cf68c465a909399bb4496e561f0b}{flow\+\_\+ros\+::routing\+::\+R\+O\+S\+Publication$<$ Msg\+T $>$}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/routing/publication\+\_\+wrapper.\+h\end{DoxyCompactItemize}

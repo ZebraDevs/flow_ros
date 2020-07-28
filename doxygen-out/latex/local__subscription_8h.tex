@@ -1,0 +1,46 @@
+\hypertarget{local__subscription_8h}{}\section{flow\+\_\+ros/include/routing/local\+\_\+subscription.h File Reference}
+\label{local__subscription_8h}\index{flow\+\_\+ros/include/routing/local\+\_\+subscription.\+h@{flow\+\_\+ros/include/routing/local\+\_\+subscription.\+h}}
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$rosbag/message\+\_\+instance.\+h$>$}\newline
+{\ttfamily \#include $<$flow\+\_\+ros/routing/subscription\+\_\+wrapper.\+h$>$}\newline
+Include dependency graph for local\+\_\+subscription.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{local__subscription_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classflow__ros_1_1routing_1_1_message_instance_error}{flow\+\_\+ros\+::routing\+::\+Message\+Instance\+Error}
+\begin{DoxyCompactList}\small\item\em Exception thrown when a message cannot be instanced from {\ttfamily rosbag\+::\+Message\+Instance} \end{DoxyCompactList}\item 
+class \hyperlink{classflow__ros_1_1routing_1_1_message_type_error}{flow\+\_\+ros\+::routing\+::\+Message\+Type\+Error}
+\begin{DoxyCompactList}\small\item\em Exception thrown when a message type does not match for a given topic. \end{DoxyCompactList}\item 
+class \hyperlink{classflow__ros_1_1routing_1_1_local_subscription_base}{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Base}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{Local\+Subscription} base which provides basic info and erases Msg\+T-\/dependent methods. \end{DoxyCompactList}\item 
+class \hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{flow\+\_\+ros\+::routing\+::\+Local\+Subscription$<$ Msg\+T $>$}
+\item 
+class \hyperlink{classflow__ros_1_1routing_1_1_local_subscription_group}{flow\+\_\+ros\+::routing\+::\+Local\+Subscription\+Group}
+\begin{DoxyCompactList}\small\item\em Holds a group of \hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{Local\+Subscription} objects associated with a particular topic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceflow__ros}{flow\+\_\+ros}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyCopyright}{Copyright}
+2020 Fetch Robotics Inc. All rights reserved 
+\end{DoxyCopyright}
+\begin{DoxyAuthor}{Author}
+Brian Cairl 
+\end{DoxyAuthor}

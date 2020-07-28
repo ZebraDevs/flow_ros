@@ -1,0 +1,5 @@
+<map id="flow_ros::SubscriberBase" name="flow_ros::SubscriberBase">
+<area shape="rect" id="node2" href="$classflow__ros_1_1_subscriber_policy_base.html" title="Message input channel with an associated capture policy. " alt="" coords="297,5,475,47"/>
+<area shape="rect" id="node3" href="$classflow__ros_1_1_subscriber_policy_base.html" title="flow_ros::SubscriberPolicy\lBase\&lt; PolicyTmpl\&lt; message\l_shared_const_ptr_t\&lt; const\l MsgT \&gt;, LockPolicyT, MsgConstPtrContainerT \&gt; \&gt;" alt="" coords="224,71,548,141"/>
+<area shape="rect" id="node4" href="$classflow__ros_1_1_subscriber.html" title="Input channel which subscribes to messages. " alt="" coords="596,78,808,134"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="flow_ros::routing::SubscriptionWrapper" name="flow_ros::routing::SubscriptionWrapper">
+<area shape="rect" id="node2" href="$classflow__ros_1_1routing_1_1_local_subscription.html" title="flow_ros::routing::\lLocalSubscription\&lt; MsgT \&gt;" alt="" coords="5,95,188,136"/>
+<area shape="rect" id="node3" href="$classflow__ros_1_1routing_1_1_r_o_s_subscription.html" title="Wrapper object for a ros::Subscriber " alt="" coords="212,95,339,136"/>
+</map>

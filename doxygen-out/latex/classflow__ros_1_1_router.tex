@@ -1,0 +1,267 @@
+\hypertarget{classflow__ros_1_1_router}{}\section{flow\+\_\+ros\+:\+:Router Class Reference}
+\label{classflow__ros_1_1_router}\index{flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}}
+
+
+An in-\/process message routing object.  
+
+
+
+
+{\ttfamily \#include $<$router.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classflow__ros_1_1_router_a90b7c5099932b00dee22ed58c99644a0}{Router} (std\+::string ns=\char`\"{}anonymous\+\_\+local\+\_\+context\char`\"{})
+\begin{DoxyCompactList}\small\item\em Namespace constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1_router_a8192fca645e648bba809fc1975fbe261}\label{classflow__ros_1_1_router_a8192fca645e648bba809fc1975fbe261}} 
+const std\+::string \& \hyperlink{classflow__ros_1_1_router_a8192fca645e648bba809fc1975fbe261}{get\+Namespace} () const
+\begin{DoxyCompactList}\small\item\em Returns name associated with this \hyperlink{classflow__ros_1_1_router}{Router}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1_router_a53f2dc6ff8226ac8cf60af80123596db}\label{classflow__ros_1_1_router_a53f2dc6ff8226ac8cf60af80123596db}} 
+void \hyperlink{classflow__ros_1_1_router_a53f2dc6ff8226ac8cf60af80123596db}{clear} ()
+\begin{DoxyCompactList}\small\item\em Clears all known subscriptions and publications. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename MsgT $>$ }\\std\+::shared\+\_\+ptr$<$ \hyperlink{classflow__ros_1_1routing_1_1_local_publication}{publication\+\_\+t}$<$ MsgT $>$ $>$ \hyperlink{classflow__ros_1_1_router_a9063ea60d71047f372d7321f36629ca4}{advertise} (const std\+::string \&topic, const std\+::uint32\+\_\+t queue\+\_\+size, bool latch=false)
+\begin{DoxyCompactList}\small\item\em Advertises a new local Publication. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename MsgT , typename CallbackT $>$ }\\std\+::shared\+\_\+ptr$<$ \hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{subscription\+\_\+t}$<$ MsgT $>$ $>$ \hyperlink{classflow__ros_1_1_router_a6f8d999bfe280549f4a3216205007450}{subscribe} (const std\+::string \&topic, const std\+::uint32\+\_\+t queue\+\_\+size, CallbackT \&\&callback)
+\begin{DoxyCompactList}\small\item\em Creates a new local Subscription. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename MsgT , typename MethodT , typename ThisT $>$ }\\std\+::shared\+\_\+ptr$<$ \hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{subscription\+\_\+t}$<$ MsgT $>$ $>$ \hyperlink{classflow__ros_1_1_router_a00e52e1f0df24ff0ca4b2f80d5b6fd0d}{subscribe} (const std\+::string \&topic, const std\+::uint32\+\_\+t queue\+\_\+size, MethodT \&\&m\+\_\+fn\+\_\+ptr, ThisT \&\&this\+\_\+ptr)
+\begin{DoxyCompactList}\small\item\em Creates a new local Subscription. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename MsgT , template$<$ typename $>$ class Shared\+Ptr\+Tmpl$>$ }\\void \hyperlink{classflow__ros_1_1_router_ae41d76f1feb66cd4302172d42253454c}{inject} (const std\+::string \&topic, const Shared\+Ptr\+Tmpl$<$ MsgT $>$ \&msg)
+\begin{DoxyCompactList}\small\item\em Inject message on a given topic. \end{DoxyCompactList}\item 
+void \hyperlink{classflow__ros_1_1_router_a9a6615abdc9e1091c73acc86fcbf795c}{inject} (const \+::rosbag\+::\+Message\+Instance \&mi)
+\begin{DoxyCompactList}\small\item\em Inject R\+OS bag message instance on a given topic. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1_router_ab191406d34d07cd14ecfc484b501fe52}\label{classflow__ros_1_1_router_ab191406d34d07cd14ecfc484b501fe52}} 
+std\+::vector$<$ std\+::string $>$ \hyperlink{classflow__ros_1_1_router_ab191406d34d07cd14ecfc484b501fe52}{known\+Publications} () const
+\begin{DoxyCompactList}\small\item\em Returns a vector of known published topics. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classflow__ros_1_1_router_abf8bb94e109ee8b0987aa50e35721874}\label{classflow__ros_1_1_router_abf8bb94e109ee8b0987aa50e35721874}} 
+std\+::vector$<$ std\+::string $>$ \hyperlink{classflow__ros_1_1_router_abf8bb94e109ee8b0987aa50e35721874}{known\+Subscriptions} () const
+\begin{DoxyCompactList}\small\item\em Returns a vector of known subscribed topics. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classflow__ros_1_1_router_a3674f0a63ecdaed3619c6edeffa1b484}{resolve\+Name} (const std\+::string \&topic) const
+\begin{DoxyCompactList}\small\item\em Returns topic name resolved under \hyperlink{classflow__ros_1_1_router}{Router} namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \hyperlink{classflow__ros_1_1_router_a78e8ba9cec95e91e9abe6d8f83375feb}{operator$<$$<$} (std\+::ostream \&os, const \hyperlink{classflow__ros_1_1_router}{Router} \&router)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classflow__ros_1_1_router}{Router} output stream operator overload. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An in-\/process message routing object. 
+
+Can advertise and subscribe to message topics, and matches connection-\/making interfaces of a {\ttfamily ros\+::\+Node\+Handle$<$code$>$. Allows for the ability to connect {\ttfamily Event\+Handlers$<$/code in-\/process with data channels that do not pass R\+O\+S-\/serializable messages }}
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1_router_a90b7c5099932b00dee22ed58c99644a0}\label{classflow__ros_1_1_router_a90b7c5099932b00dee22ed58c99644a0}} 
+\index{flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}!Router@{Router}}
+\index{Router@{Router}!flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}}
+\subsubsection{\texorpdfstring{Router()}{Router()}}
+{\footnotesize\ttfamily flow\+\_\+ros\+::\+Router\+::\+Router (\begin{DoxyParamCaption}\item[{std\+::string}]{ns = {\ttfamily \char`\"{}anonymous\+\_\+local\+\_\+context\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Namespace constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ns} & namespace to associated with this \hyperlink{classflow__ros_1_1_router}{Router} \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1_router_a9063ea60d71047f372d7321f36629ca4}\label{classflow__ros_1_1_router_a9063ea60d71047f372d7321f36629ca4}} 
+\index{flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}!advertise@{advertise}}
+\index{advertise@{advertise}!flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}}
+\subsubsection{\texorpdfstring{advertise()}{advertise()}}
+{\footnotesize\ttfamily template$<$typename MsgT $>$ \\
+std\+::shared\+\_\+ptr$<$\hyperlink{classflow__ros_1_1routing_1_1_local_publication}{publication\+\_\+t}$<$MsgT$>$ $>$ flow\+\_\+ros\+::\+Router\+::advertise (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{topic,  }\item[{const std\+::uint32\+\_\+t}]{queue\+\_\+size,  }\item[{bool}]{latch = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Advertises a new local Publication. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em MsgT} & (deduced) type of message to be published\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em topic} & topic associated with messages to publish \\
+\hline
+{\em queue\+\_\+size} & unused \\
+\hline
+{\em latch} & unused\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new Publication resource 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classflow__ros_1_1_router_ae41d76f1feb66cd4302172d42253454c}\label{classflow__ros_1_1_router_ae41d76f1feb66cd4302172d42253454c}} 
+\index{flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}!inject@{inject}}
+\index{inject@{inject}!flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}}
+\subsubsection{\texorpdfstring{inject()}{inject()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename MsgT , template$<$ typename $>$ class Shared\+Ptr\+Tmpl$>$ \\
+void flow\+\_\+ros\+::\+Router\+::inject (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{topic,  }\item[{const Shared\+Ptr\+Tmpl$<$ MsgT $>$ \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inject message on a given topic. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em MsgT} & (deduced) type of message to inject \\
+\hline
+{\em Shared\+Ptr\+Tmpl} & (deduced) share pointer object template\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em topic} & name of local topic to publish on \\
+\hline
+{\em msg} & message to inject to input (subscription) channel for given topic\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em $<$code$>$\+Unknown\+Subscription\+Error$<$/code$>$} & if there is no subscription for given topic \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classflow__ros_1_1_router_a9a6615abdc9e1091c73acc86fcbf795c}\label{classflow__ros_1_1_router_a9a6615abdc9e1091c73acc86fcbf795c}} 
+\index{flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}!inject@{inject}}
+\index{inject@{inject}!flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}}
+\subsubsection{\texorpdfstring{inject()}{inject()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void flow\+\_\+ros\+::\+Router\+::inject (\begin{DoxyParamCaption}\item[{const \+::rosbag\+::\+Message\+Instance \&}]{mi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inject R\+OS bag message instance on a given topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mi} & R\+OS bag message instance\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em $<$code$>$\+Unknown\+Subscription\+Error$<$/code$>$} & if there is no subscription for given topic \\
+\hline
+{\em $<$code$>$std\+::runtime\+\_\+error$<$/code$>$} & on failure to instance message \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classflow__ros_1_1_router_a3674f0a63ecdaed3619c6edeffa1b484}\label{classflow__ros_1_1_router_a3674f0a63ecdaed3619c6edeffa1b484}} 
+\index{flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}!resolve\+Name@{resolve\+Name}}
+\index{resolve\+Name@{resolve\+Name}!flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}}
+\subsubsection{\texorpdfstring{resolve\+Name()}{resolveName()}}
+{\footnotesize\ttfamily std\+::string flow\+\_\+ros\+::\+Router\+::resolve\+Name (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{topic }\end{DoxyParamCaption}) const}
+
+
+
+Returns topic name resolved under \hyperlink{classflow__ros_1_1_router}{Router} namespace. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em topic} & topic name to resolve\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+resolved version of {\ttfamily topic} 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em $<$code$>$std\+::invalid\+\_\+argument$<$/code$>$} & if {\ttfamily topic} is invalid \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classflow__ros_1_1_router_a6f8d999bfe280549f4a3216205007450}\label{classflow__ros_1_1_router_a6f8d999bfe280549f4a3216205007450}} 
+\index{flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}}
+\subsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename MsgT , typename CallbackT $>$ \\
+std\+::shared\+\_\+ptr$<$\hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{subscription\+\_\+t}$<$MsgT$>$ $>$ flow\+\_\+ros\+::\+Router\+::subscribe (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{topic,  }\item[{const std\+::uint32\+\_\+t}]{queue\+\_\+size,  }\item[{CallbackT \&\&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates a new local Subscription. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em MsgT} & (deduced) type of message to be received\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em topic} & topic associated with messages to publish \\
+\hline
+{\em queue\+\_\+size} & unused \\
+\hline
+{\em cb} & message callback to associated with subscriber\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new Subscription resource 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classflow__ros_1_1_router_a00e52e1f0df24ff0ca4b2f80d5b6fd0d}\label{classflow__ros_1_1_router_a00e52e1f0df24ff0ca4b2f80d5b6fd0d}} 
+\index{flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}}
+\subsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename MsgT , typename MethodT , typename ThisT $>$ \\
+std\+::shared\+\_\+ptr$<$\hyperlink{classflow__ros_1_1routing_1_1_local_subscription}{subscription\+\_\+t}$<$MsgT$>$ $>$ flow\+\_\+ros\+::\+Router\+::subscribe (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{topic,  }\item[{const std\+::uint32\+\_\+t}]{queue\+\_\+size,  }\item[{MethodT \&\&}]{m\+\_\+fn\+\_\+ptr,  }\item[{ThisT \&\&}]{this\+\_\+ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates a new local Subscription. 
+
+This is a convenience method for class methods
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em MsgT} & (deduced) type of message to be published \\
+\hline
+{\em MethodT} & (deduced) class method type \\
+\hline
+{\em ThisT} & (deduced) class pointer type\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em topic} & topic associated with messages to publish \\
+\hline
+{\em queue\+\_\+size} & unused \\
+\hline
+{\em m\+\_\+fn\+\_\+ptr} & message callback to associated with subscriber \\
+\hline
+{\em this\+\_\+ptr} & object with method {\ttfamily m\+\_\+fn\+\_\+ptr}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new Subscription resource 
+\end{DoxyReturn}
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classflow__ros_1_1_router_a78e8ba9cec95e91e9abe6d8f83375feb}\label{classflow__ros_1_1_router_a78e8ba9cec95e91e9abe6d8f83375feb}} 
+\index{flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!flow\+\_\+ros\+::\+Router@{flow\+\_\+ros\+::\+Router}}
+\subsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily std\+::ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \hyperlink{classflow__ros_1_1_router}{Router} \&}]{router }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\hyperlink{classflow__ros_1_1_router}{Router} output stream operator overload. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em os} & output stream \\
+\hline
+ & {\em router} & router object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+os 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+flow\+\_\+ros/include/\hyperlink{router_8h}{router.\+h}\item 
+flow\+\_\+ros/src/router.\+cpp\end{DoxyCompactItemize}

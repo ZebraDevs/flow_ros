@@ -1,0 +1,4 @@
+<map id="flow_ros::routing::LocalPublication&lt; MsgT &gt;" name="flow_ros::routing::LocalPublication&lt; MsgT &gt;">
+<area shape="rect" id="node2" href="$classflow__ros_1_1routing_1_1_local_publication_base.html" title="LocalPublication base which provides basic info and erases MsgT&#45;dependent methods. " alt="" coords="5,5,152,47"/>
+<area shape="rect" id="node3" href="$classflow__ros_1_1routing_1_1_publication_wrapper.html" title="CRTP&#45;base for message publishing objects. " alt="" coords="7,71,150,127"/>
+</map>

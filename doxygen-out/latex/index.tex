@@ -1,0 +1,3 @@
+This library is meant for synchronizing multiple series of R\+OS messages, collected by {\ttfamily ros\+::\+Subscriber} objects. This is typically desirable in R\+OS nodes where multiple inputs are required to compute something, and the computed result is accurate only if the inputs have consistent relative sequencing. This library uses \href{https://github.com/fetchrobotics/flow}{\tt Flow} to fulfill these requirements in a customizable way.
+
+Secondarily, this library provides in-\/process subscriber/publisher mechanisms which do not require a running R\+OS core and are swappable with their R\+O\+S-\/enabled counterparts. These are especially useful for testing message passing subsystems. 
