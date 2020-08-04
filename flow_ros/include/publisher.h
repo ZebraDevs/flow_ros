@@ -37,22 +37,27 @@ public:
   virtual ~PublisherBase() = default;
 
   /**
-   * @brief Returns topic associated with publication
+   * @copydoc routing::PublicationWrapper::getTopic
    */
   virtual std::string getTopic() const = 0;
 
   /**
-   * @brief Returns number of local subscriptions connected to this publisher
+   * @copydoc routing::PublicationWrapper::getNumSubscribers
    */
   virtual std::uint32_t getNumSubscribers() const = 0;
 
   /**
-   * @brief Returns transport method (code) associated with this publisher
+   * @copydoc routing::PublicationWrapper::isLatched
+   */
+  virtual bool isLatched() const = 0;
+
+  /**
+   * @copydoc routing::PublicationWrapper::getTransportMethod
    */
   virtual routing::TransportMethod getTransportMethod() const = 0;
 
   /**
-   * @brief Validation cast operator
+   * @copydoc routing::PublicationWrapper::isValid
    */
   virtual bool isValid() const = 0;
 };
@@ -67,32 +72,37 @@ template <typename MsgT> class PublisherOutputBase : public PublisherBase
 {
 public:
   /**
-   * @brief Returns topic associated with publication
+   * @copydoc routing::PublicationWrapper::getTopic
    */
   std::string getTopic() const final { return publication_->getTopic(); }
 
   /**
-   * @brief Returns number of local subscriptions connected to this publisher
+   * @copydoc routing::PublicationWrapper::getNumSubscribers
    */
   std::uint32_t getNumSubscribers() const final { return publication_->getNumSubscribers(); }
 
   /**
-   * @brief Returns transport method (code) associated with this publisher
+   * @copydoc routing::PublicationWrapper::isLatched
+   */
+  bool isLatched() const final { return publication_->isLatched(); }
+
+  /**
+   * @copydoc routing::PublicationWrapper::getTransportMethod
    */
   routing::TransportMethod getTransportMethod() const final { return publication_->getTransportMethod(); }
 
   /**
-   * @brief Returns transport direction (code) associated with this publisher
+   * @copydoc routing::PublicationWrapper::isValid
+   */
+  bool isValid() const final { return publication_->isValid(); }
+
+  /**
+   * @copydoc routing::PublicationWrapper::getTransportDirection
    */
   static constexpr routing::Direction getTransportDirection()
   {
     return routing::PublicationWrapper<MsgT>::getTransportDirection();
   }
-
-  /**
-   * @brief Validation cast operator
-   */
-  bool isValid() const final { return publication_->isValid(); }
 
 protected:
   /**

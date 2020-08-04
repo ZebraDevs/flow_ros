@@ -45,22 +45,28 @@ public:
   void publish(const message_shared_ptr_t<MsgT>& message) const override { pub_.publish(message); }
 
   /**
-   * @brief Returns topic associated with publication
+   * @copydoc PublicationWrapper::getTopic
    */
   std::string getTopic() const override { return pub_.getTopic(); }
 
   /**
-   * @brief Returns number of local subscriptions connected to this LocalPublication
+   * @copydoc PublicationWrapper::getNumSubscribers
    */
   std::uint32_t getNumSubscribers() const override { return pub_.getNumSubscribers(); }
 
   /**
-   * @brief Returns transport method (code) associated with this publisher
+   * @copydoc PublicationWrapper::isLatched
+   */
+  bool isLatched() const override { return pub_.isLatched(); }
+
+  /**
+   * @copydoc PublicationWrapper::getTransportMethod
    */
   TransportMethod getTransportMethod() const override { return TransportMethod::ROS; }
 
   /**
-   * @brief Validation cast operator
+   * @copydoc PublicationWrapper::isValid
+   *
    * @retval true  if underlying ROS publisher is valid
    * @retval false  otherwise
    */

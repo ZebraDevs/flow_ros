@@ -113,22 +113,22 @@ public:
   void inject(const ::rosbag::MessageInstance& mi) const override { call_impl(mi); }
 
   /**
-   * @brief Returns topic name associated with this object
+   * @copydoc SubscriptionWrapper::getTopic
    */
   std::string getTopic() const override { return topic_; }
 
   /**
-   * @brief Returns number of local publications connected to this subscriber
+   * @copydoc SubscriptionWrapper::getNumPublishers
    */
   std::uint32_t getNumPublishers() const override { return 0; /*unknown*/ }
 
   /**
-   * @brief Returns transport method (code) associated with this publisher
+   * @copydoc SubscriptionWrapper::getTransportMethod
    */
   TransportMethod getTransportMethod() const override { return TransportMethod::LOCAL; }
 
   /**
-   * @brief Checks if object is valid
+   * @copydoc SubscriptionWrapper::isValid
    *
    * @retval true  if a callback has been registered to this object
    * @retval false  otherwise

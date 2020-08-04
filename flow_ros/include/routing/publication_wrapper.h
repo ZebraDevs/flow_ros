@@ -46,6 +46,11 @@ public:
   virtual std::uint32_t getNumSubscribers() const = 0;
 
   /**
+   * @brief Returns flag indicating whether or not publisher is latched
+   */
+  virtual bool isLatched() const = 0;
+
+  /**
    * @brief Returns transport method (code) associated with this publication
    */
   virtual TransportMethod getTransportMethod() const = 0;
