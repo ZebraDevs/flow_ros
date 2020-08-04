@@ -19,6 +19,7 @@
 #include <ros/publisher.h>
 
 // Flow
+#include <flow/impl/static_assert.hpp>
 #include <flow_ros/message_ptr.h>
 #include <flow_ros/router.h>
 #include <flow_ros/routing/local_publication.h>
@@ -188,13 +189,18 @@ public:
  * @brief Output channel specialization which publishes multiple messages
  *
  * @tparam MsgT  message type
+ * @tparam OutputContainerT  container of message resources used as <code>OutputType</code>;
+ *                           this information is most relevant when using with MultiPublisher with EventHandler
  */
-template <typename MsgT> class MultiPublisher final : public PublisherOutputBase<MsgT>
+template <typename MsgT, typename OutputContainerT = std::vector<message_shared_ptr_t<MsgT>>>
+class MultiPublisher final : public PublisherOutputBase<MsgT>
 {
   /// Subscriber base type alias
   using PublisherOutputBaseType = PublisherOutputBase<MsgT>;
 
 public:
+  FLOW_STATIC_ASSERT(std::is_const<MsgT>(), "MsgT must be const");
+
   /**
    * @brief <code>ros::NodeHandle</code> setup constructor (extra-node messaging)
    *
@@ -248,12 +254,9 @@ public:
    *        If any message resource is invalid (i.e. <code>msg == nullptr</code>), then
    *        no message is sent over underlying publication channel
    *
-   * @param messages  vector of messages
+   * @param messages  container of messages
    */
-  inline void publish(std::vector<message_shared_ptr_t<MsgT>> messages) const
-  {
-    publish(messages.begin(), messages.end());
-  }
+  inline void publish(const OutputContainerT& messages) const { publish(std::begin(messages), std::end(messages)); }
 };
 
 
@@ -272,7 +275,7 @@ template <typename MsgT> struct PublisherTraits<Publisher<MsgT>>
   /// Output message type
   using MsgType = MsgT;
 
-  /// Output message type
+  /// Output message resource type
   using OutputType = message_shared_ptr_t<MsgT>;
 };
 
@@ -281,13 +284,13 @@ template <typename MsgT> struct PublisherTraits<Publisher<MsgT>>
  * @copydoc PublisherTraits
  * @note MultiPublisher partial specialization
  */
-template <typename MsgT> struct PublisherTraits<MultiPublisher<MsgT>>
+template <typename MsgT, typename OutputContainerT> struct PublisherTraits<MultiPublisher<MsgT, OutputContainerT>>
 {
   /// Output message type
   using MsgType = MsgT;
 
-  /// Output message type
-  using OutputType = std::vector<message_shared_ptr_t<MsgT>>;
+  /// Output message resource type
+  using OutputType = OutputContainerT;
 };
 
 }  // namespace flow_ros

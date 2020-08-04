@@ -236,7 +236,7 @@ TEST(EventHandlerSingleThreaded, SingleInputOutputArray)
 
   // SISO event handler type
   using EventHandler = flow_ros::EventHandler<
-    std::tuple<flow_ros::MultiPublisher<TestMessage1>>,
+    std::tuple<flow_ros::MultiPublisher<const TestMessage1>>,
     std::tuple<flow_ros::Subscriber<TestMessage1, flow::driver::Next, flow::NoLock>>>;
 
   // Publisher to send message
@@ -248,15 +248,21 @@ TEST(EventHandlerSingleThreaded, SingleInputOutputArray)
     "output_1", 1, [&output_msg_1](const TestMessage1::ConstPtr& msg) { output_msg_1 = msg; });
 
   // Dummy callback; returns 2 values
-  const auto callback = [](const EventHandler::Input& inputs) {
-    std::vector<TestMessage1::Ptr> out_arr{std::make_shared<TestMessage1>()};
+  const auto callback = [](const EventHandler::Input& inputs) -> EventHandler::Output {
+    std::vector<TestMessage1::ConstPtr> out_arr;
+
+    auto msg = std::make_shared<TestMessage1>();
+    msg->header.stamp.fromSec(1);
+
+    out_arr.emplace_back(std::move(msg));
+
     return std::make_tuple(out_arr);
   };
 
   // Event handler
   std::shared_ptr<flow_ros::EventHandlerBase> handler = std::make_shared<EventHandler>(
     callback,
-    std::make_tuple(std::make_shared<flow_ros::MultiPublisher<TestMessage1>>(router, "output_1", 1)),
+    std::make_tuple(std::make_shared<flow_ros::MultiPublisher<const TestMessage1>>(router, "output_1", 1)),
     std::make_tuple(
       std::make_shared<flow_ros::Subscriber<TestMessage1, flow::driver::Next, flow::NoLock>>(router, "input", 1)));
 

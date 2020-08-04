@@ -84,12 +84,6 @@ private:
 
 
 /**
- * @brief Publishes an output
- */
-template <typename OutputT> struct OutputPublishHelper;
-
-
-/**
  * @brief Helper function use to set message sequencing stamp
  *
  * @tparam MsgT  (deduced) message type
@@ -105,12 +99,32 @@ template <typename MsgT, typename SeqT> inline void set_stamp(MsgT&& msg, SeqT&&
 
 
 /**
- * @brief Specialization which publishes shared_ptr-wrapped outputs
+ * @brief Helper object used to publish 1 or N outputs from an EventHandler
  */
-template <typename OutputT, template <typename> class SharedPtrTmpl> struct OutputPublishHelper<SharedPtrTmpl<OutputT>>
+class EventHandlerPublishHelper
 {
-  template <typename PubT, bool IS_CONST = std::is_const<OutputT>::value>
-  inline std::enable_if_t<!IS_CONST> operator()(PubT& pub, SharedPtrTmpl<OutputT> output, const ros::Time& stamp) const
+public:
+  explicit EventHandlerPublishHelper(const ros::Time stamp) : stamp_{stamp} {}
+
+  /// Publishes multiple messages through a publisher implementation
+  template <typename PubT, typename OutputT> inline void operator()(std::shared_ptr<PubT>& pub, OutputT&& output) const
+  {
+    EventHandlerPublishHelper::call_publish(*pub, std::forward<OutputT>(output), stamp_);
+  }
+
+private:
+  /// Publishes multiple messages through a MultiPublisher
+  template <typename MsgT, typename OutputContainerT>
+  static inline void
+  call_publish(MultiPublisher<MsgT, OutputContainerT>& pub, OutputContainerT&& output, const ros::Time& stamp)
+  {
+    pub.publish(std::forward<OutputContainerT>(output));
+  }
+
+  /// Publishes message through a Publisher; automatically sets stamp to match driving message stamp
+  template <typename MsgT>
+  static inline std::enable_if_t<!std::is_const<MsgT>::value>
+  call_publish(Publisher<MsgT>& pub, message_shared_ptr_t<MsgT> output, const ros::Time& stamp)
   {
     if (output)
     {
@@ -119,57 +133,14 @@ template <typename OutputT, template <typename> class SharedPtrTmpl> struct Outp
     pub.publish(std::move(output));
   }
 
-  template <typename PubT, bool IS_CONST = std::is_const<OutputT>::value>
-  inline std::enable_if_t<IS_CONST> operator()(PubT& pub, SharedPtrTmpl<OutputT> output, const ros::Time& stamp) const
+  /// Publishes message through a Publisher; does not automatically sets stamp to match driving message stamp
+  template <typename MsgT>
+  static inline std::enable_if_t<std::is_const<MsgT>::value>
+  call_publish(Publisher<MsgT>& pub, message_shared_ptr_t<MsgT> output, const ros::Time& stamp)
   {
     pub.publish(std::move(output));
   }
-};
 
-
-/**
- * @brief Specialization which publishes mulitple shared_ptr-wrapped outputs
- */
-template <typename OutputT, template <typename> class SharedPtrTmpl>
-struct OutputPublishHelper<std::vector<SharedPtrTmpl<OutputT>>>
-{
-  template <typename PubT, bool IS_CONST = std::is_const<OutputT>::value>
-  inline std::enable_if_t<!IS_CONST>
-  operator()(PubT& pub, std::vector<SharedPtrTmpl<OutputT>> output, const ros::Time& stamp) const
-  {
-    for (auto& msg_ptr : output)
-    {
-      if (msg_ptr)
-      {
-        set_stamp(*msg_ptr, stamp);
-      }
-    }
-    pub.publish(std::move(output));
-  }
-
-  template <typename PubT, bool IS_CONST = std::is_const<OutputT>::value>
-  inline std::enable_if_t<IS_CONST>
-  operator()(PubT& pub, std::vector<SharedPtrTmpl<OutputT>> output, const ros::Time& stamp) const
-  {
-    pub.publish(std::move(output));
-  }
-};
-
-
-/**
- * @brief Helper object used to publish 1 or N outputs from an EventHandler
- */
-class EventHandlerPublishHelper
-{
-public:
-  explicit EventHandlerPublishHelper(const ros::Time stamp) : stamp_{stamp} {}
-
-  template <typename PubPtrT, typename OutputT> inline void operator()(PubPtrT& pub, OutputT output) const
-  {
-    OutputPublishHelper<std::remove_reference_t<OutputT>>{}(*pub, std::move(output), stamp_);
-  }
-
-private:
   /// Output time stamp
   const ros::Time stamp_;
 };
