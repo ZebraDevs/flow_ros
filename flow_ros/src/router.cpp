@@ -6,8 +6,8 @@
  */
 
 // C++ Standard Library
-#include <ostream>
 #include <memory>
+#include <ostream>
 #include <stdexcept>
 #include <string>
 #include <thread>

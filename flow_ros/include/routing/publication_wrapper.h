@@ -41,7 +41,7 @@ public:
   virtual std::string getTopic() const = 0;
 
   /**
-   * @brief Returns number of local subscriptions connected to this publication
+   * @brief Returns number of subscriptions connected to this publication
    */
   virtual std::uint32_t getNumSubscribers() const = 0;
 
