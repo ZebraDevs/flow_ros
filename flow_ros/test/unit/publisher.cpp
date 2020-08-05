@@ -79,7 +79,7 @@ TEST(PublisherLocal, PublishMultiValid)
 {
   flow_ros::Router router{"/router"};
 
-  flow_ros::MultiPublisher<TestMessage> pub{router, "topic", 1};
+  flow_ros::MultiPublisher<const TestMessage> pub{router, "topic", 1};
 
   std::vector<TestMessage::ConstPtr> sub_msgs;
   auto sub = router.subscribe<TestMessage>(

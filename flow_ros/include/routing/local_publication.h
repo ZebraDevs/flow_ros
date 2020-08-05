@@ -40,7 +40,7 @@ public:
   explicit LocalPublicationBase(std::string topic) : topic_{std::move(topic)} {}
 
   /**
-   * @brief Returns topic name associated with this object
+   * @copydoc PublicationWrapper::getTopic
    */
   inline const std::string& getTopic() const { return topic_; }
 
@@ -79,22 +79,29 @@ public:
   void publish(const message_shared_ptr_t<MsgT>& message) const { subscribers_->call<MsgT>(message); }
 
   /**
-   * @brief Returns topic associated with publication
+   * @copydoc PublicationWrapper::getTopic
    */
   std::string getTopic() const override { return LocalPublicationBase::getTopic(); }
 
   /**
-   * @brief Returns number of local subscriptions connected to this LocalPublication
+   * @copydoc PublicationWrapper::getNumSubscribers
    */
   std::uint32_t getNumSubscribers() const override { return subscribers_ ? subscribers_->size() : 0; }
 
   /**
-   * @brief Returns transport method (code) associated with this publisher
+   * @copydoc PublicationWrapper::isLatched
+   *
+   * @note Dummy implementation; local publications cannot be latched
+   */
+  bool isLatched() const override { return false; }
+
+  /**
+   * @copydoc LocalPublicationBase::getTransportMethod
    */
   TransportMethod getTransportMethod() const override { return TransportMethod::LOCAL; }
 
   /**
-   * @brief Validation cast operator
+   * @copydoc LocalPublicationBase::isValid
    */
   bool isValid() const override { return static_cast<bool>(subscribers_); }
 

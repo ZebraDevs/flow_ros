@@ -19,6 +19,7 @@
 #include <ros/publisher.h>
 
 // Flow
+#include <flow/impl/static_assert.hpp>
 #include <flow_ros/message_ptr.h>
 #include <flow_ros/router.h>
 #include <flow_ros/routing/local_publication.h>
@@ -37,22 +38,27 @@ public:
   virtual ~PublisherBase() = default;
 
   /**
-   * @brief Returns topic associated with publication
+   * @copydoc routing::PublicationWrapper::getTopic
    */
   virtual std::string getTopic() const = 0;
 
   /**
-   * @brief Returns number of local subscriptions connected to this publisher
+   * @copydoc routing::PublicationWrapper::getNumSubscribers
    */
   virtual std::uint32_t getNumSubscribers() const = 0;
 
   /**
-   * @brief Returns transport method (code) associated with this publisher
+   * @copydoc routing::PublicationWrapper::isLatched
+   */
+  virtual bool isLatched() const = 0;
+
+  /**
+   * @copydoc routing::PublicationWrapper::getTransportMethod
    */
   virtual routing::TransportMethod getTransportMethod() const = 0;
 
   /**
-   * @brief Validation cast operator
+   * @copydoc routing::PublicationWrapper::isValid
    */
   virtual bool isValid() const = 0;
 };
@@ -67,32 +73,37 @@ template <typename MsgT> class PublisherOutputBase : public PublisherBase
 {
 public:
   /**
-   * @brief Returns topic associated with publication
+   * @copydoc routing::PublicationWrapper::getTopic
    */
   std::string getTopic() const final { return publication_->getTopic(); }
 
   /**
-   * @brief Returns number of local subscriptions connected to this publisher
+   * @copydoc routing::PublicationWrapper::getNumSubscribers
    */
   std::uint32_t getNumSubscribers() const final { return publication_->getNumSubscribers(); }
 
   /**
-   * @brief Returns transport method (code) associated with this publisher
+   * @copydoc routing::PublicationWrapper::isLatched
+   */
+  bool isLatched() const final { return publication_->isLatched(); }
+
+  /**
+   * @copydoc routing::PublicationWrapper::getTransportMethod
    */
   routing::TransportMethod getTransportMethod() const final { return publication_->getTransportMethod(); }
 
   /**
-   * @brief Returns transport direction (code) associated with this publisher
+   * @copydoc routing::PublicationWrapper::isValid
+   */
+  bool isValid() const final { return publication_->isValid(); }
+
+  /**
+   * @copydoc routing::PublicationWrapper::getTransportDirection
    */
   static constexpr routing::Direction getTransportDirection()
   {
     return routing::PublicationWrapper<MsgT>::getTransportDirection();
   }
-
-  /**
-   * @brief Validation cast operator
-   */
-  bool isValid() const final { return publication_->isValid(); }
 
 protected:
   /**
@@ -136,9 +147,9 @@ public:
    * @warning Will throw with <code>std::runtime_error</code> if underlying publisher
    *          could not be establish a connection with ROS-master
    */
-  Publisher(ros::NodeHandle& nh, std::string topic, std::uint32_t queue_size = 0, const bool latched = false) :
+  Publisher(ros::NodeHandle& nh, const std::string& topic, std::uint32_t queue_size = 0, const bool latched = false) :
       PublisherOutputBaseType{
-        std::make_shared<routing::ROSPublication<MsgT>>(nh.advertise<MsgT>(std::move(topic), queue_size, latched))}
+        std::make_shared<routing::ROSPublication<MsgT>>(nh.advertise<MsgT>(topic, queue_size, latched))}
   {}
 
   /**
@@ -178,13 +189,18 @@ public:
  * @brief Output channel specialization which publishes multiple messages
  *
  * @tparam MsgT  message type
+ * @tparam OutputContainerT  container of message resources used as <code>OutputType</code>;
+ *                           this information is most relevant when using with MultiPublisher with EventHandler
  */
-template <typename MsgT> class MultiPublisher final : public PublisherOutputBase<MsgT>
+template <typename MsgT, typename OutputContainerT = std::vector<message_shared_ptr_t<MsgT>>>
+class MultiPublisher final : public PublisherOutputBase<MsgT>
 {
   /// Subscriber base type alias
   using PublisherOutputBaseType = PublisherOutputBase<MsgT>;
 
 public:
+  FLOW_STATIC_ASSERT(std::is_const<MsgT>(), "MsgT must be const");
+
   /**
    * @brief <code>ros::NodeHandle</code> setup constructor (extra-node messaging)
    *
@@ -198,11 +214,11 @@ public:
    */
   MultiPublisher(
     ros::NodeHandle& nh,
-    std::string topic,
+    const std::string& topic,
     const std::uint32_t queue_size = 0,
     const bool latched = false) :
       PublisherOutputBaseType{
-        std::make_shared<routing::ROSPublication<MsgT>>(nh.advertise<MsgT>(std::move(topic), queue_size, latched))}
+        std::make_shared<routing::ROSPublication<MsgT>>(nh.advertise<MsgT>(topic, queue_size, latched))}
   {}
 
   /**
@@ -238,12 +254,9 @@ public:
    *        If any message resource is invalid (i.e. <code>msg == nullptr</code>), then
    *        no message is sent over underlying publication channel
    *
-   * @param messages  vector of messages
+   * @param messages  container of messages
    */
-  inline void publish(std::vector<message_shared_ptr_t<MsgT>> messages) const
-  {
-    publish(messages.begin(), messages.end());
-  }
+  inline void publish(const OutputContainerT& messages) const { publish(std::begin(messages), std::end(messages)); }
 };
 
 
@@ -262,7 +275,7 @@ template <typename MsgT> struct PublisherTraits<Publisher<MsgT>>
   /// Output message type
   using MsgType = MsgT;
 
-  /// Output message type
+  /// Output message resource type
   using OutputType = message_shared_ptr_t<MsgT>;
 };
 
@@ -271,13 +284,13 @@ template <typename MsgT> struct PublisherTraits<Publisher<MsgT>>
  * @copydoc PublisherTraits
  * @note MultiPublisher partial specialization
  */
-template <typename MsgT> struct PublisherTraits<MultiPublisher<MsgT>>
+template <typename MsgT, typename OutputContainerT> struct PublisherTraits<MultiPublisher<MsgT, OutputContainerT>>
 {
   /// Output message type
   using MsgType = MsgT;
 
-  /// Output message type
-  using OutputType = std::vector<message_shared_ptr_t<MsgT>>;
+  /// Output message resource type
+  using OutputType = OutputContainerT;
 };
 
 }  // namespace flow_ros

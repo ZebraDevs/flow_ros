@@ -45,8 +45,7 @@ template <typename MsgT> constexpr bool is_message_v = ros::message_traits::IsMe
 
 
 /// Non-message resource pointer alias
-template <typename MsgT>
-using non_message_shared_ptr_t = NON_ROS_MESSAGE_SHARED_PTR_TMPL;
+template <typename MsgT> using non_message_shared_ptr_t = NON_ROS_MESSAGE_SHARED_PTR_TMPL;
 
 
 /**

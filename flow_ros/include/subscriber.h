@@ -39,22 +39,22 @@ class SubscriberBase
 {
 public:
   /**
-   * @brief Returns topic name associated with this object
+   * @copydoc routing::SubscriptionWrapper::getTopic
    */
   inline std::string getTopic() const { return subscription_->getTopic(); }
 
   /**
-   * @brief Returns number of local publications connected to this subscriber
+   * @copydoc routing::SubscriptionWrapper::getNumPublishers
    */
   inline std::uint32_t getNumPublishers() const { return subscription_->getNumPublishers(); }
 
   /**
-   * @brief Returns transport method (code) associated with this subscriber
+   * @copydoc routing::SubscriptionWrapper::getTransportMethod
    */
   inline routing::TransportMethod getTransportMethod() const { return subscription_->getTransportMethod(); }
 
   /**
-   * @brief Returns transport direction (code) associated with this subscriber
+   * @copydoc routing::SubscriptionWrapper::getTransportDirection
    */
   static constexpr routing::Direction getTransportDirection()
   {
@@ -77,10 +77,7 @@ public:
   virtual flow::CaptureRange<ros::Time> getAvailableBufferedRange() const = 0;
 
   /**
-   * @brief Checks if object is valid
-   *
-   * @retval true  if underlying subscription is valid
-   * @retval false  otherwise
+   * @copydoc routing::SubscriptionWrapper::isValid
    */
   inline bool isValid() const { return subscription_ and subscription_->isValid(); }
 

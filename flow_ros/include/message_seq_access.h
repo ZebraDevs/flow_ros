@@ -52,10 +52,7 @@ struct DefaultMessageSeqDispatchAccess
   /**
    * @brief Returns message stamp, assuming a <code>header.stamp</code> field exists
    */
-  template <typename MsgPtrT> inline static std::uint32_t stamp(const MsgPtrT& message)
-  {
-    return message->header.seq;
-  }
+  template <typename MsgPtrT> inline static std::uint32_t stamp(const MsgPtrT& message) { return message->header.seq; }
 
   /**
    * @brief Returns reference to message resource pointer (pass-through)

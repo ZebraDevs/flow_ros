@@ -67,12 +67,11 @@ TEST(SubscriberLocal, MessageInjectSameStamp)
 
   for (int i = 0; i < 10; ++i)
   {
-    sub.inject([]
-      {
-        auto msg = std::make_shared<TestMessage>();
-        msg->header.stamp.fromSec(1);
-        return msg;
-      }());
+    sub.inject([] {
+      auto msg = std::make_shared<TestMessage>();
+      msg->header.stamp.fromSec(1);
+      return msg;
+    }());
   }
 
   EXPECT_EQ(sub.size(), 1UL);
@@ -89,12 +88,11 @@ TEST(SubscriberLocal, MessageInjectSequence)
 
   for (int i = 0; i < 2; ++i)
   {
-    sub.inject([i]
-      {
-        auto msg = std::make_shared<TestMessage>();
-        msg->header.stamp.fromSec(i);
-        return msg;
-      }());
+    sub.inject([i] {
+      auto msg = std::make_shared<TestMessage>();
+      msg->header.stamp.fromSec(i);
+      return msg;
+    }());
   }
 
   EXPECT_EQ(sub.size(), 2UL);
@@ -112,12 +110,11 @@ TEST(SubscriberLocal, MessageInjectFixedBufferCapacity)
 
   for (int i = 0; i < 10; ++i)
   {
-    sub.inject([i]
-      {
-        auto msg = std::make_shared<TestMessage>();
-        msg->header.stamp.fromSec(i);
-        return msg;
-      }());
+    sub.inject([i] {
+      auto msg = std::make_shared<TestMessage>();
+      msg->header.stamp.fromSec(i);
+      return msg;
+    }());
   }
 
   EXPECT_EQ(sub.size(), 3UL);
@@ -134,12 +131,11 @@ TEST(SubscriberLocal, MessageRemove)
 
   for (int i = 0; i < 10; ++i)
   {
-    sub.inject([i]
-      {
-        auto msg = std::make_shared<TestMessage>();
-        msg->header.stamp.fromSec(i);
-        return msg;
-      }());
+    sub.inject([i] {
+      auto msg = std::make_shared<TestMessage>();
+      msg->header.stamp.fromSec(i);
+      return msg;
+    }());
   }
 
   sub.remove(ros::Time{2});
@@ -157,19 +153,17 @@ TEST(SubscriberLocal, MessageCapture)
 
   ASSERT_EQ(sub.get_capacity(), 0UL);
 
-  sub.inject([]
-    {
-      auto msg = std::make_shared<TestMessage>();
-      msg->header.stamp.fromSec(1);
-      return msg;
-    }());
+  sub.inject([] {
+    auto msg = std::make_shared<TestMessage>();
+    msg->header.stamp.fromSec(1);
+    return msg;
+  }());
 
-  sub.inject([]
-    {
-      auto msg = std::make_shared<TestMessage>();
-      msg->header.stamp.fromSec(2);
-      return msg;
-    }());
+  sub.inject([] {
+    auto msg = std::make_shared<TestMessage>();
+    msg->header.stamp.fromSec(2);
+    return msg;
+  }());
 
   std::vector<TestMessage::ConstPtr> messages;
   sub.capture(std::back_inserter(messages), flow::CaptureRange<ros::Time>{ros::Time{2}, ros::Time{2}});

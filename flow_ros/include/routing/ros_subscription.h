@@ -36,22 +36,23 @@ public:
   explicit ROSSubscription(const ros::Subscriber& sub) : sub_{sub} {}
 
   /**
-   * @brief Returns topic name associated with this object
+   * @copydoc SubscriptionWrapper::getTopic
    */
-  inline std::string getTopic() const { return sub_.getTopic(); }
+  std::string getTopic() const override { return sub_.getTopic(); }
 
   /**
-   * @brief Returns number of local publications connected to this subscriber
+   * @copydoc SubscriptionWrapper::getNumPublishers
    */
-  inline std::uint32_t getNumPublishers() const { return sub_.getNumPublishers(); }
+  std::uint32_t getNumPublishers() const override { return sub_.getNumPublishers(); }
 
   /**
-   * @brief Returns transport method (code) associated with this subscriber
+   * @copydoc SubscriptionWrapper::getTransportMethod
    */
   TransportMethod getTransportMethod() const override { return TransportMethod::ROS; }
 
   /**
-   * @brief Validation cast operator
+   * @copydoc SubscriptionWrapper::isValid
+   *
    * @retval true  if underlying ROS subscriber is valid
    * @retval false  otherwise
    */
