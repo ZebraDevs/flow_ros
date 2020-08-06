@@ -146,7 +146,8 @@ protected:
  */
 template <
   typename MsgT,
-  template <typename...> class PolicyTmpl,
+  template <typename...>
+  class PolicyTmpl,
   typename LockPolicyT = std::unique_lock<std::mutex>,
   typename MsgConstPtrContainerT = flow::DefaultContainer<message_shared_const_ptr_t<const MsgT>>>
 class Subscriber final : public SubscriberPolicyBase<
