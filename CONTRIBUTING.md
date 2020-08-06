@@ -13,14 +13,8 @@
 This repository contains a `pre-commit` configuration which can be used run code formatting on local changes. To make use of this with local branches, first ensure that `clang-format` and `pre-commit` are installed:
 
 ```
-$ sudo apt install clang-format python-pip
+$ sudo apt install clang-format-7 python-pip
 $ pip install pre-commit
-```
-
-Note that the CI build runs `clang-format-7.0`, so your installed version of clang must match this. Check with:
-
-```
-clang-format -v
 ```
 
 #### Running code formatting manually
