@@ -214,7 +214,8 @@ struct EventHandlerInputType<OutputContainerTypeInfoTmpl, std::tuple<SubscriberT
  * @brief Generates a tuple of output iterators
  */
 template <
-  template <typename> class OutputContainerTypeInfoTmpl,
+  template <typename>
+  class OutputContainerTypeInfoTmpl,
   typename SubscriberTupleT,
   typename ContainerTupleT,
   std::size_t... IntPack>
