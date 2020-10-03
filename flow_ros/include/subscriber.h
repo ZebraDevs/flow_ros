@@ -246,8 +246,8 @@ template <typename MsgT> struct SubscriberTraits;
  * @copydoc SubscriberTraits
  * @note Subscriber partial specialization
  */
-template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT>
-struct SubscriberTraits<Subscriber<MsgT, PolicyTmpl, LockPolicyT>>
+template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT, typename MsgConstPtrContainerT>
+struct SubscriberTraits<Subscriber<MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT>>
 {
   /// Input message type
   using MsgType = MsgT;
@@ -265,18 +265,18 @@ namespace flow
 /**
  * @brief Checks if subscriber capture policy is derived from a Driver base
  */
-template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT>
-struct is_driver<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT>>
-    : is_driver<PolicyTmpl<::flow_ros::message_shared_const_ptr_t<MsgT>, LockPolicyT>>
+template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT, typename MsgConstPtrContainerT>
+struct is_driver<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT>>
+    : is_driver<PolicyTmpl<::flow_ros::message_shared_const_ptr_t<MsgT>, LockPolicyT, MsgConstPtrContainerT>>
 {};
 
 
 /**
  * @brief Checks if subscriber capture policy is derived from a Follower base
  */
-template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT>
-struct is_follower<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT>>
-    : is_follower<PolicyTmpl<::flow_ros::message_shared_const_ptr_t<MsgT>, LockPolicyT>>
+template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT, typename MsgConstPtrContainerT>
+struct is_follower<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT>>
+    : is_follower<PolicyTmpl<::flow_ros::message_shared_const_ptr_t<MsgT>, LockPolicyT, MsgConstPtrContainerT>>
 {};
 
 
@@ -290,9 +290,9 @@ template <typename PolicyT> struct CaptorTraits<::flow_ros::SubscriberPolicyBase
 /**
  * @brief Captor traits associated with underlying Captor of Subscriber
  */
-template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT>
-struct CaptorTraits<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT>>
-    : CaptorTraits<PolicyTmpl<::flow_ros::message_shared_const_ptr_t<MsgT>, LockPolicyT>>
+template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT, typename MsgConstPtrContainerT>
+struct CaptorTraits<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT>>
+    : CaptorTraits<PolicyTmpl<::flow_ros::message_shared_const_ptr_t<MsgT>, LockPolicyT, MsgConstPtrContainerT>>
 {};
 
 }  // namespace flow
