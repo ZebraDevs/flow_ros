@@ -116,6 +116,8 @@ TEST(EventHandlerSingleThreaded, SingleInputNoOutputs)
     std::make_tuple(
       std::make_shared<flow_ros::Subscriber<TestMessage1, flow::driver::Next, flow::NoLock>>(router, "input", 1)));
 
+  ASSERT_EQ(handler->last_update_stamp(), ros::TIME_MIN);
+
   ASSERT_EQ(handler->update().state, flow_ros::EventSummary::State::SYNC_NEEDS_RETRY);
 
   input_pub.publish([]() {
@@ -170,6 +172,18 @@ TEST(EventHandlerSingleThreaded, SingleInputSingleOutput)
   ASSERT_EQ(handler->update().state, flow_ros::EventSummary::State::EXECUTED);
   ASSERT_TRUE(output_msg);
   ASSERT_EQ(output_msg->header.stamp, ros::Time{1});
+
+  // Check that event handler can't sync "backwards in time", where the driving input suddenly is no longer sequential
+  // TODO(fixup) consider splitting out this test case?
+
+  input_pub.publish([]() {
+    auto msg = std::make_shared<TestMessage1>();
+    msg->header.stamp.fromSec(0);
+    return msg;
+  }());
+
+  ASSERT_EQ(handler->update().state, flow_ros::EventSummary::State::SYNC_ERROR_MONOTONICITY_VIOLATED);
+  ASSERT_EQ(handler->last_update_stamp(), ros::Time{1});
 }
 
 

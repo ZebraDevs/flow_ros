@@ -39,12 +39,13 @@ struct EventSummary
    */
   enum class State
   {
-    UNKNOWN,  //< unkown/unspecified state
+    UNKNOWN,  //< unknown/unspecified state
     EXECUTED,  //< handler synchronized inputs and produced output(s)
     EXECUTION_BYPASSED,  //< handler synchronized inputs but did not run event callback
     SYNC_NEEDS_RETRY,  //< did not input sync before execution; needs retry
     SYNC_ABORTED,  //< aborted input sync before execution
     SYNC_TIMED_OUT,  //< timed out while waiting for data sync
+    SYNC_ERROR_MONOTONICITY_VIOLATED,  ///< error code used to indicate that driving stamp monotonicity is violated
   };
 
   /**
@@ -65,6 +66,8 @@ struct EventSummary
           return EventSummary::State::SYNC_ABORTED;
         case flow::State::TIMEOUT:
           return EventSummary::State::SYNC_TIMED_OUT;
+        case flow::State::ERROR_DRIVER_LOWER_BOUND_EXCEEDED:
+          return EventSummary::State::SYNC_ERROR_MONOTONICITY_VIOLATED;
         default:
           return EventSummary::State::UNKNOWN;
         }
@@ -108,6 +111,11 @@ public:
    * @return summary of potential event states on next <code>update</code>
    */
   virtual EventSummary dry_update() = 0;
+
+  /**
+   * @brief Returns last valid update stamp
+   */
+  virtual ros::Time last_update_stamp() const = 0;
 
   /**
    * @brief Removes all events before specified time
@@ -349,6 +357,11 @@ public:
     }
     return event_summary;
   }
+
+  /**
+   * @brief EventHandlerBase::last_update_stamp
+   */
+  ros::Time last_update_stamp() const override { return lower_bound_stamp_; }
 
   /**
    * @copydoc EventHandlerBase::remove
