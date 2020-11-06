@@ -351,7 +351,8 @@ public:
       event_summary.state = EventSummary::State::EXECUTION_BYPASSED;
 
       // Apply ABORT state to captor queue monitors when execution is bypassed
-      flow::apply_every(detail::QueueMonitorSignallingHelper{}, detail::forward_as_deref_tuple(subscribers_));
+      flow::apply_every(
+        detail::QueueMonitorUpdateHelper{sync_result.range}, detail::forward_as_deref_tuple(subscribers_));
     }
     else if (event_summary.state == EventSummary::State::EXECUTED)
     {
