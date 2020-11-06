@@ -152,14 +152,19 @@ private:
  *        Uses an intentionally non-code state enum, since this isn't a capture state, though
  *        we might want to reset monitoring when execution is bypassed
  */
-class QueueMonitorSignallingHelper
+class QueueMonitorUpdateHelper
 {
 public:
+  explicit QueueMonitorUpdateHelper(const flow::CaptureRange<ros::Time> range) : range_{range} {}
+
   template <typename CaptorT, typename LockableT, typename QueueMonitorT>
   inline void operator()(::flow::Captor<CaptorT, LockableT, QueueMonitorT>& c) const
   {
-    c.update_sync_state(::flow::State::_N_STATES);
+    c.update_queue_monitor(range_, ::flow::State::_N_STATES);
   }
+
+private:
+  flow::CaptureRange<ros::Time> range_;
 };
 
 
