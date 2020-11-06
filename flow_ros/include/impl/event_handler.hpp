@@ -147,6 +147,23 @@ private:
 
 
 /**
+ * @brief Helper object used update queue monitor/preconditioner
+ *
+ *        Uses an intentionally non-code state enum, since this isn't a capture state, though
+ *        we might want to reset monitoring when execution is bypassed
+ */
+class QueueMonitorSignallingHelper
+{
+public:
+  template <typename CaptorT, typename LockableT, typename QueueMonitorT>
+  inline void operator()(::flow::Captor<CaptorT, LockableT, QueueMonitorT>& c) const
+  {
+    c.update_sync_state(::flow::State::_N_STATES);
+  }
+};
+
+
+/**
  * @brief Helper object used to re-inject messages when sync must be retried
  */
 struct RetryReinjectHelper

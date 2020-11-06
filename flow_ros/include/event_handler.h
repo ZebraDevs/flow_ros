@@ -349,6 +349,9 @@ public:
     else if (callbacks_.pre_execute_callback and !callbacks_.pre_execute_callback(*this, sync_inputs, event_summary))
     {
       event_summary.state = EventSummary::State::EXECUTION_BYPASSED;
+
+      // Apply ABORT state to captor queue monitors when execution is bypassed
+      flow::apply<void>(detail::QueueMonitorSignallingHelper{}, detail::forward_as_deref_tuple(subscribers_));
     }
     else if (event_summary.state == EventSummary::State::EXECUTED)
     {
