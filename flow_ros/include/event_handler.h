@@ -46,6 +46,7 @@ struct EventSummary
     SYNC_ABORTED,  //< aborted input sync before execution
     SYNC_TIMED_OUT,  //< timed out while waiting for data sync
     SYNC_ERROR_MONOTONICITY_VIOLATED,  ///< error code used to indicate that driving stamp monotonicity is violated
+    SYNC_SKIPPED_ON_PRECONDITION,  ///< sync was skipped due to a queue precondition
   };
 
   /**
@@ -68,6 +69,8 @@ struct EventSummary
           return EventSummary::State::SYNC_TIMED_OUT;
         case flow::State::ERROR_DRIVER_LOWER_BOUND_EXCEEDED:
           return EventSummary::State::SYNC_ERROR_MONOTONICITY_VIOLATED;
+        case flow::State::SKIP_FRAME_QUEUE_PRECONDITION:
+          return EventSummary::State::SYNC_SKIPPED_ON_PRECONDITION;
         default:
           return EventSummary::State::UNKNOWN;
         }

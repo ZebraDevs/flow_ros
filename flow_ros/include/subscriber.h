@@ -143,19 +143,24 @@ protected:
  * @tparam LockPolicyT  a BasicLockable (https://en.cppreference.com/w/cpp/named_req/BasicLockable) object;
  *                      using <code>flow::NoLock</code> will bypass internal thread locking/safety mechanisms
  * @tparam MsgConstPtrContainerT  underlying container type used to store shared message resource pointers
+ * @tparam MsgConstPtrQueueMonitorT  internal synchronization message queue monitor/preconditioner
  */
 template <
   typename MsgT,
   template <typename...>
   class PolicyTmpl,
   typename LockPolicyT = std::unique_lock<std::mutex>,
-  typename MsgConstPtrContainerT = flow::DefaultContainer<message_shared_const_ptr_t<const MsgT>>>
-class Subscriber final : public SubscriberPolicyBase<
-                           PolicyTmpl<message_shared_const_ptr_t<const MsgT>, LockPolicyT, MsgConstPtrContainerT>>
+  typename MsgConstPtrContainerT = flow::DefaultContainer<message_shared_const_ptr_t<const MsgT>>,
+  typename MsgConstPtrQueueMonitorT = flow::DefaultDispatchQueueMonitor>
+class Subscriber final : public SubscriberPolicyBase<PolicyTmpl<
+                           message_shared_const_ptr_t<const MsgT>,
+                           LockPolicyT,
+                           MsgConstPtrContainerT,
+                           MsgConstPtrQueueMonitorT>>
 {
   /// Subscriber base type alias
-  using PolicyType =
-    SubscriberPolicyBase<PolicyTmpl<message_shared_const_ptr_t<const MsgT>, LockPolicyT, MsgConstPtrContainerT>>;
+  using PolicyType = SubscriberPolicyBase<
+    PolicyTmpl<message_shared_const_ptr_t<const MsgT>, LockPolicyT, MsgConstPtrContainerT, MsgConstPtrQueueMonitorT>>;
 
 public:
   /**
@@ -247,14 +252,21 @@ template <typename MsgT> struct SubscriberTraits;
  * @copydoc SubscriberTraits
  * @note Subscriber partial specialization
  */
-template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT, typename MsgConstPtrContainerT>
-struct SubscriberTraits<Subscriber<MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT>>
+template <
+  typename MsgT,
+  template <typename...>
+  class PolicyTmpl,
+  typename LockPolicyT,
+  typename MsgConstPtrContainerT,
+  typename MsgConstPtrQueueMonitorT>
+struct SubscriberTraits<Subscriber<MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT, MsgConstPtrQueueMonitorT>>
 {
   /// Input message type
   using MsgType = MsgT;
 
   /// Base capture policy type
-  using PolicyType = PolicyTmpl<message_shared_const_ptr_t<MsgT>, LockPolicyT>;
+  using PolicyType =
+    PolicyTmpl<message_shared_const_ptr_t<MsgT>, LockPolicyT, MsgConstPtrContainerT, MsgConstPtrQueueMonitorT>;
 };
 
 }  // namespace flow_ros
@@ -266,18 +278,39 @@ namespace flow
 /**
  * @brief Checks if subscriber capture policy is derived from a Driver base
  */
-template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT, typename MsgConstPtrContainerT>
-struct is_driver<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT>>
-    : is_driver<PolicyTmpl<::flow_ros::message_shared_const_ptr_t<MsgT>, LockPolicyT, MsgConstPtrContainerT>>
+template <
+  typename MsgT,
+  template <typename...>
+  class PolicyTmpl,
+  typename LockPolicyT,
+  typename MsgConstPtrContainerT,
+  typename MsgConstPtrQueueMonitorT>
+struct is_driver<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT, MsgConstPtrQueueMonitorT>>
+    : is_driver<PolicyTmpl<
+        ::flow_ros::message_shared_const_ptr_t<MsgT>,
+        LockPolicyT,
+        MsgConstPtrContainerT,
+        MsgConstPtrQueueMonitorT>>
 {};
 
 
 /**
  * @brief Checks if subscriber capture policy is derived from a Follower base
  */
-template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT, typename MsgConstPtrContainerT>
-struct is_follower<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT>>
-    : is_follower<PolicyTmpl<::flow_ros::message_shared_const_ptr_t<MsgT>, LockPolicyT, MsgConstPtrContainerT>>
+template <
+  typename MsgT,
+  template <typename...>
+  class PolicyTmpl,
+  typename LockPolicyT,
+  typename MsgConstPtrContainerT,
+  typename MsgConstPtrQueueMonitorT>
+struct is_follower<
+  ::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT, MsgConstPtrQueueMonitorT>>
+    : is_follower<PolicyTmpl<
+        ::flow_ros::message_shared_const_ptr_t<MsgT>,
+        LockPolicyT,
+        MsgConstPtrContainerT,
+        MsgConstPtrQueueMonitorT>>
 {};
 
 
@@ -291,9 +324,20 @@ template <typename PolicyT> struct CaptorTraits<::flow_ros::SubscriberPolicyBase
 /**
  * @brief Captor traits associated with underlying Captor of Subscriber
  */
-template <typename MsgT, template <typename...> class PolicyTmpl, typename LockPolicyT, typename MsgConstPtrContainerT>
-struct CaptorTraits<::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT>>
-    : CaptorTraits<PolicyTmpl<::flow_ros::message_shared_const_ptr_t<MsgT>, LockPolicyT, MsgConstPtrContainerT>>
+template <
+  typename MsgT,
+  template <typename...>
+  class PolicyTmpl,
+  typename LockPolicyT,
+  typename MsgConstPtrContainerT,
+  typename MsgConstPtrQueueMonitorT>
+struct CaptorTraits<
+  ::flow_ros::Subscriber<MsgT, PolicyTmpl, LockPolicyT, MsgConstPtrContainerT, MsgConstPtrQueueMonitorT>>
+    : CaptorTraits<PolicyTmpl<
+        ::flow_ros::message_shared_const_ptr_t<MsgT>,
+        LockPolicyT,
+        MsgConstPtrContainerT,
+        MsgConstPtrQueueMonitorT>>
 {};
 
 }  // namespace flow
