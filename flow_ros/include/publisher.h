@@ -117,7 +117,7 @@ protected:
    *
    * @param message  message data to publish
    */
-  inline void publish(const message_shared_ptr_t<MsgT>& message) const { publication_->publish(message); }
+  inline void publish(const message_shared_const_ptr_t<MsgT>& message) const { publication_->publish(message); }
 
 private:
   /// Message publisher
@@ -173,13 +173,13 @@ public:
    *        If message resource is invalid (i.e. <code>msg == nullptr</code>), then
    *        no message is sent over underlying publication channel
    *
-   * @param msg  next output message
+   * @param message  next output message
    */
-  inline void publish(message_shared_ptr_t<MsgT> msg) const
+  inline void publish(const message_shared_const_ptr_t<MsgT>& message) const
   {
-    if (static_cast<bool>(msg))
+    if (static_cast<bool>(message))
     {
-      PublisherOutputBaseType::publish(std::move(msg));
+      PublisherOutputBaseType::publish(message);
     }
   }
 };

@@ -42,7 +42,7 @@ public:
    *
    * @param message  message data to publish
    */
-  void publish(const message_shared_ptr_t<MsgT>& message) const override { pub_.publish(message); }
+  void publish(const message_shared_const_ptr_t<MsgT>& message) const override { pub_.publish(message); }
 
   /**
    * @copydoc PublicationWrapper::getTopic
