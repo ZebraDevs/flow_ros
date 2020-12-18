@@ -54,7 +54,7 @@ TEST(PublisherLocal, PublishSingleInvalid)
   std::size_t counter = 0;
   auto sub = router.subscribe<TestMessage>("topic", 1, [&counter](const TestMessage::ConstPtr& msg) { ++counter; });
 
-  pub.publish(nullptr);
+  pub.publish(TestMessage::ConstPtr{});
 
   ASSERT_EQ(counter, 0UL);
 }

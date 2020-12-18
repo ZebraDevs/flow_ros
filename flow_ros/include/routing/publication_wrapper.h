@@ -33,7 +33,7 @@ public:
    *
    * @param message  message data to publish
    */
-  virtual void publish(const message_shared_ptr_t<MsgT>& message) const = 0;
+  virtual void publish(const message_shared_const_ptr_t<MsgT>& message) const = 0;
 
   /**
    * @brief Returns topic associated with publication
