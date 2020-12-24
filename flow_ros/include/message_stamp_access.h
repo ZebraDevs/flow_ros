@@ -28,72 +28,6 @@
 
 namespace flow_ros
 {
-
-/**
- * @brief Helper object use to set message stamps
- *
- * @tparam MsgT  message type
- *
- * @note May be specialized for any message with a stamp
- */
-template <typename MsgT> struct StampSetter
-{
-  inline void operator()(MsgT& msg, const ros::Time& stamp) const { msg.header.stamp = stamp; }
-};
-
-/**
- * @brief Helper function use to set message stamp with StampSetter
- *
- * @tparam MsgT  (deduced) message type
- *
- * @param msg  message
- * @param stamp  stamp to set
- */
-template <typename MsgT> inline void set_stamp(MsgT&& msg, const ros::Time& stamp)
-{
-  StampSetter<MsgT>{}(std::forward<MsgT>(msg), stamp);
-}
-
-/**
- * @brief Defines default message accessors to use a fall-back when defining <code>flow::DispatchAccess</code>
- */
-struct DefaultMessageStampDispatchAccess
-{
-  /**
-   * @brief Returns message stamp, assuming a <code>stamp</code> field exists
-   */
-  template <typename MsgPtrT> inline static const ros::Time& stamp(const MsgPtrT& message) { return message->stamp; }
-
-  /**
-   * @brief Returns reference to message resource pointer (pass-through)
-   */
-  template <typename MsgPtrT> inline static const MsgPtrT& value(const MsgPtrT& message) { return message; }
-};
-
-/**
- * @brief Defines default message accessors to use a fall-back when defining <code>flow::DispatchAccess</code>
- */
-struct DefaultMessageHeaderStampDispatchAccess
-{
-  /**
-   * @brief Returns message stamp, assuming a <code>header.stamp</code> field exists
-   */
-  template <typename MsgPtrT> inline static const ros::Time& stamp(const MsgPtrT& message)
-  {
-    return message->header.stamp;
-  }
-
-  /**
-   * @brief Returns reference to message resource pointer (pass-through)
-   */
-  template <typename MsgPtrT> inline static const MsgPtrT& value(const MsgPtrT& message) { return message; }
-};
-
-}  // namespace flow_ros
-
-
-namespace flow
-{
 namespace detail
 {
 
@@ -142,6 +76,76 @@ template <typename MsgT> struct has_member_header
 
 }  // namespace detail
 
+/**
+ * @brief Default message stamp setter, used as a fall-back when defining <code>flow::DispatchAccess</code>
+ */
+template <typename MsgT> struct DefaultMessageStampSetter
+{
+  inline void operator()(MsgT& msg, const ros::Time& stamp) const { msg.stamp = stamp; }
+};
+
+/**
+ * @brief Default message stamp setter, used as a fall-back when defining <code>flow::DispatchAccess</code>
+ */
+template <typename MsgT> struct DefaultMessageHeaderStampSetter
+{
+  inline void operator()(MsgT& msg, const ros::Time& stamp) const { msg.header.stamp = stamp; }
+};
+
+/**
+ * @brief Helper object use to set message stamps
+ *
+ * @tparam MsgT  message type
+ *
+ * @note May be specialized for any message with a stamp
+ */
+template <typename MsgT>
+struct StampSetter : std::conditional_t<
+                       detail::has_member_stamp<MsgT>::value,
+                       DefaultMessageStampSetter<MsgT>,
+                       DefaultMessageHeaderStampSetter<MsgT>>
+{};
+
+/**
+ * @brief Default message accessors used as a fall-back when defining <code>flow::DispatchAccess</code>
+ */
+struct DefaultMessageStampDispatchAccess
+{
+  /**
+   * @brief Returns message stamp, assuming a <code>stamp</code> field exists
+   */
+  template <typename MsgPtrT> inline static const ros::Time& stamp(const MsgPtrT& message) { return message->stamp; }
+
+  /**
+   * @brief Returns reference to message resource pointer (pass-through)
+   */
+  template <typename MsgPtrT> inline static const MsgPtrT& value(const MsgPtrT& message) { return message; }
+};
+
+/**
+ * @brief Default message accessors used as a fall-back when defining <code>flow::DispatchAccess</code>
+ */
+struct DefaultMessageHeaderStampDispatchAccess
+{
+  /**
+   * @brief Returns message stamp, assuming a <code>header.stamp</code> field exists
+   */
+  template <typename MsgPtrT> inline static const ros::Time& stamp(const MsgPtrT& message)
+  {
+    return message->header.stamp;
+  }
+
+  /**
+   * @brief Returns reference to message resource pointer (pass-through)
+   */
+  template <typename MsgPtrT> inline static const MsgPtrT& value(const MsgPtrT& message) { return message; }
+};
+
+}  // namespace flow_ros
+
+
+namespace flow
+{
 /**
  * @brief ROS timing type traits for associated message Dispatch
  */
@@ -194,13 +198,13 @@ template <typename MsgT> struct DispatchTraits<std::shared_ptr<const MsgT>>
  */
 template <typename MsgT>
 struct DispatchAccess : std::conditional_t<
-                          detail::has_member_stamp<typename detail::MsgType<MsgT>::type>::value,
+                          ::flow_ros::detail::has_member_stamp<typename ::flow_ros::detail::MsgType<MsgT>::type>::value,
                           ::flow_ros::DefaultMessageStampDispatchAccess,
                           ::flow_ros::DefaultMessageHeaderStampDispatchAccess>
 {
   FLOW_STATIC_ASSERT(
-    !(detail::has_member_stamp<typename detail::MsgType<MsgT>::type>::value and
-      detail::has_member_header<typename detail::MsgType<MsgT>::type>::value),
+    !(::flow_ros::detail::has_member_stamp<typename ::flow_ros::detail::MsgType<MsgT>::type>::value and
+      ::flow_ros::detail::has_member_header<typename ::flow_ros::detail::MsgType<MsgT>::type>::value),
     "Default access implementation detects both 'ros::Time stamp' and 'std_msgs::Header header' members. "
     "Please specialize 'DispatchAccess' for your message type to disambiguate.");
 };

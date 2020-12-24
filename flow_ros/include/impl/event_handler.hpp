@@ -84,21 +84,6 @@ private:
 
 
 /**
- * @brief Helper function use to set message sequencing stamp
- *
- * @tparam MsgT  (deduced) message type
- * @tparam SeqT  (deduced) sequencing type
- *
- * @param msg  message
- * @param seq  message sequence counter
- */
-template <typename MsgT, typename SeqT> inline void set_stamp(MsgT&& msg, SeqT&& seq)
-{
-  StampSetter<MsgT>{}(std::forward<MsgT>(msg), std::forward<SeqT>(seq));
-}
-
-
-/**
  * @brief Helper object used to publish 1 or N outputs from an EventHandler
  */
 class EventHandlerPublishHelper
