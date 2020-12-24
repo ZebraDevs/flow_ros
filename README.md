@@ -119,8 +119,19 @@ using PoseStampedSubscriberType = flow_ros::Subscriber<geometry_msgs::PoseStampe
 
 Default data sequencing within `flow_ros::Subscriber` buffers is performed using message header stamps. Namely, messages are ordered using `ros::Time`. Time offsets are specified with `ros::Duration`.
 
-The Flow library describes how to implement [custom](https://github.com/fetchrobotics/flow#dispatch) access traits objects for dealing with data sequencing. Following this scheme, a default set of traits and accessors are provided in [`message_stamp_access.h`](flow_ros/include/message_stamp_access.h) which assume that messages have `MsgType::header::stamp`. Messages which do not have a `header`, but do have a `ros::Time` member are usable (in addition to those which work by default) after defining the appropriate companion accessors. For example, one can implement specialized access for a particular message like so:
+The Flow library describes how to implement [custom](https://github.com/fetchrobotics/flow#dispatch) access traits objects for dealing with data sequencing. Following this scheme, a default set of traits and accessors are provided in [`message_stamp_access.h`](flow_ros/include/message_stamp_access.h) which assume that messages have `MsgType::header::stamp` or `MsgType::stamp` (of type `ros::Time`). Messages which do not have a `header`, but do have a `ros::Time` member (named something other than `stamp`) are also usable after defining the appropriate companion accessors. For example, one can implement specialized access for a particular message like so:
 
+###### Example Message Definition
+`CustomMessageType.msg`
+```
+time custom_stamp_field_name
+
+...
+
+# other fields #
+```
+
+###### Access specialization
 ```c++
 namespace flow
 {
@@ -129,13 +140,15 @@ template <> struct DispatchAccess<boost::shared_ptr<const CustomMessageType>>
 {
   using CustomMessageConstPtr = boost::shared_ptr<const CustomMessageType>;
 
-  static const ros::Time& stamp(const CustomMessageConstPtr& msg) { return msg->ros_time_stamp; }
+  static const ros::Time& stamp(const CustomMessageConstPtr& msg) { return msg->custom_stamp_field_name; }
 
   static const CustomMessageConstPtr& value(const CustomMessageConstPtr& msg) { return msg; }
 };
 
 }  // namespace flow
 ```
+
+##### Default Sequence Number Accessor
 
 When using `flow_ros::Subscriber` objects directly, you may also opt to use sequence numbers for data ordering. Default handling for this is provided by [`message_seq_access.h`](flow_ros/include/message_seq_access.h).
 
