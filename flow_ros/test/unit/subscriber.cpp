@@ -19,7 +19,7 @@
 #include <flow_ros/subscriber.h>
 
 
-/// A ROS messages-like object
+// A ROS message-like object
 struct TestMessage
 {
   using Ptr = std::shared_ptr<TestMessage>;
@@ -166,6 +166,45 @@ TEST(SubscriberLocal, MessageCapture)
   }());
 
   std::vector<TestMessage::ConstPtr> messages;
+  sub.capture(std::back_inserter(messages), flow::CaptureRange<ros::Time>{ros::Time{2}, ros::Time{2}});
+
+  EXPECT_EQ(sub.size(), 1UL);
+  EXPECT_EQ(messages.size(), 1UL);
+}
+
+
+// A ROS message-like object
+struct TestMessageWithStamp
+{
+  using Ptr = std::shared_ptr<TestMessageWithStamp>;
+  using ConstPtr = std::shared_ptr<const TestMessageWithStamp>;
+
+  ros::Time stamp;
+};
+
+
+TEST(SubscriberLocal, MessageCaptureDefaultAccessStamp)
+{
+  flow_ros::Router router{"/router"};
+
+  flow_ros::Subscriber<TestMessageWithStamp, flow::follower::Before, flow::NoLock> sub{
+    router, "topic", 1, ros::Duration{0}};
+
+  ASSERT_EQ(sub.get_capacity(), 0UL);
+
+  sub.inject([] {
+    auto msg = std::make_shared<TestMessageWithStamp>();
+    msg->stamp.fromSec(1);
+    return msg;
+  }());
+
+  sub.inject([] {
+    auto msg = std::make_shared<TestMessageWithStamp>();
+    msg->stamp.fromSec(2);
+    return msg;
+  }());
+
+  std::vector<TestMessageWithStamp::ConstPtr> messages;
   sub.capture(std::back_inserter(messages), flow::CaptureRange<ros::Time>{ros::Time{2}, ros::Time{2}});
 
   EXPECT_EQ(sub.size(), 1UL);
