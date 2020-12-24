@@ -12,6 +12,7 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 // ROS
@@ -258,6 +259,22 @@ public:
    */
   inline void publish(const OutputContainerT& messages) const { publish(std::begin(messages), std::end(messages)); }
 };
+
+
+/**
+ * @brief Helper function use to set message sequencing stamp
+ *
+ * @tparam MsgT  (deduced) message type
+ * @tparam SeqT  (deduced) sequencing type
+ *
+ * @param msg  message
+ * @param seq  message sequence counter
+ */
+template <typename MsgT, typename SeqT> inline void set_stamp(MsgT&& msg, SeqT&& seq)
+{
+  using CleanedMsgT = std::remove_reference_t<MsgT>;
+  StampSetter<CleanedMsgT>{}(std::forward<MsgT>(msg), std::forward<SeqT>(seq));
+}
 
 
 /**
