@@ -21,7 +21,7 @@ jobs:
       - sudo apt install clang-format-7
       - pip install pre-commit
   - stage: unit_tests
-    script: bazel test //flow_ros/test/...
+    script: export ROS_DISTRO=melodic && bazel test //flow_ros/test/...
     before_install:
     - curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
     - echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
