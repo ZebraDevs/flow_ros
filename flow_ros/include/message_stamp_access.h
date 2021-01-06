@@ -35,10 +35,21 @@ namespace detail
  * @brief Extract message value type from message pointer
  */
 template <typename MsgT> struct MsgType;
+template <typename MsgT> struct MsgType<boost::shared_ptr<MsgT>>
+{
+  using type = MsgT;
+};
+
 template <typename MsgT> struct MsgType<boost::shared_ptr<const MsgT>>
 {
   using type = MsgT;
 };
+
+template <typename MsgT> struct MsgType<std::shared_ptr<MsgT>>
+{
+  using type = MsgT;
+};
+
 template <typename MsgT> struct MsgType<std::shared_ptr<const MsgT>>
 {
   using type = MsgT;
