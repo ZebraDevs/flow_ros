@@ -261,6 +261,10 @@ public:
 };
 
 
+// Forward declaration
+template <typename MsgT> struct StampSetter;
+
+
 /**
  * @brief Helper function use to set message sequencing stamp
  *
