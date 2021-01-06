@@ -264,7 +264,7 @@ public:
 // Forward declaration
 template <typename MsgT> struct StampSetter;
 
-  
+
 /**
  * @brief Helper function use to set message sequencing stamp
  *
@@ -285,6 +285,7 @@ template <typename MsgT, typename SeqT> inline void set_stamp(MsgT&& msg, SeqT&&
  * @brief Publisher type traits
  */
 template <typename MsgT> struct PublisherTraits;
+
 
 /**
  * @copydoc PublisherTraits
