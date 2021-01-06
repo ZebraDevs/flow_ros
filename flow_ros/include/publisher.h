@@ -286,7 +286,6 @@ template <typename MsgT, typename SeqT> inline void set_stamp(MsgT&& msg, SeqT&&
  */
 template <typename MsgT> struct PublisherTraits;
 
-
 /**
  * @copydoc PublisherTraits
  * @note Publisher partial specialization
