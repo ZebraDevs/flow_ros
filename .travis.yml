@@ -18,8 +18,9 @@ jobs:
   - stage: style_check
     script: pre-commit run -a --show-diff-on-failure
     before_install:
+      - pip install identify==1.5.10
+      - pip install pre-commit==1.20.0
       - sudo apt install clang-format-7
-      - pip install pre-commit
   - stage: unit_tests
     script: export ROS_DISTRO=melodic && bazel test //flow_ros/test/...
     before_install:
