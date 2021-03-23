@@ -1,5 +1,9 @@
 [![Build Status](https://travis-ci.com/fetchrobotics/flow_ros.svg?branch=master)](https://travis-ci.com/fetchrobotics/flow_ros)
 
+[**3.23.2021**]
+_We are currently experiencing issues with Travis CI after they changed their plan for open source repositories. The build badge is currently not reliable. Apologies._
+
+
 # Flow-ROS
 
 C++14 library providing ROS-enabled wrappers for [Flow](https://github.com/fetchrobotics/flow).
