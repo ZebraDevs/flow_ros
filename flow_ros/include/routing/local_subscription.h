@@ -72,6 +72,11 @@ public:
    * @brief Calls subscriber callback with a rosbag message instance
    */
   virtual void inject(const ::rosbag::MessageInstance& mi) const = 0;
+
+  /**
+   * @brief Gets topic associated with <code>::rosbag::MessageInstance</code> injection
+   */
+  virtual const std::string& getTargetMessageInstanceTopic() const = 0;
 };
 
 
@@ -136,6 +141,14 @@ public:
   bool isValid() const override { return static_cast<bool>(callback_); }
 
 private:
+  /// Required callback type alias
+  using CallbackType = std::function<void(const message_shared_const_ptr_t<MsgT>&)>;
+
+  /**
+   * @copydoc SubscriptionWrapper::getTopic
+   */
+  const std::string& getTargetMessageInstanceTopic() const override { return topic_; }
+
   /**
    * @brief Calls subscriber callback with a rosbag message instance
    *
@@ -148,7 +161,9 @@ private:
   template <bool U = ros::message_traits::IsMessage<MsgT>::value>
   inline std::enable_if_t<U> call_impl(const ::rosbag::MessageInstance& mi) const
   {
-    const auto msg = mi.template instantiate<std::remove_const_t<MsgT>>();
+    using NonConstMsgT = std::remove_const_t<MsgT>;
+
+    const auto msg = mi.template instantiate<NonConstMsgT>();
 
     if (msg)
     {
@@ -157,7 +172,9 @@ private:
     else
     {
       std::ostringstream oss;
-      oss << "Could not instance message on topic: " << mi.getTopic() << "(md5sum=" << mi.getMD5Sum() << ')';
+      oss << "Could not instance message on topic: " << mi.getTopic() << "(md5sum =" << mi.getMD5Sum()
+          << ") with message type (" << ros::message_traits::DataType<NonConstMsgT>::value()
+          << " : md5sum = " << ros::message_traits::MD5Sum<NonConstMsgT>::value() << ')';
       throw MessageInstanceError{oss.str()};
     }
   }
@@ -170,11 +187,10 @@ private:
   template <bool U = ros::message_traits::IsMessage<MsgT>::value>
   inline std::enable_if_t<!U> call_impl(const ::rosbag::MessageInstance&) const
   {
-    throw MessageInstanceError{"Message type is not a ROS message"};
+    std::ostringstream oss;
+    oss << "Playload type for topic (" << topic_ << ") is not a ROS message type";
+    throw MessageInstanceError{oss.str()};
   }
-
-  /// Required callback type alias
-  using CallbackType = std::function<void(const message_shared_const_ptr_t<MsgT>&)>;
 
   /// Topic name
   std::string topic_;
@@ -217,7 +233,7 @@ public:
       }
       else
       {
-        throw MessageTypeError{"Invalid message type for subscription"};
+        throw_message_type_error<std::remove_const_t<MsgT>>(*sub);
       }
     }
   }
@@ -270,6 +286,35 @@ public:
   inline std::size_t size() const { return members_.size(); }
 
 private:
+  /**
+   * @throws <code>MessageTypeError</code>
+   *
+   * @note participates in overload resolution if <code>MsgT</code> is a ROS message
+   */
+  template <typename MsgT, bool U = ros::message_traits::IsMessage<MsgT>::value>
+  static inline std::enable_if_t<U> throw_message_type_error(const LocalSubscriptionBase& sub) noexcept(false)
+  {
+    std::ostringstream oss;
+    oss << "Invalid ROS message type (" << ros::message_traits::DataType<MsgT>::value()
+        << " : md5sum = " << ros::message_traits::MD5Sum<MsgT>::value()
+        << ") used with subscription with topic: " << sub.getTargetMessageInstanceTopic();
+    throw MessageTypeError{oss.str()};
+  }
+
+  /**
+   * @throws <code>MessageTypeError</code>
+   *
+   * @note participates in overload resolution if <code>MsgT</code> is NOT a ROS message
+   */
+  template <typename MsgT, bool U = ros::message_traits::IsMessage<MsgT>::value>
+  static inline std::enable_if_t<!U> throw_message_type_error(const LocalSubscriptionBase& sub) noexcept(false)
+  {
+    std::ostringstream oss;
+    oss << "Invalid message-like payload type used with subscription with topic: "
+        << sub.getTargetMessageInstanceTopic();
+    throw MessageTypeError{oss.str()};
+  }
+
   /// Held subscriptions associated with group
   mutable std::vector<std::weak_ptr<LocalSubscriptionBase>> members_;
 };
